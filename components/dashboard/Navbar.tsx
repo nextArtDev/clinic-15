@@ -1,11 +1,5 @@
-import { redirect } from 'next/navigation'
-
-import { prisma } from '@/lib/prisma'
 import { MainNav } from './MainNav'
-import StoreSwitcher from './StoreSwitcher'
 // import { ThemeToggle } from '../ui/theme-toggle'
-import { auth } from '@/auth'
-import { UserButton } from '../auth/user-button'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 // import { ModeToggle } from '../theme-toggle'
 
@@ -13,20 +7,14 @@ import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 // import { MainNav } from '@/components/main-nav'
 // import { ThemeToggle } from '@/components/theme-toggle'
 
-const Navbar = async () => {
+const Navbar = () => {
   // const session = await getAuthSession()
-  const session = await auth()
-  const userId = session?.user.id
+  // const session = await auth()
+  // const userId = session?.user.id
 
-  if (!userId || session.user.role !== 'ADMIN') {
-    redirect('/')
-  }
-  // //fetching all stores which this user owns
-  // const stores = await prisma.store.findMany({
-  //   where: {
-  //     userId,
-  //   },
-  // })
+  // if (!userId || session.user.role !== 'ADMIN') {
+  //   redirect('/')
+  // }
 
   return (
     <div className="border-b">
@@ -37,7 +25,9 @@ const Navbar = async () => {
           <ScrollBar orientation="horizontal" />
           {/* ml-auto push everything to the right */}
           <div className="mr-auto flex items-center text-right gap-4 space-x-4">
-            <UserButton />
+            {/* //Should be fixed */}
+            {/* <UserButton /> */}
+
             {/* <div className="hidden sm:block">{session.user.name}</div> */}
             {/* <ModeToggle /> */}
             {/* <UserButton afterSignOutUrl="/" /> */}

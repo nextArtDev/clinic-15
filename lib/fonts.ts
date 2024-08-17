@@ -34,22 +34,7 @@ export const SnapWebLight = localFont({
   src: '../public/fonts/SnappWeb2.0-Light.woff',
   variable: '--font-snappReg',
 })
-export const Anjoman = localFont({
-  src: '../public/fonts/AnjomanVariableGX.ttf',
-  variable: '--font-anjoman',
-})
-export const Potk = localFont({
-  src: '../public/fonts/Potk.woff2',
-  variable: '--font-snappReg',
-})
-export const GolpaBold = localFont({
-  src: '../public/fonts/SD-Golpayegani Bold.woff2',
-  variable: '--font-anjoman',
-})
-export const Golpa = localFont({
-  src: '../public/fonts//SD-Golpayegani Grunge.woff2',
-  variable: '--font-anjoman',
-})
+
 export const Shabnam = localFont({
   src: '../public/fonts/Shabnam.woff2',
   variable: '--font-sans',
@@ -68,21 +53,5 @@ export const ShabnamLight = localFont({
 })
 export const ShabnamMedium = localFont({
   src: '../public/fonts/Shabnam-Medium.woff2',
-  variable: '--font-anjoman',
-})
-export const GramophoneClean = localFont({
-  src: '../public/fonts/Gramophone-Clean.woff2',
-  variable: '--font-anjoman',
-})
-export const GramophoneStone = localFont({
-  src: '../public/fonts/Gramophone-Stone.woff2',
-  variable: '--font-snappReg',
-})
-export const GramophoneGrunge = localFont({
-  src: '../public/fonts/Gramophone-Grunge.woff2',
-  variable: '--font-anjoman',
-})
-export const Kaghaz = localFont({
-  src: '../public/fonts/KaghazAlef-Bold.woff',
   variable: '--font-anjoman',
 })

@@ -88,7 +88,7 @@ export const RegisterForm = () => {
                       className="!bg-background/10 "
                       {...field}
                       disabled={isPending}
-                      placeholder="John Doe"
+                      // placeholder=""
                     />
                   </FormControl>
                   <FormMessage />

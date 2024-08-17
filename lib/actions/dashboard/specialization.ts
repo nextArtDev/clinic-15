@@ -6,7 +6,7 @@ import { Specialization } from '@prisma/client'
 import { deleteFileFromS3, uploadFileToS3 } from '../s3Upload'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-
+import sharp from 'sharp'
 interface CreateSpecializationFormState {
   // success?: string
   errors: {
@@ -33,7 +33,7 @@ export async function createSpecialization(
       errors: result.error.flatten().fieldErrors,
     }
   }
-  // console.log(result?.data.images.length)
+  // console.log(result?.data.description)
 
   const session = await auth()
   if (!session || !session.user || session.user.role !== 'ADMIN') {
@@ -66,7 +66,8 @@ export async function createSpecialization(
     let imageIds: string[] = []
     for (let img of result.data?.images || []) {
       const buffer = Buffer.from(await img.arrayBuffer())
-      const res = await uploadFileToS3(buffer, img.name)
+      const convertedBuffer = await sharp(buffer).webp({ effort: 6 }).toBuffer()
+      const res = await uploadFileToS3(convertedBuffer, img.name)
 
       if (res?.imageId && typeof res.imageId === 'string') {
         imageIds.push(res.imageId)
@@ -75,11 +76,13 @@ export async function createSpecialization(
     specialization = await prisma.specialization.create({
       data: {
         name: result.data.name,
+        description: result?.data.description,
         images: {
           connect: imageIds.map((id) => ({
             id: id,
           })),
         },
+        imageId: imageIds.length > 0 ? imageIds[0] : '',
       },
     })
     // console.log(res?.imageUrl)
@@ -101,7 +104,7 @@ export async function createSpecialization(
   }
 
   revalidatePath(path)
-  redirect(`/dashboard/specializations`)
+  redirect(`/dashboard/specialization`)
 }
 interface EditCategoryFormState {
   errors: {
@@ -253,7 +256,7 @@ export async function editSpecialization(
   }
 
   revalidatePath(path)
-  redirect(`/dashboard/specializations`)
+  redirect(`/dashboard/specialization`)
 }
 
 //////////////////////
@@ -268,7 +271,7 @@ interface DeleteSpecializationFormState {
   }
 }
 
-export async function deleteCategory(
+export async function deleteSpecialization(
   path: string,
   specializationId: string,
   formState: DeleteSpecializationFormState,
@@ -338,5 +341,5 @@ export async function deleteCategory(
   }
 
   revalidatePath(path)
-  redirect(`/dashboard/specializations`)
+  redirect(`/dashboard/specialization`)
 }

@@ -29,12 +29,15 @@ export function MainNav({
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname()
-  const params = useParams()
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState('')
 
   // we can use `/${params.storeId}` because we use it inside <Navbar> component which is inside dynamic routes!
   const routes = [
+    {
+      //just redirecting to dashboard, it can be home or everything
+      href: `/`,
+      label: 'خانه',
+      active: pathname === `/`,
+    },
     {
       //just redirecting to dashboard, it can be home or everything
       href: `/dashboard`,
@@ -42,14 +45,14 @@ export function MainNav({
       active: pathname === `/dashboard`,
     },
     {
-      href: `/dashboard/doctors`,
-      label: 'دکترها',
-      active: pathname === `/dashboard/doctors`,
-    },
-    {
       href: `/dashboard/specialization`,
       label: 'تخصص‌ها',
       active: pathname === `/dashboard/specialization`,
+    },
+    {
+      href: `/dashboard/doctors`,
+      label: 'دکترها',
+      active: pathname === `/dashboard/doctors`,
     },
     {
       href: `/dashboard/illness`,
@@ -71,11 +74,11 @@ export function MainNav({
     //   label: 'سفارشات',
     //   active: pathname === `/dashboard/orders`,
     // },
-    {
-      href: `/dashboard/settings`,
-      label: 'تنظیمات',
-      active: pathname === `/dashboard/settings`,
-    },
+    // {
+    //   href: `/dashboard/settings`,
+    //   label: 'تنظیمات',
+    //   active: pathname === `/dashboard/settings`,
+    // },
   ]
 
   return (
@@ -91,11 +94,11 @@ export function MainNav({
           key={route.href}
           href={route.href}
           className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            'hidden  md:flex md:items-center w-full text-sm font-medium transition-colors hover:text-primary',
-            route.active
-              ? 'text-black underline underline-offset-8 dark:text-white'
-              : 'text-muted-foreground'
+            buttonVariants({ variant: route.active ? 'link' : 'ghost' }),
+            'hidden  md:flex md:items-center w-full text-sm font-medium transition-colors hover:text-primary'
+            // route.active
+            //   ? 'text-secondary underline underline-offset-8 '
+            //   : 'text-muted-foreground'
           )}
         >
           {route.label}
