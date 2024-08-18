@@ -16,4 +16,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-// mye-commerce.storage.iran.liara.space
