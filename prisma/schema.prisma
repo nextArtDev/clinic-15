@@ -3,7 +3,7 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// liara shell -c "npx prisma migrate deploy"
 generator client {
   provider = "prisma-client-js"
 }
@@ -35,6 +35,9 @@ model User {
   website  String?
   gender   String?
 
+  BookedDay BookedDay[]
+  TimeSlot  TimeSlot[]
+
   @@index([imageId])
 }
 
@@ -53,20 +56,23 @@ model Image {
 
   user User[]
 
-  Doctor           Doctor?         @relation(fields: [doctorId], references: [id])
-  doctorId         String?
-  Specialization   Specialization? @relation(fields: [specializationId], references: [id])
-  specializationId String?
-  Illness          Illness?        @relation(fields: [illnessId], references: [id])
-  illnessId        String?
-  Gallery          Gallery?        @relation(fields: [galleryId], references: [id])
-  galleryId        String?
-  // specializationIcon Specialization[] @relation("iconImage")
-
+  Doctor               Doctor?         @relation(fields: [doctorId], references: [id])
+  doctorId             String?
+  Specialization       Specialization? @relation(fields: [specializationId], references: [id])
+  specializationId     String?
+  Illness              Illness?        @relation(fields: [illnessId], references: [id])
+  illnessId            String?
+  Gallery              Gallery?        @relation(fields: [galleryId], references: [id])
+  galleryId            String?
+  specializationIcon   Specialization? @relation("iconImage", fields: [specializationIconId], references: [id])
+  specializationIconId String?
   // @@index([illnessId])
   // @@index([specializationId])
   // @@index([doctorId])
   // @@index([galleryId])
+
+  @@unique([specializationIconId])
+  @@unique([specializationId])
 }
 
 model Doctor {
@@ -86,6 +92,9 @@ model Doctor {
   created_at     DateTime         @default(now())
   updated_at     DateTime         @updatedAt
   reviews        Review[]
+
+  availability Availability[]
+  BookedDay    BookedDay[]
 }
 
 model DateTag {
@@ -107,7 +116,7 @@ model Specialization {
   doctors     Doctor[]
   illness     Illness[]
   images      Image[]
-  // icon        Image?    @relation("iconImage", fields: [imageId], references: [id])
+  icon        Image?    @relation("iconImage")
   imageId     String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -150,6 +159,70 @@ model Gallery {
   name        String?
   description String?
   images      Image[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Availability {
+  id           String       @id @default(cuid())
+  availableDay String
+  disableDays  SpecialDay[]
+
+  times    TimeSlot[]
+  doctor   Doctor?    @relation(fields: [doctorId], references: [id])
+  doctorId String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([doctorId])
+}
+
+model TimeSlot {
+  id   String @id @default(cuid())
+  slot String
+
+  bookedDays BookedDay[]
+
+  Availability   Availability? @relation(fields: [availabilityId], references: [id], onUpdate: Cascade)
+  availabilityId String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // @@index([availabilityId])
+  // @@index([userId])
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+}
+
+model BookedDay {
+  id       String  @id @default(cuid())
+  day      String
+  isBooked Boolean @default(false)
+
+  timeSlot   TimeSlot? @relation(fields: [timeSlotId], references: [id])
+  timeSlotId String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  doctorId String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([timeSlotId])
+}
+
+model SpecialDay {
+  id  String @id @default(cuid())
+  day String
+
+  Availability   Availability? @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
+  availabilityId String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

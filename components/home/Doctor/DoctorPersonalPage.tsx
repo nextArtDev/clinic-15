@@ -6,7 +6,15 @@ import { useRef } from 'react'
 import { buttonVariants } from '@/components/ui/button'
 import { ReviewsWithUserAndImage } from '@/lib/queries/home'
 import { cn } from '@/lib/utils'
-import { DateTag, Doctor, Illness, User } from '@prisma/client'
+import {
+  Availability,
+  BookedDay,
+  DateTag,
+  Doctor,
+  Illness,
+  TimeSlot,
+  User,
+} from '@prisma/client'
 import { ForwardIcon } from 'lucide-react'
 import Link from 'next/link'
 import BoxReveal from '../BoxReveal'
@@ -15,6 +23,8 @@ import DoctorComment from './DoctorComment'
 import ReviewCard from './ReviewCard'
 import SkewedInfiniteScroll from './SkewedInfiniteScroll'
 import UserReviews from './UserReviews'
+import BookingCard from '../booking/BookingCard'
+import BookedDaysCard from '../booking/BookedDaysCard'
 
 interface pageProps {
   doctor: Doctor & { illnesses: Illness[] | null } & {
@@ -27,8 +37,28 @@ interface pageProps {
   beforeRated?: {
     rating: number
   } | null
+
+  availabilities?:
+    | (Availability & {
+        times: (TimeSlot & { bookedDays: (BookedDay | null)[] })[] | null
+      })[]
+    | null
+  disabledDaysByDoctor?: string[][]
+  bookedDays:
+    | (BookedDay & {
+        timeSlot: TimeSlot | null
+      })[]
+    | null
 }
-function DoctorPersonalPage({ doctor, user, beforeRated, rate }: pageProps) {
+function DoctorPersonalPage({
+  doctor,
+  user,
+  beforeRated,
+  rate,
+  availabilities,
+  disabledDaysByDoctor,
+  bookedDays,
+}: pageProps) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -138,6 +168,14 @@ function DoctorPersonalPage({ doctor, user, beforeRated, rate }: pageProps) {
                     </ul>
                   </div>
                 ) : null}
+                {availabilities?.length && (
+                  <BookingCard
+                    availabilities={availabilities}
+                    disabledDaysByDoctor={disabledDaysByDoctor}
+                    doctorId={doctor.id}
+                  />
+                )}
+                <BookedDaysCard doctor={doctor} bookedDays={bookedDays} />
               </div>
             </div>
           </div>

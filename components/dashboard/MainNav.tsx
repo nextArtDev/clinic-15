@@ -33,13 +33,11 @@ export function MainNav({
   // we can use `/${params.storeId}` because we use it inside <Navbar> component which is inside dynamic routes!
   const routes = [
     {
-      //just redirecting to dashboard, it can be home or everything
       href: `/`,
       label: 'خانه',
       active: pathname === `/`,
     },
     {
-      //just redirecting to dashboard, it can be home or everything
       href: `/dashboard`,
       label: 'وضعیت',
       active: pathname === `/dashboard`,
@@ -60,25 +58,15 @@ export function MainNav({
       active: pathname === `/dashboard/illness`,
     },
     {
+      href: `/dashboard/booking`,
+      label: 'نوبت‌دهی',
+      active: pathname === `/dashboard/booking`,
+    },
+    {
       href: `/dashboard/comments`,
       label: 'کامنت‌ها',
       active: pathname === `/dashboard/comments`,
     },
-    // {
-    //   href: `/dashboard/colors`,
-    //   label: 'رنگ‌ها',
-    //   active: pathname === `/dashboard/colors`,
-    // },
-    // {
-    //   href: `/dashboard/orders`,
-    //   label: 'سفارشات',
-    //   active: pathname === `/dashboard/orders`,
-    // },
-    // {
-    //   href: `/dashboard/settings`,
-    //   label: 'تنظیمات',
-    //   active: pathname === `/dashboard/settings`,
-    // },
   ]
 
   return (

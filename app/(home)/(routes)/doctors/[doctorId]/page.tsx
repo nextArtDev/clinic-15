@@ -2,6 +2,7 @@ import DoctorPersonalPage from '@/components/home/Doctor/DoctorPersonalPage'
 import { currentUser } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { getDoctorById } from '@/lib/queries/home'
+import { getAllAvailabilitiesByDoctorId } from '@/lib/queries/home/booking'
 import { notFound } from 'next/navigation'
 
 const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
@@ -23,6 +24,24 @@ const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
     },
   })
 
+  const availabilities = await getAllAvailabilitiesByDoctorId(doctor.doctor.id)
+  const disabledDaysByDoctor = availabilities?.map((availability) =>
+    availability.disableDays.map((disabled) => disabled.day)
+  )
+
+  const bookedDays = await prisma.bookedDay.findMany({
+    where: {
+      timeSlot: {
+        Availability: {
+          doctorId: doctor.doctor.id,
+        },
+      },
+    },
+    include: {
+      timeSlot: true,
+    },
+  })
+
   return (
     <div className="grainy min-h-screen ">
       <DoctorPersonalPage
@@ -30,6 +49,9 @@ const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
         rate={doctor.rate}
         beforeRated={beforeRated}
         user={userWithPic}
+        availabilities={availabilities}
+        disabledDaysByDoctor={disabledDaysByDoctor}
+        bookedDays={bookedDays}
       />
     </div>
   )
