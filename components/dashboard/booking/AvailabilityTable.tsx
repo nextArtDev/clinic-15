@@ -138,11 +138,8 @@ const AvailabilityTable: FC<AvailabilityTableProps> = ({ doctors }) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[98vw]"
-      >
-        <section className="border  rounded-lg py-6 px-2 border-gray-200 max-w-md mx-auto">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4  ">
+        <section className=" rounded-lg py-6 px-2  max-w-md mx-auto">
           <h1 className="text-center font-semibold text-base md:text-lg ">
             فرم نوبت دهی
           </h1>
@@ -326,7 +323,7 @@ const AvailabilityTable: FC<AvailabilityTableProps> = ({ doctors }) => {
             className="w-full my-4"
             type="submit"
           >
-            Submit
+            تایید
           </Button>
         </section>
       </form>

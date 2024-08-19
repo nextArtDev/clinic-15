@@ -77,15 +77,19 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 mb-36  "
+        className="pt-12 space-y-16 mb-36 flex flex-col items-center justify-between  "
       >
         <FormField
           control={form.control}
           name="doctorId"
           render={({ field }) => (
-            <FormItem className=" mx-auto max-w-sm ">
+            <FormItem className=" mx-auto max-w-sm w-fit ">
               <FormLabel>نام دکتر</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                dir="rtl"
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="دکتر را انتخاب کنید" />
@@ -110,7 +114,7 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
               control={form.control}
               name="dob"
               render={({ field }) => (
-                <FormItem className="flex flex-col mx-auto max-w-sm">
+                <FormItem className="flex flex-col mx-auto max-w-sm w-fit">
                   <FormLabel>غیرفعال کردن نوبتهای روز</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>

@@ -39,8 +39,12 @@ async function page({}: Props) {
   }))
 
   return (
-    <section className="min-h-screen pt-8 ">
-      <Tabs dir="rtl" defaultValue="table" className="max-w-[96vw] mx-auto">
+    <section className="min-h-screen pt-12 ">
+      <Tabs
+        dir="rtl"
+        defaultValue="table"
+        className="max-w-[96vw] mx-auto py-8 "
+      >
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="table">وضعیت نوبت‌ها</TabsTrigger>
           <TabsTrigger value="availability">تنظیم نوبتها</TabsTrigger>

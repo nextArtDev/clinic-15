@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                 // console.log(format(d, 'yyyy/MM/dd'))
               }}
               locale={faIR}
-              initialFocus
+              // initialFocus
             />
           </PopoverContent>
         </Popover>

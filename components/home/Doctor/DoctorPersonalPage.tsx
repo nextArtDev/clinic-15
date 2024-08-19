@@ -64,7 +64,7 @@ function DoctorPersonalPage({
     target: ref,
     offset: ['start start', 'end end'],
   })
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.1])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.5])
   // const scrollYProgressSpring = useSpring(scrollYProgress, {
   //   stiffness: 300,
   //   damping: 40,
@@ -175,7 +175,7 @@ function DoctorPersonalPage({
                     doctorId={doctor.id}
                   />
                 )}
-                <BookedDaysCard doctor={doctor} bookedDays={bookedDays} />
+                {/* <BookedDaysCard doctor={doctor} bookedDays={bookedDays} /> */}
               </div>
             </div>
           </div>

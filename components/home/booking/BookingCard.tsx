@@ -40,10 +40,8 @@ import {
 } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
- 
 import { holidayDays } from '../../../constants/holidays'
 
- 
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { createBooking } from '@/lib/actions/booking/booking'
 interface BookingCardProps {
@@ -61,10 +59,6 @@ const BookingCard: FC<BookingCardProps> = ({
   doctorId,
   disabledDaysByDoctor,
 }) => {
-  // console.log(
-  //   'dd',
-  //   disabledDaysByDoctor?.flatMap((d) => d)
-  // )
   const formSchema = z.object({
     dob: z.date({
       required_error: 'A date of birth is required.',
@@ -74,7 +68,6 @@ const BookingCard: FC<BookingCardProps> = ({
   const [modal, setModal] = useState('')
   console.log(modal)
   const [selectedTime, setSelectedTime] = useState('')
-  const [selectedDay, setSelectedDay] = useState('')
   const [disabledDays, setDisabledDays] = useState<number[] | undefined>([])
   useEffect(() => {
     const disabledDayIndexes = convertDaysToArray(
@@ -167,16 +160,16 @@ const BookingCard: FC<BookingCardProps> = ({
                 control={form.control}
                 name="dob"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>تاریخ نوبت</FormLabel>
+                  <FormItem className="flex flex-col py-6">
+                    <FormLabel>رزرو نوبت</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'w-[240px] pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
+                              'w-fit  px-4 gradient-base flex gap-3 text-left font-normal',
+                              !field.value && 'text-muted-background'
                             )}
                           >
                             {field.value ? (
@@ -185,7 +178,7 @@ const BookingCard: FC<BookingCardProps> = ({
                                 field.value
                               )
                             ) : (
-                              <span>انتخاب روز</span>
+                              <span>رزرو نوبت</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -193,7 +186,6 @@ const BookingCard: FC<BookingCardProps> = ({
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
-                          classNames={style}
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
@@ -212,13 +204,13 @@ const BookingCard: FC<BookingCardProps> = ({
                             )
                           }
                           locale={faIR}
-                          initialFocus
+                          // initialFocus
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription>
+                    {/* <FormDescription>
                       تاریخ نوبت خود را مشخص کنید.
-                    </FormDescription>
+                    </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -226,15 +218,16 @@ const BookingCard: FC<BookingCardProps> = ({
             </div>
           ) : (
             selectedTime && (
-              <article className=" flex flex-col items-center justify-between font-semibold">
+              <article className="bg-transparent border-none flex flex-col items-center justify-between font-semibold">
                 <Card>
-                  <CardContent className="flex justify-between min-h-[180px] flex-col max-w-sm mx-auto ">
-                    <p className="text-sm text-right ">
+                  <CardContent className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
+                    <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
                       {' '}
                       {`شما برای روز ${
-                        jalaali.toJalaali(form.getValues('dob')).jy
-                      }/${jalaali.toJalaali(form.getValues('dob')).jm}/${
-                        jalaali.toJalaali(form.getValues('dob')).jd
+                        format(form.getValues('dob'), 'yyyy/MM/dd')
+                        //   jalaali.toJalaali(form.getValues('dob')).jy
+                        // }/${jalaali.toJalaali(form.getValues('dob')).jm}/${
+                        //   jalaali.toJalaali(form.getValues('dob')).jd
                       } ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
                     </p>
                     <CardFooter>
@@ -248,7 +241,7 @@ const BookingCard: FC<BookingCardProps> = ({
             )
           )}
           <Dialog open={!!modal} onOpenChange={() => setModal('')}>
-            <DialogContent className="w-full mx-auto">
+            <DialogContent className="gradient-base w-full mx-auto">
               {/* <DialogHeader>
               <DialogTitle>Are you absolutely sure?</DialogTitle>
               <DialogDescription>

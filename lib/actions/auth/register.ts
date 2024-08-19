@@ -19,7 +19,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   }
 
   const { phone, password, name } = validatedFields.data
-
+  // console.log(validatedFields.data)
   const user = await getUserByPhoneNumber(phone)
   if (user && !user.isVerified) {
     return {
