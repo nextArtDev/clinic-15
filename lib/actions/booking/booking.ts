@@ -112,5 +112,6 @@ export async function createBooking(
   }
 
   revalidatePath(path)
-  redirect(`/doctors/${doctorId}?confetti=true`)
+  // redirect(`/doctors/${doctorId}?confetti=true`)
+  redirect(`/doctors/${doctorId}`)
 }

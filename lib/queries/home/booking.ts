@@ -1,3 +1,4 @@
+'use server'
 import { prisma } from '@/lib/prisma'
 
 export const getAllAvailabilitiesByDoctorId = async (id: string) => {
@@ -45,6 +46,38 @@ export const getAllBookedDays = async () => {
 
     // console.log('bookedDays for doctorId:', bookedDays)
     return bookedDays
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const getAllCancelledBookedDays = async () => {
+  try {
+    const cancelledDays = await prisma.timeSlot.findMany({
+      where: {
+        availabilityId: null,
+      },
+    })
+    if (cancelledDays.length === 0) return null
+
+    const allCancelledBookedDays = await Promise.all(
+      cancelledDays?.map(async (slot: any) => {
+        return await prisma.bookedDay.findMany({
+          where: {
+            timeSlotId: slot.id,
+          },
+          include: {
+            doctor: true,
+            timeSlot: true,
+            user: true,
+          },
+          orderBy: {
+            day: 'desc',
+          },
+        })
+      })
+    )
+
+    return allCancelledBookedDays.flat()
   } catch (error) {
     console.log(error)
   }

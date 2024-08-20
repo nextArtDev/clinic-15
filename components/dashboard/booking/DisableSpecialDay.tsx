@@ -25,8 +25,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Availability, BookedDay, Doctor, TimeSlot } from '@prisma/client'
-import { FC, useEffect, useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { FC, useEffect, useState, useTransition } from 'react'
 
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import {
@@ -37,6 +36,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { disableSpecialDay } from '@/lib/actions/booking/availability'
+import { toast } from 'sonner'
 
 interface DisableSpecialDayProps {
   doctors: Doctor[]
@@ -47,9 +47,11 @@ interface DisableSpecialDayProps {
     | null
 }
 const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
+  const [isPending, startTransition] = useTransition()
+
   const formSchema = z.object({
     dob: z.date({
-      required_error: 'A date of birth is required.',
+      required_error: 'وارد کردن روز الزامی است.',
     }),
     doctorId: z.string(),
   })
@@ -62,10 +64,16 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    await disableSpecialDay({
-      doctorId: data.doctorId,
-      date: format(data.dob, 'yyyy/MM/dd'),
-      day: getDayNameFromIndex(data.dob.getDay()),
+    startTransition(() => {
+      disableSpecialDay({
+        doctorId: data.doctorId,
+        date: format(data.dob, 'yyyy/MM/dd'),
+        day: getDayNameFromIndex(data.dob.getDay()),
+      })
+        .then((res) => {
+          toast.success('روز با موفقیت غیرفعال شد.')
+        })
+        .catch((error) => console.log(error))
     })
     console.log(format(data.dob, 'yyyy/MM/dd'))
     console.log(data.doctorId)
@@ -160,10 +168,10 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
             />
           </div>
         ) : (
-          <article className=" flex flex-col items-center justify-between font-semibold">
-            <Card>
+          <article className=" flex flex-col  items-center justify-between font-semibold">
+            <Card className="flex flex-col items-center justify-center">
               <CardContent className="flex h-auto  ">
-                <p className="text-sm text-right ">
+                <p className="text-sm pt-8 text-right ">
                   {' '}
                   {`نوبتهای روز ${format(
                     form.watch('dob'),

@@ -118,10 +118,7 @@ const BookingCard: FC<BookingCardProps> = ({
     const formData = new FormData()
 
     formData.append('dob', data.dob.getDay().toString())
-    // console.log(formData.get('dob'))
-    //  formData.append('time', selectedTime)
-    //  formData.append('day', format(data.dob, 'yyyy/MM/dd'))
-    //  formData.append('doctorId', doctorId)
+
     try {
       startTransition(() => {
         createBooking(
@@ -144,6 +141,7 @@ const BookingCard: FC<BookingCardProps> = ({
                 message: res?.errors?._form?.join(' و '),
               })
             }
+            toast.success('نوبت شما رزرو شد')
           })
           .catch(() => console.log('مشکلی پیش آمده.'))
       })
@@ -160,12 +158,12 @@ const BookingCard: FC<BookingCardProps> = ({
     }
   }
   return (
-    <div className="w-full h-full">
-      {showConfetti && (
+    <div className="">
+      {/* {showConfetti && (
         <div className="w-full h-full flex items-center justify-center mx-auto">
           <Confetti width={300} height={400} />
         </div>
-      )}
+      )} */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -183,6 +181,7 @@ const BookingCard: FC<BookingCardProps> = ({
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
+                            disabled={isPending}
                             variant={'outline'}
                             className={cn(
                               'w-fit  px-4 gradient-base flex gap-3 text-left font-normal',
@@ -322,7 +321,7 @@ const BookingCard: FC<BookingCardProps> = ({
                 className="w-full mt-8  "
                 // type="submit"
                 onClick={() => setModal('')}
-                disabled={!selectedTime}
+                disabled={!selectedTime || isPending}
               >
                 تایید روز
               </Button>

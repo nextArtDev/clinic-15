@@ -1,7 +1,9 @@
 'use server'
 
+import { currentUser } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { SplitterTime } from '@/lib/utils'
+import { revalidatePath } from 'next/cache'
 
 import { redirect } from 'next/navigation'
 
@@ -69,6 +71,8 @@ export const createAvailability = async ({
   doctorId,
   slicer,
 }: CreateAvailability) => {
+  const user = await currentUser()
+  if (!user?.id || user.role !== 'ADMIN') redirect('/login')
   try {
     const doctorAvailability = await prisma.doctor.findFirst({
       where: {
@@ -137,10 +141,10 @@ export const createAvailability = async ({
       //   'all Availability days',
       //   allAvailabilities.map((all) => all.availableDay)
       // )
-      console.log(
-        'days',
-        days.map((day) => day.dayName)
-      )
+      // console.log(
+      //   'days',
+      //   days.map((day) => day.dayName)
+      // )
       const storedAvailabilityDays = allAvailabilities.map(
         (all) => all.availableDay
       )
@@ -150,22 +154,22 @@ export const createAvailability = async ({
       const commonAvailabilityDays = enteredAvailabilityDays.filter((element) =>
         storedAvailabilityDays.includes(element)
       )
-      console.log('commonAvailabilityDays', commonAvailabilityDays)
+      // console.log('commonAvailabilityDays', commonAvailabilityDays)
 
       const newAvailabilityDaysEntered = enteredAvailabilityDays.filter(
         (element) => !storedAvailabilityDays.includes(element)
       )
 
-      console.log('newAvailabilityDaysEntered', newAvailabilityDaysEntered)
+      // console.log('newAvailabilityDaysEntered', newAvailabilityDaysEntered)
 
       const storedAvailabilityDaysShouldTrashIfNotBooked =
         storedAvailabilityDays.filter(
           (element) => !enteredAvailabilityDays.includes(element)
         )
-      console.log(
-        'storedAvailabilityDaysShouldTrashIfNotBooked',
-        storedAvailabilityDaysShouldTrashIfNotBooked
-      )
+      // console.log(
+      //   'storedAvailabilityDaysShouldTrashIfNotBooked',
+      //   storedAvailabilityDaysShouldTrashIfNotBooked
+      // )
 
       if (storedAvailabilityDaysShouldTrashIfNotBooked) {
         await Promise.all(
@@ -182,7 +186,7 @@ export const createAvailability = async ({
 
             // Disconnecting all the old stored times
 
-            console.log('dayToDisconnect', dayToDisconnect)
+            // console.log('dayToDisconnect', dayToDisconnect)
             // const bookedOldSlots = dayToDisconnect?.times?.filter((slot) =>
             //   slot?.bookedDays.some((booked) => booked.isBooked)
             // )
@@ -202,17 +206,17 @@ export const createAvailability = async ({
                   })
                 })
               )
-              console.log('allOldSlots', allOldSlots)
+              // console.log('allOldSlots', allOldSlots)
 
               const oldSlotsExceptBooked = allOldSlots.flat().filter((slot) => {
                 return !slot.bookedDays || slot.bookedDays.length === 0
               })
-              console.log('OldBookedSlots', oldSlotsExceptBooked)
+              // console.log('OldBookedSlots', oldSlotsExceptBooked)
 
               const OldBookedSlots = allOldSlots.flat().filter((slot) => {
                 return slot.bookedDays && slot.bookedDays.length > 0
               })
-              console.log('OldBookedSlots', OldBookedSlots)
+              // console.log('OldBookedSlots', OldBookedSlots)
               // const OldBookedSlots = await Promise.all(
               //   allOldSlots?.flat().map(async (slot: any) => {
               //     return await prisma.bookedDay.findMany({
@@ -329,10 +333,10 @@ export const createAvailability = async ({
                     })
                   })
                 )
-                console.log(
-                  'deleteOldSlotsExceptBooked',
-                  deleteOldSlotsExceptBooked
-                )
+                // console.log(
+                //   'deleteOldSlotsExceptBooked',
+                //   deleteOldSlotsExceptBooked
+                // )
               }
 
               // if (OldBookedSlots.length > 0) {
@@ -360,7 +364,7 @@ export const createAvailability = async ({
                 },
               },
             })
-            console.log('disconnectedTimes', disconnectedTimes)
+            // console.log('disconnectedTimes', disconnectedTimes)
             //   // const findDeletAvblity = await prisma.availability.findFirst({
             //   //   where: {
             //   //     availableDay: day,
@@ -389,7 +393,7 @@ export const createAvailability = async ({
                 id: disconnectedDoctorDays?.id,
               },
             })
-            console.log('deletedAvailability', deletedAvailability)
+            // console.log('deletedAvailability', deletedAvailability)
           })
         )
       }
@@ -429,13 +433,13 @@ export const createAvailability = async ({
             )
           } else {
             const storedSlices = availability.times.map((time) => time.slot)
-            console.log('enteredSlots', enteredSlots)
-            console.log('storedSlices', storedSlices)
+            // console.log('enteredSlots', enteredSlots)
+            // console.log('storedSlices', storedSlices)
 
             const commonSlices = enteredSlots.filter((element) =>
               storedSlices.includes(element)
             )
-            console.log('commonSlices', commonSlices)
+            // console.log('commonSlices', commonSlices)
 
             const newSlicesEntered = enteredSlots.filter(
               (element) => !storedSlices.includes(element)
@@ -443,11 +447,11 @@ export const createAvailability = async ({
             const storedSlicesShouldTrashIfNotBooked = storedSlices.filter(
               (element) => !enteredSlots.includes(element)
             )
-            console.log('newSlicesEntered', newSlicesEntered)
-            console.log(
-              'storedSlicesShouldTrashIfNotBooked',
-              storedSlicesShouldTrashIfNotBooked
-            )
+            // console.log('newSlicesEntered', newSlicesEntered)
+            // console.log(
+            //   'storedSlicesShouldTrashIfNotBooked',
+            //   storedSlicesShouldTrashIfNotBooked
+            // )
 
             const newToStoreToDb = await Promise.all(
               newSlicesEntered.map(async (slot: string) => {
@@ -466,7 +470,7 @@ export const createAvailability = async ({
                 },
               },
             })
-            console.log('newToStoreToDb to db', newToStoreToDb)
+            // console.log('newToStoreToDb to db', newToStoreToDb)
             // const oldToDisconnect = await Promise.all(
             //   storedSlicesShouldTrashIfNotBooked.map(async (slot: string) => {
             //     return await prisma.timeSlot.findFirst({
@@ -500,7 +504,7 @@ export const createAvailability = async ({
                 return existingSlot
               })
             )
-            console.log('oldToDisconnect', oldToDisconnect)
+            // console.log('oldToDisconnect', oldToDisconnect)
             const bookedOldSlots = oldToDisconnect.filter((slot) =>
               slot?.bookedDays.some((booked) => booked.isBooked)
             )
@@ -508,8 +512,8 @@ export const createAvailability = async ({
             const nonBookedSlotsToDelete = oldToDisconnect.filter(
               (slot) => !bookedOldSlots.includes(slot)
             )
-            console.log('bookedOldSlots', bookedOldSlots)
-            console.log('nonBookedSlotsToDelete', nonBookedSlotsToDelete)
+            // console.log('bookedOldSlots', bookedOldSlots)
+            // console.log('nonBookedSlotsToDelete', nonBookedSlotsToDelete)
             const deleted = await Promise.all(
               nonBookedSlotsToDelete.map(async (slot) => {
                 if (slot) {
@@ -555,218 +559,17 @@ export const createAvailability = async ({
                   })
                 })
               )
-              console.log('updatedDisconnect', updatedToDisconnect)
+              // console.log('updatedDisconnect', updatedToDisconnect)
             }
-            // if (oldToDisconnect.filter(Boolean).length > 0) {
-            //   const disconnectThis = await Promise.all(
-            //     oldToDisconnect.map(async (sl) => {
-            //       await prisma.availability.update({
-            //         where: { id: availability.id },
-            //         data: {
-            //           times: {
-            //             disconnect: [{ id: sl?.id }],
-            //           },
-            //         },
-            //       })
-            //     })
-            //   )
-            //   console.log('disconnectThis', disconnectThis)
-            // }
-            // const nonBookedSlotsToDelete = oldToDisconnect.filter(
-            //   (slot) => !bookedOldSlots.includes(slot) // Find slots that were not in the bookedSlots array
-            // )
-
-            // const deletedSlots = await Promise.all(
-            //   nonBookedSlotsToDelete.map(async (slot) => {
-            //     // Check if the slot is still connected to the availability
-            //     const connectedSlot = await prisma.timeSlot.findUnique({
-            //       where: { id: slot?.id },
-            //       include: {
-            //         Availability: true,
-            //       },
-            //     })
-
-            //     if (!connectedSlot || !connectedSlot.Availability) {
-            //       // Delete the slot if it's not connected
-            //       return prisma.timeSlot.delete({
-            //         where: { id: slot?.id },
-            //       })
-            //     } else {
-            //       return null
-            //     }
-            //   })
-            // )
-            // if (oldToDisconnect.length > 0) {
-            //   oldToDisconnect?.map((slot) =>
-            //     slot?.bookedDays.map(async (booked) => {
-            //       const disconnectedSlots = await prisma.availability.update({
-            //         where: {
-            //           id: availability.id,
-            //         },
-            //         data: {
-            //           times: {
-            //             disconnect: oldToDisconnect.map((slot) => ({
-            //               id: slot?.id,
-            //             })),
-            //           },
-            //         },
-            //       })
-            //       console.log('disconnectedSlots', disconnectedSlots)
-            //       // if (booked.isBooked === true) {
-            //       //   return null
-            //       // } else {
-            //       //   return await prisma.timeSlot.delete({
-            //       //     where: {
-            //       //       id: slot.id,
-            //       //     },
-            //       //   })
-            //       // }
-            //       const deletedSlots = await Promise.all(
-            //         oldToDisconnect.map(async (slot) => {
-            //           // Check if the slot is still connected to the availability
-            //           const connectedSlot = await prisma.timeSlot.findUnique({
-            //             where: { id: slot?.id },
-            //             include: {
-            //               Availability: true,
-            //             },
-            //           })
-
-            //           if (!connectedSlot || !connectedSlot.Availability) {
-            //             // Delete the slot if it's not connected
-            //             return prisma.timeSlot.delete({
-            //               where: { id: slot?.id },
-            //             })
-            //           } else {
-            //             return null
-            //           }
-            //         })
-            //       )
-            //       console.log('deletedSlots', deletedSlots)
-            //     })
-            //   )
-            // }
-
-            // if(oldToDisconnect.)
-
-            //   console.log(oldSlot)
-            //   oldSlot?.bookedDays.map(async (booked) => {
-            //     if (booked.isBooked) {
-            //       const isBooked = await prisma.availability.update({
-            //         where: {
-            //           id: availability.id,
-            //         },
-            //         data: {
-            //           times: {
-            //             disconnect: {
-            //               id: oldSlot.id,
-            //             },
-            //           },
-            //         },
-            //       })
-            //       console.log('isBooked', isBooked)
-            //     } else {
-            //       const isntBooked = await prisma.timeSlot.delete({
-            //         where: {
-            //           id: oldSlot.id,
-            //         },
-            //       })
-            //       console.log('isntBooked', isntBooked)
-            //     }
-            //   })
-            // })
-
-            ///////////////////////////////// OK
-            // const times = await Promise.all(
-            //   slots.map(async (slot:string) => {
-            //     const oldSlots = await prisma.timeSlot.findFirst({
-            //       where: { slot, availabilityId: availability?.id },
-            //       include: {
-            //         bookedDays: {
-            //           select: { isBooked: true },
-            //         },
-            //       },
-            //     })
-            //     if (oldSlots) {
-            //       return null //They exists before and do nothing
-            //     } else if (!oldSlots) {
-            //       await prisma.timeSlot.create({
-            //         data: {
-            //           availabilityId: availability.id,
-            //           slot,
-            //         },
-            //       })
-            //     }
-            //   })
-            // )
-            ////////////////////////////
-            // console.log(
-            //   'all times',
-            //   times.map((time) => time?.slot)
-            // )
-            // IF here!
-            // if(times)
-            // {
-            //   times.map((time) => {
-            //     time?.bookedDays.map(async (booked) => {
-            //       const createdTimes = await prisma.timeSlot.createMany({
-            //         data: {
-            //           availabilityId: availability?.id,
-            //           slot: time.slot,
-            //         },
-            //       })
-            //       console.log('created times', createdTimes)
-
-            //       if (booked.isBooked) {
-            //         await prisma.availability.update({
-            //           where: {
-            //             doctorId: +doctorId,
-            //             id: availability?.id,
-            //           },
-            //           data: {
-            //             times: {
-            //               disconnect: { id: time.id },
-            //             },
-            //           },
-            //         })
-            //       } else {
-            //         await prisma.timeSlot.delete({
-            //           where: { id: time.id },
-            //         })
-            //       }
-            //     })
-            //   })
-            // }
           }
         })
       )
     }
-
-    // for (const day of days) {
-    //   const availableModel = await prisma.availability.create({
-    //     data: {
-    //       availableDay: day.dayName,
-    //       doctorId: +doctorId,
-    //       // times: await createSlot({day,slicer}),
-    //     },
-    //   })
-    //   const slots = await createSlot({ availableModel, day, slicer })
-    //   await prisma.availability.update({
-    //     where: { id: availableModel.id },
-    //     data: {
-    //       times: {
-    //         connect: slots?.map((id) => {
-    //           {
-    //             id
-    //           }
-    //         }),
-    //       },
-    //     },
-    //   })
-    // }
-    redirect('/booking')
   } catch (error) {
     console.log(error)
   }
+  revalidatePath('/dashboard/booking')
+  redirect('/dashboard/booking')
 }
 interface DisableDay {
   date: string
@@ -776,6 +579,9 @@ interface DisableDay {
 
 export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
   try {
+    const user = await currentUser()
+    if (!user?.id || user.role !== 'ADMIN') redirect('/login')
+
     const disabledDay = await prisma.specialDay.create({
       data: {
         day: date,
@@ -797,8 +603,30 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
         },
       },
     })
+
     // if (availabilityDay?.times.map((time) => time.bookedDays.some))
     if (availabilityDay) {
+      const updatedToDisconnect = await Promise.all(
+        availabilityDay.times?.map(async (slot: any) => {
+          return await prisma.timeSlot.update({
+            where: { id: slot.id },
+            data: { availabilityId: null },
+          })
+        })
+      )
+      // const dayToCancel = await prisma.timeSlot.findFirst({
+      //   where: {
+      //     availabilityId: availabilityDay.id,
+      //   },
+      // })
+      // await prisma.timeSlot.update({
+      //   where: {
+      //     id: dayToCancel?.id,
+      //   },
+      //   data: {
+      //     availabilityId: null,
+      //   },
+      // })
       // Loop through time slots
       for (const time of availabilityDay.times) {
         // Loop through booked days for each time slot
@@ -824,11 +652,9 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
         disableDays: { connect: { id: disabledDay.id } },
       },
     })
-    console.log('Cancelled Day:', availabilityDay?.availableDay.length)
+    // console.log('Cancelled Day:', availabilityDay?.availableDay.length)
   } catch (error) {
     console.error('Error creating booking:', error)
   }
+  revalidatePath('/dashboard/booking')
 }
-
-//   return <Form {...form}>{/* ... */}</Form>
-// }
