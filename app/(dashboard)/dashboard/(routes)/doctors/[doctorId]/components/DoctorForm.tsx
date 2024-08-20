@@ -20,15 +20,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-// import axios from 'axios'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { createDoctorSchema } from '@/lib/schemas/dashboard'
 import { toast } from 'sonner'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
@@ -58,7 +50,7 @@ interface DoctorFormProps {
 
 const DoctorForm: FC<DoctorFormProps> = ({ initialData, specialization }) => {
   const [files, setFiles] = useState<File[]>([])
-  const [selectedSpecial, setSelectedSpecial] = useState<string[]>([])
+
   const path = usePathname()
 
   const [open, setOpen] = useState(false)

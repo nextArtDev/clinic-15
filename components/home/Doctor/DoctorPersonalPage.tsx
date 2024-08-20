@@ -168,7 +168,7 @@ function DoctorPersonalPage({
                     </ul>
                   </div>
                 ) : null}
-                {availabilities?.length && (
+                {!!availabilities?.length && (
                   <BookingCard
                     availabilities={availabilities}
                     disabledDaysByDoctor={disabledDaysByDoctor}

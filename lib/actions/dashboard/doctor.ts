@@ -30,7 +30,6 @@ interface CreateDoctorFormState {
 
 export async function createDoctor(
   formData: FormData,
-
   path: string
 ): Promise<CreateDoctorFormState> {
   const result = createDoctorSchema.safeParse({

@@ -10,9 +10,8 @@ import jalaali from 'jalaali-js'
 import { cn, convertDaysToArray, getDayNameFromIndex } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import { motion } from 'framer-motion'
-import style from './BookingCard.module.css'
 
+import Confetti from 'react-confetti'
 import {
   Form,
   FormControl,
@@ -28,7 +27,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Availability, BookedDay, Doctor, TimeSlot } from '@prisma/client'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useTransition } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Dialog,
@@ -44,6 +43,9 @@ import { holidayDays } from '../../../constants/holidays'
 
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { createBooking } from '@/lib/actions/booking/booking'
+import { bookingFormSchema } from '@/lib/schemas/booking'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 interface BookingCardProps {
   availabilities:
     | (Availability & {
@@ -59,16 +61,30 @@ const BookingCard: FC<BookingCardProps> = ({
   doctorId,
   disabledDaysByDoctor,
 }) => {
-  const formSchema = z.object({
-    dob: z.date({
-      required_error: 'A date of birth is required.',
-    }),
-  })
-
   const [modal, setModal] = useState('')
-  console.log(modal)
+  // console.log(modal)
+  const [showConfetti, setShowConfetti] = useState(false)
   const [selectedTime, setSelectedTime] = useState('')
   const [disabledDays, setDisabledDays] = useState<number[] | undefined>([])
+  const path = usePathname()
+  const searchParams = useSearchParams()
+  const confetti = searchParams.get('confetti')
+  // console.log(searchParams.get('confetti'))
+
+  const [isPending, startTransition] = useTransition()
+  useEffect(() => {
+    // Show confetti for 3 seconds
+    if (confetti === 'true') {
+      setShowConfetti(true)
+      const timer = setTimeout(() => {
+        setShowConfetti(false)
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+
+    // Cleanup timer on unmount
+  }, [confetti])
+
   useEffect(() => {
     const disabledDayIndexes = convertDaysToArray(
       availabilities?.map((availability) => availability.availableDay)
@@ -77,83 +93,84 @@ const BookingCard: FC<BookingCardProps> = ({
     setDisabledDays(disabledDayIndexes)
   }, [availabilities])
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof bookingFormSchema>>({
+    resolver: zodResolver(bookingFormSchema),
   })
-  const handleSlotClick = async ({
-    timeId,
-    availabilityId,
-  }: {
-    timeId: string
-    availabilityId: string
-  }) => {
-    // await createBooking({ timeId, availabilityId, doctorId })
-    // setTimeSlots(timeSlots.filter((time) => !time.isSame(slot)))
-    // setRemovedSlots([...removedSlots, slot])
-  }
+  // const handleSlotClick = async ({
+  //   timeId,
+  //   availabilityId,
+  // }: {
+  //   timeId: string
+  //   availabilityId: string
+  // }) => {
+  //   // await createBooking({ timeId, availabilityId, doctorId })
+  //   // setTimeSlots(timeSlots.filter((time) => !time.isSame(slot)))
+  //   // setRemovedSlots([...removedSlots, slot])
+  // }
   const handleTimeClick = (time: any) => {
     setSelectedTime(time === selectedTime ? null : time)
 
     // setDefaultResultOrder(time)
   }
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
-    await createBooking({
-      time: selectedTime,
-      availabilityDay: data.dob.getDay().toString(),
-      doctorId,
-      day: format(data.dob, 'yyyy/MM/dd'),
-    })
-    console.log(format(data.dob, 'yyyy/MM/dd'))
-    console.log(getDayNameFromIndex(data.dob.getDay()))
-    // console.log(jalaali.toJalaali(data.dob))
+  async function onSubmit(data: z.infer<typeof bookingFormSchema>) {
+    // console.log(data)
+    const formData = new FormData()
+
+    formData.append('dob', data.dob.getDay().toString())
+    // console.log(formData.get('dob'))
+    //  formData.append('time', selectedTime)
+    //  formData.append('day', format(data.dob, 'yyyy/MM/dd'))
+    //  formData.append('doctorId', doctorId)
+    try {
+      startTransition(() => {
+        createBooking(
+          formData,
+          selectedTime,
+          format(data.dob, 'yyyy/MM/dd'),
+          doctorId,
+          path
+        )
+          .then((res) => {
+            if (res?.errors?.dob) {
+              form.setError('dob', {
+                type: 'custom',
+                message: res?.errors.dob?.join(' و '),
+              })
+            } else if (res?.errors?._form) {
+              toast.error(res?.errors._form?.join(' و '))
+              form.setError('root', {
+                type: 'custom',
+                message: res?.errors?._form?.join(' و '),
+              })
+            }
+          })
+          .catch(() => console.log('مشکلی پیش آمده.'))
+      })
+      // await createBooking({
+      //   time: selectedTime,
+      //   availabilityDay: data.dob.getDay().toString(),
+      //   doctorId,
+      //   day: format(data.dob, 'yyyy/MM/dd'),
+      // })
+      // console.log(format(data.dob, 'yyyy/MM/dd'))
+      // console.log(getDayNameFromIndex(data.dob.getDay()))
+    } catch (error) {
+      toast.error('مشکلی پیش آمده، لطفا دوباره امتحان کنید!')
+    }
   }
   return (
-    <div>
-      {/* <Tabs dir="rtl" defaultValue="account" className=" ">
-        <TabsList className="flex w-full flex-wrap gap-4">
-          {availabilities?.map((availability) => (
-            <TabsTrigger
-              defaultValue={availability.availableDay?.[0]}
-              className=" "
-              key={availability.id}
-              value={availability.availableDay}
-            >
-              {availability.availableDay}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        {availabilities?.map((availability) => (
-          <TabsContent key={availability.id} value={availability.availableDay}>
-            <ul className="flex flex-wrap gap-0.5  ">
-              {availability?.times?.map((time) => (
-                <li
-                  key={time.id}
-                  onClick={() =>
-                    handleSlotClick({
-                      timeId: time.id,
-                      availabilityId: availability.id,
-                    })
-                  }
-                  className="space-y-0.5"
-                >
-                  <Button
-                    variant={'outline'}
-                    size={'sm'}
-                    className="relative w-12"
-                  >
-                    {time.slot}
-                     
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          </TabsContent>
-        ))}
-      </Tabs> */}
+    <div className="w-full h-full">
+      {showConfetti && (
+        <div className="w-full h-full flex items-center justify-center mx-auto">
+          <Confetti width={300} height={400} />
+        </div>
+      )}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 flex flex-col"
+        >
           {!selectedTime ? (
             <div className="">
               <FormField
@@ -208,10 +225,11 @@ const BookingCard: FC<BookingCardProps> = ({
                         />
                       </PopoverContent>
                     </Popover>
-                    {/* <FormDescription>
-                      تاریخ نوبت خود را مشخص کنید.
-                    </FormDescription> */}
-                    <FormMessage />
+
+                    <FormMessage className="pt-48">
+                      {/* @ts-ignore */}
+                      {form.getFieldState('dob')?.error?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -223,15 +241,17 @@ const BookingCard: FC<BookingCardProps> = ({
                   <CardContent className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
                     <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
                       {' '}
-                      {`شما برای روز ${
-                        format(form.getValues('dob'), 'yyyy/MM/dd')
-                        //   jalaali.toJalaali(form.getValues('dob')).jy
-                        // }/${jalaali.toJalaali(form.getValues('dob')).jm}/${
-                        //   jalaali.toJalaali(form.getValues('dob')).jd
-                      } ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
+                      {`شما برای روز ${format(
+                        form.getValues('dob'),
+                        'yyyy/MM/dd'
+                      )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
                     </p>
                     <CardFooter>
-                      <Button className="w-full" type="submit">
+                      <Button
+                        disabled={isPending}
+                        className="w-full"
+                        type="submit"
+                      >
                         تایید نوبت
                       </Button>
                     </CardFooter>
@@ -285,7 +305,7 @@ const BookingCard: FC<BookingCardProps> = ({
                               handleTimeClick(time.slot)
 
                               // Handle button click here
-                              console.log(time.slot)
+                              // console.log(time.slot)
                             }}
                             className="text-sm max-w-16 "
                           >
