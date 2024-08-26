@@ -657,4 +657,5 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
     console.error('Error creating booking:', error)
   }
   revalidatePath('/dashboard/booking')
+  redirect('/dashboard/booking')
 }
