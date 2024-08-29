@@ -1,30 +1,21 @@
 'use client'
 
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 // import Herosvg from './icons/svg/Herosvg'
-import Image from 'next/image'
-import logoSrc from '../../public/vercel.svg'
-import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { Expo } from 'gsap/all'
+import { useEffect, useRef } from 'react'
 // import Phone from './icons/Phone'
 // import HeroWhatsApp from './icons/HeroWhatsApp'
-import Link from 'next/link'
+import { slider } from '@/constants'
 import { cn } from '@/lib/utils'
-import partOneSrcImage from '../public/images/page2.png'
-import HeroSmImage from '@/public/images/header-sm.jpg'
-import HeroLgImage from '@/public/images/header-lg.jpg'
-import { MapPin, Phone } from 'lucide-react'
+import { Phone } from 'lucide-react'
+import Link from 'next/link'
 import HeroWhatsApp from '../icons/HeroWhatsApp'
-import sun from '@/public/icons/sun.png'
 import Carousel from './Carousel'
-import { slider, special } from '@/constants'
-import RotateBetween from './RevealWord'
-import GlobalSearch from '@/components/search/GlobalSearch'
 type Props = {}
-const words = ['CREATE', 'LEARN', 'ENJOY', 'IMPRESS']
+
 function Hero({}: Props) {
-  const containerRef = useRef(null)
   const bgRef = useRef(null)
   useEffect(() => {
     const tl = gsap.timeline({ Defaults: { ease: Expo.easeOut } })
@@ -86,7 +77,7 @@ function Hero({}: Props) {
       <div className="container absolute top-10 inset-0 grid place-items-center  ">
         <div className="content text-center z-10 ">
           <div className="content-inner space-y-4">
-            <h1 className="title-color  text-reveal text-center text-4xl md:text-5xl font-bold   mb-0 py-1 ">
+            <h1 className="title-color  text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-1 ">
               درمانگاه آئین شفق
             </h1>
 

@@ -75,14 +75,17 @@ export const RegisterForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 text-primary-foreground"
+        >
           <div className="space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>نام کاربری</FormLabel>
+                  <FormLabel>نام و نام‌خانوادگی</FormLabel>
                   <FormControl>
                     <Input
                       className="!bg-background/10 "
@@ -124,7 +127,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>رمز عبور</FormLabel>
+                  <FormLabel>رمز عبور (کدملی)</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input

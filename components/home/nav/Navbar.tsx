@@ -23,6 +23,8 @@ import { NavigationMenuDemo } from './NavigationMenuDemo'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import MobileNav from './MobileNav'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import { useSession } from 'next-auth/react'
 
 let clamp = (number: number, min: number, max: number) =>
   Math.min(Math.max(number, min), max)
@@ -46,6 +48,7 @@ function useBoundedScroll(bounds: number) {
 }
 
 const Navbar = () => {
+  const user = useSession()
   const [position, setPosition] = useState({
     left: 0,
     width: 0,
@@ -69,8 +72,8 @@ const Navbar = () => {
         دشبورد
       </Link>
       <article className="z-50 fixed top-0 lg:top-0   max-w-full px-4 py-8 font-semibold  dark:text-light w-full h-12 bg-transparent grid place-content-center grid-cols-6 md:hidden ">
-        <div className="col-span-1">
-          <MobileNav />
+        <div className="col-span-1 ">
+          <MobileNav user={user.data?.user} />
         </div>
         <div className="col-span-4">
           <GlobalSearch />
@@ -206,7 +209,12 @@ const Navbar = () => {
                   }}
                 >
                   {/* <Image src={BagImage} alt="bag" width={18} height={18} /> */}
-                  <Link href={'/login'}>
+                  <Link className="flex gap-1" href={'/login'}>
+                    {user?.data?.user && (
+                      <p className="hidden md:flex-1">
+                        {user?.data?.user.name}
+                      </p>
+                    )}
                     <User size={'sm'} className="ml-4 w-6" />
                   </Link>
                 </motion.figure>

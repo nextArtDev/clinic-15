@@ -86,7 +86,10 @@ export const LoginForm = () => {
       className="rounded-sm border-nome "
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 text-primary-foreground"
+        >
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -112,7 +115,7 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>رمز عبور</FormLabel>
+                  <FormLabel>رمز عبور (کدملی)</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
@@ -133,7 +136,7 @@ export const LoginForm = () => {
                     size="sm"
                     variant="link"
                     asChild
-                    className="px-0 font-normal"
+                    className="px-0 font-normal text-primary-foreground"
                   >
                     <Link href="/reset">رمز عبور را فراموش کرده‌اید؟</Link>
                   </Button>

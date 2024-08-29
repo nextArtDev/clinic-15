@@ -5,32 +5,36 @@ import React, { useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { motion } from 'framer-motion'
+import { ExtendedUserWithoutEmail } from '@/types/next-auth'
+import { Button } from '@/components/ui/button'
+import { signOut } from '@/auth'
+import LogoutForm from '@/app/(auth)/logout/LogoutForm'
 
 // import useThemeSwitcher from './hooks/useThemeSwitcher'
 
 // Links wor desktop
-interface Links {
-  href: string
-  title: string
-  className?: string
-}
-const CustomLink = ({ href, title, className = '' }: Links) => {
-  const pathname = usePathname()
-  const router = useRouter()
-  return (
-    <Link href={href} className={`${className} relative group`}>
-      {title}
-      <span
-        className={`h-[2px] inline-block bg-[#C69B7B] absolute right-0 -bottom-0.5
-          group-hover:w-full transition-[width] ease duration-300 ${
-            pathname === href ? 'w-full' : 'w-0'
-          } dark:bg-light `}
-      >
-        &nbsp;
-      </span>
-    </Link>
-  )
-}
+// interface Links {
+//   href: string
+//   title: string
+//   className?: string
+// }
+// const CustomLink = ({ href, title, className = '' }: Links) => {
+//   const pathname = usePathname()
+//   const router = useRouter()
+//   return (
+//     <Link href={href} className={`${className} relative group`}>
+//       {title}
+//       <span
+//         className={`h-[2px] inline-block bg-[#C69B7B] absolute right-0 -bottom-0.5
+//           group-hover:w-full transition-[width] ease duration-300 ${
+//             pathname === href ? 'w-full' : 'w-0'
+//           } dark:bg-light `}
+//       >
+//         &nbsp;
+//       </span>
+//     </Link>
+//   )
+// }
 
 // Links for mobile view
 interface MobileLinks {
@@ -54,7 +58,7 @@ const CustomMobileLink = ({
   return (
     <Link
       href={href}
-      className={`${className} relative group text-primary my-2`}
+      className={`${className} relative group text-xl text-primary-foreground   my-2`}
       onClick={handleClick}
     >
       {title}
@@ -69,7 +73,7 @@ const CustomMobileLink = ({
     </Link>
   )
 }
-function MobileNav() {
+function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
   //   const [mode, setMode] = useThemeSwitcher()
 
   const [isOpen, setIsOpen] = useState(false)
@@ -81,7 +85,7 @@ function MobileNav() {
     <header className="">
       {/* Hamberguer Menue */}
       <button
-        className="flex-col pt-6 justify-center items-center md:hidden"
+        className="z-50 flex-col pt-6 justify-center items-center md:hidden"
         onClick={handleClick}
       >
         <span
@@ -108,9 +112,9 @@ function MobileNav() {
         <motion.div
           initial={{ scale: 0, opacity: 0, x: '-50%', y: '-50%' }}
           animate={{ scale: 1, opacity: 1 }}
-          className="gradient-base-r backdrop-blur-sm overflow-hidden min-w-[90vw] z-30 flex flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg  py-40 "
+          className=" custom-box-shadow bg-white/30 backdrop-blur-sm overflow-hidden min-w-[75vw] z-30 flex flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg  py-20 "
         >
-          <nav className="flex items-center flex-col justify-center ">
+          <nav className="flex items-center flex-col justify-center sub-title-color ">
             <CustomMobileLink href="/" title="خانه" toggle={handleClick} />
             {/* <CustomMobileLink
               href="/about"
@@ -137,11 +141,24 @@ function MobileNav() {
               title="بیماری‌ها"
               toggle={handleClick}
             />
-            <CustomMobileLink
-              href="/login"
-              title="ورود/عضویت"
-              toggle={handleClick}
-            />
+            {!!user?.name ? (
+              <CustomMobileLink
+                href="/login"
+                title="ورود/عضویت"
+                toggle={handleClick}
+              />
+            ) : (
+              // <div className="flex justify-center items-center gap-1">
+              //   <LogoutForm>
+              //     خروج <p>{`(${user?.name})`}</p>
+              //   </LogoutForm>
+              // </div>
+              <CustomMobileLink
+                href="/logout"
+                title="خروج"
+                toggle={handleClick}
+              />
+            )}
             {/* <CustomMobileLink
               href="/inography"
               title="اینوگرافی بیماریها"

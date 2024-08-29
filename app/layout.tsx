@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <AuthProvider>
         <body
-          className={` ${primaryFont.className} ${numericFont.className} adad min-h-screen`}
+          className={` ${primaryFont.className} ${numericFont.className} adad min-h-screen gradient-base`}
         >
           <ThemeProvider
             attribute="class"

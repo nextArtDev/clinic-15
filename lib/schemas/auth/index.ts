@@ -94,7 +94,7 @@ export const RegisterSchema = z.object({
     message: 'حداقل 6 کاراکتر الزامی است.',
   }),
   name: z.string().min(1, {
-    message: 'نام کاربری الزامی است',
+    message: 'نام و نام‌خانوادگی الزامی است',
   }),
 })
 
