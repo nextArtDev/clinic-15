@@ -57,7 +57,7 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
   })
 
   const [modal, setModal] = useState('')
-  console.log(modal)
+  // console.log(modal)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,9 +75,9 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
         })
         .catch((error) => console.log(error))
     })
-    // console.log(format(data.dob, 'yyyy/MM/dd'))
-    // console.log(data.doctorId)
-    // console.log(getDayNameFromIndex(data.dob.getDay()))
+    // console.log('date', format(data.dob, 'yyyy/MM/dd'))
+
+    // console.log('day', getDayNameFromIndex(data.dob.getDay()))
     // console.log(jalaali.toJalaali(data.dob))
   }
 

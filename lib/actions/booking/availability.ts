@@ -36,7 +36,7 @@ export const createAvailability = async ({
         },
       },
     })
-    console.log(doctorAvailability)
+    // console.log(doctorAvailability)
 
     if (!doctorAvailability) {
       const newAvailabilityDays = await Promise.all(
@@ -560,28 +560,41 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
 
     // if (availabilityDay?.times.map((time) => time.bookedDays.some))
     if (availabilityDay) {
-      const updatedToDisconnect = await Promise.all(
+      const findToDisconnect = await Promise.all(
         availabilityDay.times?.map(async (slot: any) => {
-          return await prisma.timeSlot.update({
+          return await prisma.timeSlot.findFirst({
             where: { id: slot.id },
-            data: { availabilityId: null },
+            include: {
+              bookedDays: true,
+            },
+            // data: { availabilityId: null },
           })
         })
       )
-      // const dayToCancel = await prisma.timeSlot.findFirst({
-      //   where: {
-      //     availabilityId: availabilityDay.id,
-      //   },
-      // })
-      // await prisma.timeSlot.update({
-      //   where: {
-      //     id: dayToCancel?.id,
-      //   },
-      //   data: {
-      //     availabilityId: null,
-      //   },
-      // })
-      // Loop through time slots
+      const timeSlotsThatShouldDisconnect = findToDisconnect
+        .flat()
+        .map((up) => up?.bookedDays)
+        .flat()
+
+      // console.log(
+      //   'timeSlotsThatShouldDisconnect',
+      //   timeSlotsThatShouldDisconnect
+      // )
+
+      if (timeSlotsThatShouldDisconnect.length > 0) {
+        const updatedToDisconnect = await Promise.all(
+          timeSlotsThatShouldDisconnect.map(async (slot: any) => {
+            return await prisma.timeSlot.update({
+              where: {
+                id: slot.timeSlotId,
+                availabilityId: availabilityDay.id,
+              },
+              data: { availabilityId: null },
+            })
+          })
+        )
+        // console.log('updatedToDisconnect', updatedToDisconnect)
+      }
       for (const time of availabilityDay.times) {
         // Loop through booked days for each time slot
         for (const bookedDay of time.bookedDays) {
@@ -606,6 +619,54 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
         disableDays: { connect: { id: disabledDay.id } },
       },
     })
+
+    // if (availabilityDay) {
+    //   const updatedToDisconnect = await Promise.all(
+    //     availabilityDay.times?.map(async (slot: any) => {
+    //       return await prisma.timeSlot.update({
+    //         where: { id: slot.id },
+    //         data: { availabilityId: null },
+    //       })
+    //     })
+    //   )
+    //   // const dayToCancel = await prisma.timeSlot.findFirst({
+    //   //   where: {
+    //   //     availabilityId: availabilityDay.id,
+    //   //   },
+    //   // })
+    //   // await prisma.timeSlot.update({
+    //   //   where: {
+    //   //     id: dayToCancel?.id,
+    //   //   },
+    //   //   data: {
+    //   //     availabilityId: null,
+    //   //   },
+    //   // })
+    //   // Loop through time slots
+    //   for (const time of availabilityDay.times) {
+    //     // Loop through booked days for each time slot
+    //     for (const bookedDay of time.bookedDays) {
+    //       // Check if there's a user associated with the booking
+    //       if (bookedDay.user) {
+    //         // User exists!
+    //         console.log(
+    //           'User found:',
+    //           bookedDay.user.name && bookedDay.user.phone
+    //         )
+    //         // You can now access user data from bookedDay.user
+    //         // return true
+    //       }
+    //     }
+    //   }
+    // }
+    // const availability = await prisma.availability.update({
+    //   where: {
+    //     id: availabilityDay?.id,
+    //   },
+    //   data: {
+    //     disableDays: { connect: { id: disabledDay.id } },
+    //   },
+    // })
     // console.log('Cancelled Day:', availabilityDay?.availableDay.length)
   } catch (error) {
     console.error('Error creating booking:', error)
