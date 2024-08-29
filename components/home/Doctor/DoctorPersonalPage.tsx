@@ -44,11 +44,11 @@ interface pageProps {
       })[]
     | null
   disabledDaysByDoctor?: string[][]
-  bookedDays:
-    | (BookedDay & {
-        timeSlot: TimeSlot | null
-      })[]
-    | null
+  // bookedDays:
+  //   | (BookedDay & {
+  //       timeSlot: TimeSlot | null
+  //     })[]
+  //   | null
 }
 function DoctorPersonalPage({
   doctor,
@@ -57,8 +57,8 @@ function DoctorPersonalPage({
   rate,
   availabilities,
   disabledDaysByDoctor,
-  bookedDays,
-}: pageProps) {
+}: // bookedDays,
+pageProps) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,

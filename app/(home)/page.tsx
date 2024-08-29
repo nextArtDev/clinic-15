@@ -38,7 +38,9 @@ const HomePage = async () => {
         </section>
       )}
       {/* <DoctorCarousel slides={doctors} /> */}
-      <IllnessCarousel slides={illnesses?.illnesses} />
+      {illnesses?.illnesses?.length && (
+        <IllnessCarousel slides={illnesses?.illnesses} />
+      )}
       <Reviews />
       <Footer
         specializations={specializations?.specializations}

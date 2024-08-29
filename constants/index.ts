@@ -1241,10 +1241,30 @@ export const special = [
   },
 ]
 export const slider = [
-  { id: '1', name: 'زنان و زایمان', imageUrl: '/images/head-1.webp' },
-  { id: '2', name: 'کودکان و نوزادان', imageUrl: '/images/head-2.webp' },
-  { id: '3', name: 'بیماری‌های عفونی', imageUrl: '/images/head-4.webp' },
-  { id: '4', name: 'غدد و متابولیسم', imageUrl: '/images/head-5.webp' },
+  {
+    id: '1',
+    name: 'زنان و زایمان',
+    imageUrl: '/images/head-1.webp',
+    // imagUrlSm: '/images/',
+  },
+  {
+    id: '2',
+    name: 'کودکان و نوزادان',
+    imageUrl: '/images/head-2.webp',
+    // imagUrlSm: '/images/',
+  },
+  {
+    id: '3',
+    name: 'بیماری‌های عفونی',
+    imageUrl: '/images/head-4.webp',
+    // imagUrlSm: '/images/',
+  },
+  {
+    id: '4',
+    name: 'غدد و متابولیسم',
+    imageUrl: '/images/head-1-sm.jpg',
+    // imagUrlSm: '/images/',
+  },
 ]
 export type Slider = { id: string; name: string; imageUrl: string }
 
@@ -1297,7 +1317,7 @@ export const rooms = [
   {
     id: '3',
     title: 'زیبایی عمومی',
-    src: '/images/parts/emergency.webp',
+    src: '/images/parts/zibaei.jpg',
     items: [
       { id: '1', text: 'تزریق بوتاکس' },
       { id: '2', text: 'تزریق ژل' },

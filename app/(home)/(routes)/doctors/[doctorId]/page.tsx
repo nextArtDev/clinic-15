@@ -24,23 +24,24 @@ const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
     },
   })
 
-  const availabilities = await getAllAvailabilitiesByDoctorId(doctor.doctor.id)
+  const availabilities = await getAllAvailabilitiesByDoctorId(params.doctorId)
+  // console.log(availabilities)
   const disabledDaysByDoctor = availabilities?.map((availability) =>
     availability.disableDays.map((disabled) => disabled.day)
   )
 
-  const bookedDays = await prisma.bookedDay.findMany({
-    where: {
-      timeSlot: {
-        Availability: {
-          doctorId: doctor.doctor.id,
-        },
-      },
-    },
-    include: {
-      timeSlot: true,
-    },
-  })
+  // const bookedDays = await prisma.bookedDay.findMany({
+  //   where: {
+  //     timeSlot: {
+  //       Availability: {
+  //         doctorId: doctor.doctor.id,
+  //       },
+  //     },
+  //   },
+  //   include: {
+  //     timeSlot: true,
+  //   },
+  // })
 
   return (
     <div className="grainy min-h-screen ">
@@ -51,7 +52,7 @@ const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
         user={userWithPic}
         availabilities={availabilities}
         disabledDaysByDoctor={disabledDaysByDoctor}
-        bookedDays={bookedDays}
+        // bookedDays={bookedDays}
       />
     </div>
   )

@@ -59,7 +59,7 @@ const Card = ({
       >
         <SvgShadow />
         {/* <h2 className="text-primary text-xl md:text-2xl  "></h2> */}
-        <h2 className="text-2xl pb-3 text-center font-bold text-pretty title-color mix-blend-exclusion">
+        <h2 className="text-2xl pb-3 text-center font-bold text-pretty  sub-title-color">
           {' '}
           {title}
         </h2>
@@ -69,7 +69,7 @@ const Card = ({
           <div className={styles.imageContainer}>
             <motion.div className={styles.inner} style={{ scale: imageScale }}>
               <Image fill src={src} alt={title} />
-              <div className="absolute inset-0 gradient-base opacity-30 backdrop-blur-sm z-[1]"></div>
+              <div className="absolute inset-0 gradient-base opacity-20 backdrop-blur-sm z-[1]"></div>
             </motion.div>
           </div>
           <div
@@ -81,7 +81,7 @@ const Card = ({
             <ul className="absolute top-16 left-1/2 w-full space-y-4 -translate-x-1/2 flex flex-col  justify-around items-center text-justify z-[2]">
               {items?.map((item) => (
                 <li key={item.id}>
-                  <Badge className="px-2 py-1 flex gap-1 gradient-base backdrop-blur-md  rounded-full text-sm md:text-base">
+                  <Badge className="px-2 py-1 flex gap-1 custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 text-sm md:text-base">
                     <CheckCircle
                       className="text-primary"
                       size={16}

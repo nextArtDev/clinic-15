@@ -31,7 +31,7 @@ const Carousel: React.FC<PropType> = (props) => {
           {slides.map((slide) => (
             <div className=" embla__slide " key={slide.id}>
               <div className=" relative embla__slide__number">
-                <motion.div
+                {/* <motion.div
                   initial={{ height: 'auto' }}
                   whileInView={{ height: 0 }}
                   transition={{
@@ -40,14 +40,14 @@ const Carousel: React.FC<PropType> = (props) => {
                     ease: 'easeOut',
                   }}
                   className="absolute inset-0 gradient-base opacity-40 backdrop-blur-sm z-[1]"
-                ></motion.div>
+                ></motion.div> */}
                 <Image
                   src={slide.imageUrl}
                   alt={slide.name}
                   fill
                   className="object-cover"
                 />
-                <motion.div className="absolute inset-0 bg-blue-300/10 backdrop-blur-[2.5px] z-[2]"></motion.div>
+                <motion.div className="absolute inset-0 bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC] opacity-45  backdrop-blur-[150px] z-[2]"></motion.div>
               </div>
             </div>
           ))}
@@ -59,7 +59,7 @@ const Carousel: React.FC<PropType> = (props) => {
           whileInView={{ height: 0 }}
           transition={{ duration: DELAY, repeat: Infinity }}
         /> */}
-        <svg
+        {/* <svg
           width="14"
           height="163"
           viewBox="0 0 25 163"
@@ -71,10 +71,11 @@ const Carousel: React.FC<PropType> = (props) => {
             strokeWidth={0.8}
             whileInView={{ pathLength: 1 }}
             transition={{ duration: DELAY, repeat: Infinity }}
-            d="M16 0V29.3034L10 41.2079L19.5 54.0281L1 68.6798L24 88.8258L12.5 100.73L16 115.382V163"
+            // d="M16 0V29.3034L10 41.2079L19.5 54.0281L1 68.6798L24 88.8258L12.5 100.73L16 115.382V163"
+            d="M 20 20 l 50 100"
             stroke="#ff0808"
           />
-        </svg>
+        </svg> */}
       </div>
     </section>
   )

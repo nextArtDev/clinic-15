@@ -110,7 +110,10 @@ html {
     @apply bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC];
   }
   .title-color {
-    @apply font-bold bg-gradient-to-r via-[#dbd821] from-[#c75c42] to-[#e96f18] bg-clip-text text-transparent;
+    @apply drop-shadow-[0_1.6px_1.6px_rgba(0,0,0,0.8)] font-bold bg-gradient-to-r from-[#FFF8DC] via-[#e96f18]  to-[#30e8bf] bg-clip-text text-transparent;
+  }
+  .sub-title-color {
+    @apply drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] font-bold bg-gradient-to-r to-[#FFF8DC] from-[#e96f18]  via-[#30e8bf] bg-clip-text text-transparent;
   }
   .gradient-base-r {
     @apply bg-gradient-to-t from-[#FFF8DC] via-[#ADD8E6] to-[#FFB6C1];
@@ -216,6 +219,15 @@ html {
   justify-content: space-between;
   gap: 1.2rem;
   margin-top: 1.8rem;
+}
+
+.embla__progress__bar__hero {
+  background-color: var(--text-body);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: -100%;
 }
 
 /* Custom box shadow  */

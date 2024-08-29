@@ -7,52 +7,6 @@ import { revalidatePath } from 'next/cache'
 
 import { redirect } from 'next/navigation'
 
-// const createSlot = async ({
-//   day,
-//   slicer,
-//   availableModel,
-// }: {
-//   day: AvailableDays
-//   slicer: string
-//   availableModel: Availability
-// }) => {
-//   const slots = SplitterTime({
-//     range: +slicer,
-//     start: day.startTime,
-//     end: day.endTime,
-//   })
-
-//   const slotDocuments = []
-
-//   for (const slot of slots) {
-//     const existingSlot = await prisma.timeSlot.findUnique({
-//       where: {
-//         slot,
-//       },
-//     })
-
-//     if (existingSlot) {
-//       slotDocuments.push(existingSlot.id)
-//       // await prisma.timeSlot.update({
-//       //   where: { id: existingSlot.id },
-//       //   data: {
-//       //     Availability: { connect: { id: availableModel.id } },
-//       //   },
-//       // })
-//     } else {
-//       const newSlot = await prisma.timeSlot.create({
-//         data: {
-//           // slot,
-//           // Availability: { connect: { id: availableModel.id } },
-//           // followers: { connect: { id: authorId } },
-//         },
-//       })
-//       slotDocuments.push(newSlot.id)
-//     }
-//     return slotDocuments
-//   }
-// }
-
 export type AvailableDays = {
   dayName: string
   endTime: string
@@ -82,11 +36,10 @@ export const createAvailability = async ({
         },
       },
     })
-    // console.log(!!doctorAvailability)
-    // console.log(!doctorAvailability)
+    console.log(doctorAvailability)
 
     if (!doctorAvailability) {
-      await Promise.all(
+      const newAvailabilityDays = await Promise.all(
         days.map(async (day) => {
           const availability = await prisma.availability.create({
             data: {
@@ -131,6 +84,7 @@ export const createAvailability = async ({
           // })
         })
       )
+      // console.log('newAvailabilityDays', newAvailabilityDays)
     } else {
       const allAvailabilities = await prisma.availability.findMany({
         where: {

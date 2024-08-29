@@ -58,7 +58,7 @@ const GlobalResult: FC<GlobalResultProps> = ({ social }) => {
       case 'doctor':
         return `/doctors/${id}`
       case 'specialization':
-        return `/specializations/${id}`
+        return `/specialities/${id}`
       case 'illness':
         return `/illnesses/${id}`
 

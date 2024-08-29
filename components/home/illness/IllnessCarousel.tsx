@@ -69,9 +69,11 @@ const IllnessCarousel: React.FC<PropType> = (props) => {
           {' '}
           بیماری‌ها
         </h1>
-        <div className={`${style.embla__progress} grainy mb-6 `}>
+        <div
+          className={`${style.embla__progress} !custom-box-shadow !backdrop-blur-md !bg-white/30 mb-6 `}
+        >
           <div
-            className={`${style.embla__progress__bar} !gradient-base `}
+            className={`${style.embla__progress__bar} !custom-box-shadow !backdrop-blur-md !bg-white/30 `}
             style={{ transform: `translate3d(${scrollProgress}%,0px,0px)` }}
           />
         </div>

@@ -85,21 +85,12 @@ function Hero({}: Props) {
     <section className="relative w-full h-[calc(h-screen-5rem)]">
       <div className="container absolute top-10 inset-0 grid place-items-center  ">
         <div className="content text-center z-10 ">
-          {/* <div className="flex justify-center items-center">
-            <Image
-              src={sun}
-              width={28}
-              height={28}
-              // className="svgLogo block m-8 top-[20%] w-16 h-16"
-              className="svgLogo block w-24 h-24"
-              alt="logo"
-            />
-          </div> */}
           <div className="content-inner space-y-4">
-            <h1 className="title-color text-reveal text-center text-3xl font-bold   mb-0 py-1 ">
+            <h1 className="title-color  text-reveal text-center text-4xl md:text-5xl font-bold   mb-0 py-1 ">
               درمانگاه آئین شفق
             </h1>
-            <p className="text-reveal flex flex-col justify-center items-center gap-4 text-center text-xl   font-semibold bg-gradient-to-r from-primary  via-black/80 to-primary  bg-clip-text text-transparent">
+
+            <p className="text-reveal flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
           </div>

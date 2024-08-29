@@ -80,6 +80,7 @@ const AvailabilityTable: FC<AvailabilityTableProps> = ({ doctors }) => {
 
           endTime: `${dayData?.endTime?.hour}:${dayData?.endTime?.minute}`,
         })
+        console.log(days)
       }
     }
     startTransition(() => {

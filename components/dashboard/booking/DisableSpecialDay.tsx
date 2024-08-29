@@ -75,9 +75,9 @@ const DisableSpecialDay: FC<DisableSpecialDayProps> = ({ doctors }) => {
         })
         .catch((error) => console.log(error))
     })
-    console.log(format(data.dob, 'yyyy/MM/dd'))
-    console.log(data.doctorId)
-    console.log(getDayNameFromIndex(data.dob.getDay()))
+    // console.log(format(data.dob, 'yyyy/MM/dd'))
+    // console.log(data.doctorId)
+    // console.log(getDayNameFromIndex(data.dob.getDay()))
     // console.log(jalaali.toJalaali(data.dob))
   }
 
