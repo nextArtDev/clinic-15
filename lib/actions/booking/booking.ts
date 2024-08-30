@@ -9,6 +9,9 @@ import {
 import { getDayNameFromIndex } from '@/lib/utils'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { sendBookingSms } from '../auth/sms'
+import { PhoneSchema } from '@/lib/schemas/auth'
+import { z } from 'zod'
 
 interface CreateBookingFormState {
   // success?: string
@@ -54,7 +57,28 @@ export async function createBooking(
   // console.log('res', result.data)
   try {
     const user = await currentUser()
-    if (!user?.id) redirect('/login')
+    if (!user?.id) {
+      redirect('/login')
+    }
+    if (user.role !== 'ADMIN') {
+      return {
+        errors: {
+          _form: ['شمااجازه دسترسی ندارید!'],
+        },
+      }
+    }
+
+    const doctor = await prisma.doctor.findFirst({
+      where: {
+        id: doctorId,
+      },
+    })
+    if (!doctor)
+      return {
+        errors: {
+          _form: ['این نوبت در دسترس نیست!'],
+        },
+      }
     const availability = await prisma.availability.findFirst({
       where: {
         availableDay: getDayNameFromIndex(+result.data.dob),
@@ -92,8 +116,16 @@ export async function createBooking(
         userId: user.id,
       },
     })
+    if (user.name && user.phone && doctor.name) {
+      const sms = await sendBookingSms({
+        values: { phone: user.phone },
+        dayTime: `${day} ساعت ${time}`,
+        doctorName: doctor.name,
+        name: user.name,
+      })
+      // console.log('OK', sms)
+    }
     // console.log(bookedDayUpdate)
-    // console.log('OK')
     // revalidatePath(path)
   } catch (err: unknown) {
     if (err instanceof Error) {

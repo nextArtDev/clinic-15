@@ -6,6 +6,7 @@ import { SplitterTime } from '@/lib/utils'
 import { revalidatePath } from 'next/cache'
 
 import { redirect } from 'next/navigation'
+import { sendCancelBookingSms } from '../auth/sms'
 
 export type AvailableDays = {
   dayName: string
@@ -26,7 +27,16 @@ export const createAvailability = async ({
   slicer,
 }: CreateAvailability) => {
   const user = await currentUser()
-  if (!user?.id || user.role !== 'ADMIN') redirect('/login')
+  if (!user?.id) {
+    redirect('/login')
+  }
+  if (user.role !== 'ADMIN') {
+    return {
+      errors: {
+        _form: ['شمااجازه دسترسی ندارید!'],
+      },
+    }
+  }
   try {
     const doctorAvailability = await prisma.doctor.findFirst({
       where: {
@@ -519,8 +529,20 @@ export const createAvailability = async ({
         })
       )
     }
-  } catch (error) {
-    console.log(error)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        errors: {
+          _form: [err.message],
+        },
+      }
+    } else {
+      return {
+        errors: {
+          _form: ['مشکلی پیش آمده، لطفا دوباره امتحان کنید!'],
+        },
+      }
+    }
   }
   revalidatePath('/dashboard/booking')
   redirect('/dashboard/booking')
@@ -534,14 +556,33 @@ interface DisableDay {
 export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
   try {
     const user = await currentUser()
-    if (!user?.id || user.role !== 'ADMIN') redirect('/login')
+    if (!user?.id) {
+      redirect('/login')
+    }
+    if (user.role !== 'ADMIN') {
+      return {
+        errors: {
+          _form: ['شمااجازه دسترسی ندارید!'],
+        },
+      }
+    }
 
     const disabledDay = await prisma.specialDay.create({
       data: {
         day: date,
       },
     })
-
+    const doctor = await prisma.doctor.findFirst({
+      where: {
+        id: doctorId,
+      },
+    })
+    if (!doctor)
+      return {
+        errors: {
+          _form: ['این نوبت در دسترس نیست!'],
+        },
+      }
     const availabilityDay = await prisma.availability.findFirst({
       where: {
         doctorId,
@@ -601,75 +642,44 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
           // Check if there's a user associated with the booking
           if (bookedDay.user) {
             // User exists!
-            console.log(
-              'User found:',
-              bookedDay.user.name && bookedDay.user.phone
-            )
+            // console.log('User found:', `${date} ساعت ${time.slot}`)
+            if (user.name && user.phone && doctor.name) {
+              await sendCancelBookingSms({
+                values: { phone: user.phone },
+                dayTime: `${date} ساعت ${time.slot}`,
+                doctorName: doctor.name,
+                name: user.name,
+              })
+            }
             // You can now access user data from bookedDay.user
             // return true
           }
         }
       }
+      const availability = await prisma.availability.update({
+        where: {
+          id: availabilityDay?.id,
+        },
+        data: {
+          disableDays: { connect: { id: disabledDay.id } },
+        },
+      })
+      // console.log('availability', availability)
     }
-    const availability = await prisma.availability.update({
-      where: {
-        id: availabilityDay?.id,
-      },
-      data: {
-        disableDays: { connect: { id: disabledDay.id } },
-      },
-    })
-
-    // if (availabilityDay) {
-    //   const updatedToDisconnect = await Promise.all(
-    //     availabilityDay.times?.map(async (slot: any) => {
-    //       return await prisma.timeSlot.update({
-    //         where: { id: slot.id },
-    //         data: { availabilityId: null },
-    //       })
-    //     })
-    //   )
-    //   // const dayToCancel = await prisma.timeSlot.findFirst({
-    //   //   where: {
-    //   //     availabilityId: availabilityDay.id,
-    //   //   },
-    //   // })
-    //   // await prisma.timeSlot.update({
-    //   //   where: {
-    //   //     id: dayToCancel?.id,
-    //   //   },
-    //   //   data: {
-    //   //     availabilityId: null,
-    //   //   },
-    //   // })
-    //   // Loop through time slots
-    //   for (const time of availabilityDay.times) {
-    //     // Loop through booked days for each time slot
-    //     for (const bookedDay of time.bookedDays) {
-    //       // Check if there's a user associated with the booking
-    //       if (bookedDay.user) {
-    //         // User exists!
-    //         console.log(
-    //           'User found:',
-    //           bookedDay.user.name && bookedDay.user.phone
-    //         )
-    //         // You can now access user data from bookedDay.user
-    //         // return true
-    //       }
-    //     }
-    //   }
-    // }
-    // const availability = await prisma.availability.update({
-    //   where: {
-    //     id: availabilityDay?.id,
-    //   },
-    //   data: {
-    //     disableDays: { connect: { id: disabledDay.id } },
-    //   },
-    // })
-    // console.log('Cancelled Day:', availabilityDay?.availableDay.length)
-  } catch (error) {
-    console.error('Error creating booking:', error)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        errors: {
+          _form: [err.message],
+        },
+      }
+    } else {
+      return {
+        errors: {
+          _form: ['مشکلی پیش آمده، لطفا دوباره امتحان کنید!'],
+        },
+      }
+    }
   }
   revalidatePath('/dashboard/booking')
   redirect('/dashboard/booking')

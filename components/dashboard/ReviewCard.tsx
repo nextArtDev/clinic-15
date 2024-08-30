@@ -1,14 +1,16 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useState, useTransition } from 'react'
 import { Review } from '@prisma/client'
 import Stars from '@/components/Stars'
 import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 
 import { toast } from '@/components/ui/use-toast'
 import { AlertModal } from './AlertModal'
+import { deleteComment } from '@/lib/actions/dashboard/comments'
+import { useFormState } from 'react-dom'
 
 interface ReviewCardProps {
   review: Review
@@ -16,26 +18,53 @@ interface ReviewCardProps {
 }
 
 const ReviewCard: FC<ReviewCardProps> = ({ review, isAdmin }) => {
-  const router = useRouter()
+  const path = usePathname()
+  const [isPending, startTransition] = useTransition()
+
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const onDelete = async () => {
-    try {
-      setLoading(true)
-      // await axios.delete(`/api/comments`, { data: review.id })
-      router.refresh()
-      toast({ title: 'کامنت حذف شد.', variant: 'default' })
-      // router.push(`/doctors`)
-    } catch (error: any) {
-      toast({
-        title: 'مشکلی پیش آمده.',
-        variant: 'destructive',
-      })
-    } finally {
-      setLoading(false)
-      setOpen(false)
+  const [deleteState, deleteAction] = useFormState(
+    deleteComment.bind(null, path, review?.id as string),
+    {
+      errors: {},
     }
+  )
+
+  const onDelete = async () => {
+    //  startTransition(() => {
+    //    deleteComment(formData, path)
+    //      .then((res) => {
+    //        if (res?.errors?.commentId) {
+    //          form.setError('commentId', {
+    //            type: 'custom',
+    //            message: res?.errors.commentId?.join(' و '),
+    //          })
+    //        }  else if (res?.errors?._form) {
+    //          toast.error(res?.errors._form?.join(' و '))
+    //          form.setError('root', {
+    //            type: 'custom',
+    //            message: res?.errors?._form?.join(' و '),
+    //          })
+    //        }
+    //      })
+    //      .catch(() => console.log('مشکلی پیش آمده.'))
+    //  })
+    // try {
+    //   setLoading(true)
+    //   // await axios.delete(`/api/comments`, { data: review.id })
+    //   router.refresh()
+    //   toast({ title: 'کامنت حذف شد.', variant: 'default' })
+    //   // router.push(`/doctors`)
+    // } catch (error: any) {
+    //   toast({
+    //     title: 'مشکلی پیش آمده.',
+    //     variant: 'destructive',
+    //   })
+    // } finally {
+    //   setLoading(false)
+    //   setOpen(false)
+    // }
   }
 
   return (
@@ -43,7 +72,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ review, isAdmin }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onDelete}
+        onConfirm={deleteAction}
         isPending={loading}
       />
       <div className="flex">
@@ -72,7 +101,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ review, isAdmin }) => {
       {isAdmin && (
         <div className="z-10 absolute top-2 left-10">
           <Button
-            disabled={loading}
+            disabled={isPending}
             variant="destructive"
             size="sm"
             onClick={() => setOpen(true)}
