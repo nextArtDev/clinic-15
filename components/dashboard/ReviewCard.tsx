@@ -22,7 +22,6 @@ const ReviewCard: FC<ReviewCardProps> = ({ review, isAdmin }) => {
   const [isPending, startTransition] = useTransition()
 
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
 
   const [deleteState, deleteAction] = useFormState(
     deleteComment.bind(null, path, review?.id as string),
@@ -31,49 +30,13 @@ const ReviewCard: FC<ReviewCardProps> = ({ review, isAdmin }) => {
     }
   )
 
-  const onDelete = async () => {
-    //  startTransition(() => {
-    //    deleteComment(formData, path)
-    //      .then((res) => {
-    //        if (res?.errors?.commentId) {
-    //          form.setError('commentId', {
-    //            type: 'custom',
-    //            message: res?.errors.commentId?.join(' و '),
-    //          })
-    //        }  else if (res?.errors?._form) {
-    //          toast.error(res?.errors._form?.join(' و '))
-    //          form.setError('root', {
-    //            type: 'custom',
-    //            message: res?.errors?._form?.join(' و '),
-    //          })
-    //        }
-    //      })
-    //      .catch(() => console.log('مشکلی پیش آمده.'))
-    //  })
-    // try {
-    //   setLoading(true)
-    //   // await axios.delete(`/api/comments`, { data: review.id })
-    //   router.refresh()
-    //   toast({ title: 'کامنت حذف شد.', variant: 'default' })
-    //   // router.push(`/doctors`)
-    // } catch (error: any) {
-    //   toast({
-    //     title: 'مشکلی پیش آمده.',
-    //     variant: 'destructive',
-    //   })
-    // } finally {
-    //   setLoading(false)
-    //   setOpen(false)
-    // }
-  }
-
   return (
     <div className="relative border-b pb-7 mb-7">
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={deleteAction}
-        isPending={loading}
+        isPending={isPending}
       />
       <div className="flex">
         {/* <div className="w-1/6 flex flex-col items-center">
