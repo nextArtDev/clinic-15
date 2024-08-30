@@ -42,6 +42,13 @@ export const createDoctorSchema = z.object({
     .optional(),
   // }) satisfies z.Schema<Prisma.DoctorUncheckedCreateInput>
 })
+export const createPersonnelSchema = z.object({
+  name: z.string().min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }),
+
+  description: z.string().min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }),
+
+  images: z.any().optional(),
+})
 
 export const createIllnessSchema = z.object({
   name: z.string().min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }),

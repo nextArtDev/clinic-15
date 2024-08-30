@@ -70,9 +70,12 @@ model Image {
   // @@index([specializationId])
   // @@index([doctorId])
   // @@index([galleryId])
+  Personnel            Personnel?      @relation(fields: [personnelId], references: [id])
+  personnelId          String?
 
   @@unique([specializationIconId])
   @@unique([specializationId])
+  @@unique([personnelId])
 }
 
 model Doctor {
@@ -95,6 +98,17 @@ model Doctor {
 
   availability Availability[]
   BookedDay    BookedDay[]
+}
+
+model Personnel {
+  id          String @id @default(cuid())
+  name        String
+  description String
+
+  images Image[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DateTag {

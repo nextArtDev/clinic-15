@@ -4,7 +4,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { CellAction } from './CellAction'
 
-export type DoctorColumn = {
+export type PersonnelColumn = {
   id: string
   name: string | null
   // phone: string | null
@@ -15,7 +15,7 @@ export type DoctorColumn = {
   // close_time: string | null
 }
 
-export const columns: ColumnDef<DoctorColumn>[] = [
+export const columns: ColumnDef<PersonnelColumn>[] = [
   {
     accessorKey: 'name',
     header: 'نام',
@@ -26,7 +26,7 @@ export const columns: ColumnDef<DoctorColumn>[] = [
   // },
   {
     accessorKey: 'description',
-    header: 'تخصص',
+    header: 'عنوان شغلی',
   },
   // {
   //   accessorKey: 'website',

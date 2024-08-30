@@ -14,16 +14,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { DoctorColumn } from './columns'
 import { toast } from '@/components/ui/use-toast'
 
 import { useFormState } from 'react-dom'
 import { deleteDoctor } from '@/lib/actions/dashboard/doctor'
 import loading from '../../../loading'
 import { AlertModal } from '@/components/dashboard/AlertModal'
+import { PersonnelColumn } from './columns'
+import { deletePersonnel } from '@/lib/actions/dashboard/personnel'
 
 interface CellActionProps {
-  data: DoctorColumn
+  data: PersonnelColumn
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -33,7 +34,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter()
 
   const [deleteState, deleteAction] = useFormState(
-    deleteDoctor.bind(null, path, data?.id as string),
+    deletePersonnel.bind(null, path, data?.id as string),
     {
       errors: {},
     }
@@ -62,15 +63,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>عملیات</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/doctors/${data.id}`)}
+            onClick={() => router.push(`/dashboard/personnels/${data.id}`)}
           >
             <Edit className="ml-2 h-4 w-4" /> آپدیت
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="ml-2 h-4 w-4" /> حذف
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(`${data.id}`)}>
-            <Copy className="ml-2 h-4 w-4" /> کپی ID
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

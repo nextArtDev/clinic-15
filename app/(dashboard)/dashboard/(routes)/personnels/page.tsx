@@ -3,24 +3,15 @@ import { format } from 'date-fns-jalali'
 import { formatter } from '@/lib/utils'
 
 import { prisma } from '@/lib/prisma'
-import { DoctorColumn } from './components/columns'
-import { DoctorsClient } from './components/DoctorClient'
+import { PersonnelColumn } from './components/columns'
+import { PersonnelClient } from './components/PersonnelClient'
 
-const DoctorPage = async () => {
-  const doctors = await prisma.doctor.findMany({
+const Personnel = async () => {
+  const personnel = await prisma.personnel.findMany({
     where: {},
-    //we include them to access them like individual objects and for example we can show them in table
-    include: {
-      reviews: true,
-      // bookings: true,
-      images: true,
-    },
-    // orderBy: {
-    //   createdAt: 'desc',
-    // },
   })
 
-  const formattedDoctors: DoctorColumn[] = doctors.map((item) => ({
+  const formattedPersonnel: PersonnelColumn[] = personnel.map((item) => ({
     id: item.id,
     name: item.name,
     // phone: item?.phone,
@@ -41,10 +32,10 @@ const DoctorPage = async () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <DoctorsClient data={formattedDoctors} />
+        <PersonnelClient data={formattedPersonnel} />
       </div>
     </div>
   )
 }
 
-export default DoctorPage
+export default Personnel

@@ -71,7 +71,7 @@ export async function createDoctor(
     if (isExisting) {
       return {
         errors: {
-          _form: ['تخصص با این نام موجود است!'],
+          _form: ['دکتر با این نام موجود است!'],
         },
       }
     }
@@ -218,7 +218,7 @@ export async function editDoctor(
     if (!isExisting) {
       return {
         errors: {
-          _form: ['تخصص حذف شده است!'],
+          _form: ['دکتر حذف شده است!'],
         },
       }
     }
@@ -426,15 +426,14 @@ export async function deleteDoctor(
   if (!doctorId) {
     return {
       errors: {
-        _form: ['تخصص موجود نیست!'],
+        _form: ['دکتر موجود نیست!'],
       },
     }
   }
 
   try {
-    // @ts-ignore
     const isExisting:
-      | (Specialization & {
+      | (Doctor & {
           images:
             | {
                 id: string
@@ -451,7 +450,7 @@ export async function deleteDoctor(
     if (!isExisting) {
       return {
         errors: {
-          _form: ['تخصص حذف شده است!'],
+          _form: ['دکتر حذف شده است!'],
         },
       }
     }

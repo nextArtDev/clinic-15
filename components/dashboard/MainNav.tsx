@@ -53,6 +53,11 @@ export function MainNav({
       active: pathname === `/dashboard/doctors`,
     },
     {
+      href: `/dashboard/personnels`,
+      label: 'پرسنل',
+      active: pathname === `/dashboard/personnels`,
+    },
+    {
       href: `/dashboard/illness`,
       label: 'بیماری',
       active: pathname === `/dashboard/illness`,
