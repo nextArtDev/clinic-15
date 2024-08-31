@@ -63,7 +63,7 @@ function MarqueeCard({ id, name, text, time, rate }: Props) {
   return (
     <div
       dir="rtl"
-      className=" overflow-y-hidden   rounded-xl py-6 sm:py-8 lg:py-12"
+      className=" overflow-y-hidden   rounded-xl py-6 sm:py-2 lg:py-6"
     >
       <article
         style={{

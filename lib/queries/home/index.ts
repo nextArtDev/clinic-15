@@ -331,7 +331,7 @@ export const getIlPersonnel = async () => {
 
 export const getAllReviews = async () => {
   try {
-    const personnel = await prisma.review.findMany({
+    const reviews = await prisma.review.findMany({
       where: {},
       include: {
         user: {
@@ -345,8 +345,13 @@ export const getAllReviews = async () => {
           },
         },
       },
+      take: 14,
+      orderBy: {
+        created_at: 'desc',
+      },
     })
-    return personnel
+
+    return reviews
   } catch (error) {
     console.log(error)
   }

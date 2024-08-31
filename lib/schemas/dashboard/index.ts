@@ -59,11 +59,13 @@ export const createIllnessSchema = z.object({
   // booking: z.object({ booking_time: z.date() }).array().optional(),
   //Because we're working with Decimal, we should add "coerce"
   specializationId: z
-    .array(z.string().min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }))
-    .optional(),
-  doctorId: z
-    .array(z.string().min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }))
-    .optional(),
+    .array(z.string())
+    .min(1, { message: 'این قسمت نمی‌تواند خالی باشد' }),
+  doctorId: z.array(
+    z.string().nonempty({
+      message: 'این قسمت نمی‌تواند خالی باشد',
+    })
+  ),
 }) satisfies z.Schema<Prisma.IllnessUncheckedCreateInput>
 
 export const createSpecializationSchema = z.object({

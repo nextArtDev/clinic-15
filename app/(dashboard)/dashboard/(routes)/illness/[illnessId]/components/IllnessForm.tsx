@@ -59,8 +59,6 @@ const IllnessForm: FC<IllnessFormProps> = ({
   specialization,
   doctor,
 }) => {
-  const params = useParams()
-  const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const path = usePathname()
 
@@ -81,8 +79,11 @@ const IllnessForm: FC<IllnessFormProps> = ({
         ...initialData,
         // name: initialData.name!,
         description: initialData.description || '',
-        specializationId:
-          initialData.Specialization.map((w: { id: string }) => w.id) || [],
+        // specializationId: initialData.Specialization.map((w) => w) || [],
+        // initialData.Specialization.map((w) => ({
+        //   value: w.id,
+        //   label: w.name,
+        // })) || [],
         doctorId: initialData.Doctor.map((w: { id: string }) => w.id) || [],
       }
     : {
@@ -123,7 +124,7 @@ const IllnessForm: FC<IllnessFormProps> = ({
 
     try {
       if (initialData) {
-        // console.log({ data, initialData })
+        console.log({ data, initialData })
         startTransition(() => {
           editIllness(formData, initialData.id as string, path)
             .then((res) => {
@@ -242,9 +243,9 @@ const IllnessForm: FC<IllnessFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
+          className="space-y-8 w-full "
         >
-          <div className="col-span-2 lg:col-span-4 max-w-md ">
+          <div className="col-span-2  lg:col-span-4 max-w-md ">
             {files.length > 0 ? (
               <div className="h-96 md:h-[450px] overflow-hidden rounded-md">
                 <AspectRatio ratio={1 / 1} className="relative h-full">
@@ -257,10 +258,10 @@ const IllnessForm: FC<IllnessFormProps> = ({
                 name="images"
                 render={({ field: { onChange }, ...field }) => (
                   <FormItem>
-                    <FormLabel className="mx-auto cursor-pointer bg-transparent rounded-xl flex flex-col justify-center gap-4 items-center border-2 border-black/20 dark:border-white/20 border-dashed w-full h-24 shadow  ">
+                    <FormLabel className="mx-auto cursor-pointer bg-transparent rounded-xl flex flex-col justify-center gap-4 items-center border-2  dark:border-white/20 border-dashed w-full h-24 shadow  ">
                       {/* <FileUp size={42} className=" " /> */}
                       <span
-                        className={cn(buttonVariants({ variant: 'ghost' }))}
+                        className={cn(buttonVariants({ variant: 'default' }))}
                       >
                         انتخاب عکس
                       </span>
@@ -310,7 +311,7 @@ const IllnessForm: FC<IllnessFormProps> = ({
               />
             )}
           </div>
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8 space-y-8">
             <FormField
               control={form.control}
               name="name"
@@ -359,6 +360,7 @@ const IllnessForm: FC<IllnessFormProps> = ({
                     }))}
                     onValueChange={(data) => field.onChange(data)}
                     defaultValue={[]}
+                    // disabled={!!initialData}
                     placeholder="انتخاب تخصص"
                     variant="inverted"
                     animation={2}
@@ -385,6 +387,7 @@ const IllnessForm: FC<IllnessFormProps> = ({
                     }))}
                     onValueChange={(data) => field.onChange(data)}
                     defaultValue={[]}
+                    // disabled={!!initialData}
                     placeholder="انتخاب دکتر(های) معالج"
                     variant="inverted"
                     animation={2}
