@@ -1,8 +1,3 @@
-import special1 from '@/public/images/parallax/0001.webp'
-import special2 from '@/public/images/parallax/0020.webp'
-import special3 from '@/public/images/parallax/0017.webp'
-import special4 from '@/public/images/parallax/0000.webp'
-
 export const footerLinks = [
   {
     title: 'بیماری‌ها',
@@ -1262,7 +1257,7 @@ export const slider = [
   {
     id: '4',
     name: 'غدد و متابولیسم',
-    imageUrl: '/images/head-1-sm.jpg',
+    imageUrl: '/images/head-6.webp',
     // imagUrlSm: '/images/',
   },
 ]

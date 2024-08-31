@@ -138,33 +138,6 @@ html {
   /* transform: translateX(-100%); */
 }
 
-.headGradient /* resulting css */ {
-  /* resulting css */
-
-  filter: contrast(150%) brightness(150%);
-  background: linear-gradient(
-    0deg,
-    rgba(192, 192, 193, 0.63),
-    rgba(0, 0, 0, 0.23)
-  );
-  background-image: url('/noise-svg/noise2.svg');
-}
-
-.videoContainer::after {
-  filter: contrast(150%) brightness(150%);
-  background: linear-gradient(
-    0deg,
-    rgba(192, 192, 193, 0.63),
-    rgba(0, 0, 0, 0.23)
-  );
-  background-image: url('/noise-svg/noise2.svg');
-}
-.dark .videoContainer::after {
-  filter: contrast(180%) brightness(60%);
-  background: linear-gradient(0deg, rgba(7, 7, 44, 0.63), rgba(0, 0, 0, 0.23));
-  background-image: url('/noise-svg/noise1.svg');
-}
-
 .grainy {
   background-color: hsla(0, 0%, 100%, 0.68);
   background-image: radial-gradient(

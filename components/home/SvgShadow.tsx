@@ -22,8 +22,8 @@ function SvgShadow({ className }: Props) {
       >
         <defs>
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="#FFB6C1" offset="0%" />
-            <stop stop-color="#add8e6" offset="100%" />
+            <stop stopColor="#FFB6C1" offset="0%" />
+            <stop stopColor="#add8e6" offset="100%" />
           </linearGradient>
         </defs>
         <path
@@ -33,8 +33,8 @@ function SvgShadow({ className }: Props) {
         />
         <defs>
           <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="#FFB6C1" offset="0%" />
-            <stop stop-color="#add8e6" offset="100%" />
+            <stop stopColor="#FFB6C1" offset="0%" />
+            <stop stopColor="#add8e6" offset="100%" />
           </linearGradient>
         </defs>
         <path

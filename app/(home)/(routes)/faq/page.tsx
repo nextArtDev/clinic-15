@@ -77,7 +77,7 @@ async function FAQPage({}: Props) {
       <article className="flex flex-col items-center justify-center">
         {!beforeRated && <FaqComment user={userWithPic} />}
 
-        <UserReviews reviews={reviews} />
+        {!!reviews.length && <UserReviews reviews={reviews} />}
       </article>
     </section>
   )

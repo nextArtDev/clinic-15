@@ -311,7 +311,7 @@ export async function globalHomeSearch(params: SearchParams) {
   }
 }
 
-export const getIlPersonnel = async () => {
+export const getAllPersonnel = async () => {
   try {
     const personnel = await prisma.personnel.findMany({
       where: {},

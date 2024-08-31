@@ -86,9 +86,9 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
             }}
           >
             <div className="pb-4">
-              <StarRating value={rating} disabled icon={Heart} />
+              <StarRating value={rating} disabled />
             </div>
-            <p className="m-0 text-center text-2xl font-medium tracking-tight">
+            <p className="m-0 text-center text-secondary text-2xl font-medium tracking-tight">
               &quot;{text}&quot;
             </p>
             <div className="mx-auto mt-5">

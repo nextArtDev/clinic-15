@@ -19,7 +19,7 @@ async function page({
   })
   if (!doctors?.doctors)
     return (
-      <p className="w-full h-full flex items-center justify-center text-muted text-2xl">
+      <p className="w-full h-screen flex items-center justify-center text-muted text-2xl">
         هیچ دکتری اضافه نشده است.
       </p>
     )

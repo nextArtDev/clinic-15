@@ -14,17 +14,26 @@ import {
   getAllIllnesses,
   getAllReviews,
   getAllSpecializations,
-  getIlPersonnel,
+  getAllPersonnel,
 } from '@/lib/queries/home'
 import { prisma } from '@/lib/prisma'
 import PersonnelCarousel from '@/components/home/personnel/PersonnelCarousel'
 
 const HomePage = async () => {
-  const specializations = await getAllSpecializations({})
-  const doctors = await getAllDoctors({})
-  const illnesses = await getAllIllnesses({})
-  const personnel = await getIlPersonnel()
-  const reviews = await getAllReviews()
+  const specializationsPromise = getAllSpecializations({})
+  const doctorsPromise = getAllDoctors({})
+  const illnessesPromise = getAllIllnesses({})
+  const personnelPromise = getAllPersonnel()
+  const reviewsPromise = getAllReviews()
+
+  const [specializations, doctors, illnesses, personnel, reviews] =
+    await Promise.all([
+      specializationsPromise,
+      doctorsPromise,
+      illnessesPromise,
+      personnelPromise,
+      reviewsPromise,
+    ])
   return (
     <div className="relative gradient-base">
       <Hero />
@@ -32,26 +41,26 @@ const HomePage = async () => {
       {/* <Carousel slides={slider} /> */}
       <StackCards />
 
-      {doctors?.doctors?.length && (
+      {!!doctors?.doctors?.length && (
         <section className="relative my-24">
           <DoctorCarousel slides={doctors.doctorsWithRatings} />
         </section>
       )}
-      {personnel?.length && (
+      {!!personnel?.length && (
         <section className="relative my-24">
           <PersonnelCarousel slides={personnel} />
         </section>
       )}
-      {specializations?.specializations?.length && (
+      {!!specializations?.specializations?.length && (
         <section className="relative ">
           <Slider specializations={specializations.specializations} />
         </section>
       )}
       {/* <DoctorCarousel slides={doctors} /> */}
-      {illnesses?.illnesses?.length && (
+      {!!illnesses?.illnesses?.length && (
         <IllnessCarousel slides={illnesses?.illnesses} />
       )}
-      {reviews?.length && <Reviews reviews={reviews} />}
+      {!!reviews?.length && <Reviews reviews={reviews} />}
       <Footer
         specializations={specializations?.specializations}
         doctors={doctors?.doctors}

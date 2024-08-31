@@ -12,7 +12,7 @@ const UserReviews: FC<UserReviewsProps> = ({ reviews }) => {
   const testimonials = reviews?.map((review) => {
     return {
       text: review.comment,
-      author: review.user!.name!,
+      author: review.user?.name || '',
       rating: review.rating,
       created_time: review.created_at,
     }

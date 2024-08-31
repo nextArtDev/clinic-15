@@ -202,10 +202,10 @@ const SpecializationForm: FC<SpecializationFormProps> = ({
                 name="images"
                 render={({ field: { onChange }, ...field }) => (
                   <FormItem>
-                    <FormLabel className="mx-auto cursor-pointer bg-transparent rounded-xl flex flex-col justify-center gap-4 items-center border-2 border-black/20 dark:border-white/20 border-dashed w-full h-24 shadow  ">
+                    <FormLabel className="mx-auto cursor-pointer bg-transparent rounded-xl flex flex-col justify-center gap-4 items-center border-2   border-dashed w-full h-24 shadow  ">
                       {/* <FileUp size={42} className=" " /> */}
                       <span
-                        className={cn(buttonVariants({ variant: 'ghost' }))}
+                        className={cn(buttonVariants({ variant: 'default' }))}
                       >
                         انتخاب عکس
                       </span>

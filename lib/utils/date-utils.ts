@@ -35,7 +35,7 @@ function formatDistance(token: string, count: number, options?: any): string {
 
   if (options.addSuffix) {
     if (options.comparison > 0) {
-      return 'در ' + result
+      return '' + result
     } else {
       if (result === 'همین الان') return result
       return result + ' پیش '
