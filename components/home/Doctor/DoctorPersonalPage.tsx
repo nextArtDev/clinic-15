@@ -117,7 +117,7 @@ pageProps) {
                 />
               </motion.figure>
               <div className="mt-6 min-w-0 flex flex-col gap-2 justify-center ">
-                <h1 className=" text-2xl font-bold text-blue-950">
+                <h1 className=" text-2xl font-bold title-color">
                   دکتر {doctor.name}
                 </h1>
                 {!!rate && (
@@ -150,7 +150,7 @@ pageProps) {
                     <ul
                       className={cn(
                         'font-semibold',
-                        'flex flex-wrap gap-x-2 py-4  items-center '
+                        'flex flex-wrap gap-x-2 py-4  items-center flex-row-reverse '
                       )}
                     >
                       {doctor?.open_time?.map((booking) => (

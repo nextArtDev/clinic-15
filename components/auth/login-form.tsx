@@ -86,10 +86,7 @@ export const LoginForm = () => {
       className="rounded-sm border-nome "
     >
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 text-primary-foreground"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6   ">
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -136,7 +133,7 @@ export const LoginForm = () => {
                     size="sm"
                     variant="link"
                     asChild
-                    className="px-0 font-normal text-primary-foreground"
+                    className="px-0 font-normal  "
                   >
                     <Link href="/reset">رمز عبور را فراموش کرده‌اید؟</Link>
                   </Button>

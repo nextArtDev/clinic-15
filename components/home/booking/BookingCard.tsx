@@ -1,21 +1,19 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { cn, convertDaysToArray, getDayNameFromIndex } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns-jalali'
+import { faIR } from 'date-fns/locale'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { faIR } from 'date-fns/locale'
-import jalaali from 'jalaali-js'
-import { cn, convertDaysToArray, getDayNameFromIndex } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 
-import Confetti from 'react-confetti'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,22 +24,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Availability, BookedDay, Doctor, TimeSlot } from '@prisma/client'
-import { FC, useEffect, useState, useTransition } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Availability, BookedDay, TimeSlot } from '@prisma/client'
+import { FC, useEffect, useState, useTransition } from 'react'
 
 import { holidayDays } from '../../../constants/holidays'
 
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { createBooking } from '@/lib/actions/booking/booking'
 import { bookingFormSchema } from '@/lib/schemas/booking'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -234,28 +222,22 @@ const BookingCard: FC<BookingCardProps> = ({
               />
             </div>
           ) : (
-            selectedTime && (
+            selectedTime &&
+            !modal && (
               <article className="bg-transparent border-none flex flex-col items-center justify-between font-semibold">
-                <Card>
-                  <CardContent className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
-                    <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
-                      {' '}
-                      {`شما برای روز ${format(
-                        form.getValues('dob'),
-                        'yyyy/MM/dd'
-                      )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
-                    </p>
-                    <CardFooter>
-                      <Button
-                        disabled={isPending}
-                        className="w-full"
-                        type="submit"
-                      >
-                        تایید نوبت
-                      </Button>
-                    </CardFooter>
-                  </CardContent>
-                </Card>
+                <div className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
+                  <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
+                    {' '}
+                    {`شما برای روز ${format(
+                      form.getValues('dob'),
+                      'yyyy/MM/dd'
+                    )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
+                  </p>
+
+                  <Button disabled={isPending} className="w-full" type="submit">
+                    تایید نوبت
+                  </Button>
+                </div>
               </article>
             )
           )}

@@ -7,6 +7,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <Link href="/" className="absolute top-12 right-8">
         <Home className="text-primary" />
       </Link>
+
       {children}
     </div>
   )

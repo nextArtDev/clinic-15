@@ -12,7 +12,9 @@ import Reviews from '@/components/home/review/Reviews'
 import {
   getAllDoctors,
   getAllIllnesses,
+  getAllReviews,
   getAllSpecializations,
+  getIlPersonnel,
 } from '@/lib/queries/home'
 import { prisma } from '@/lib/prisma'
 import PersonnelCarousel from '@/components/home/personnel/PersonnelCarousel'
@@ -21,17 +23,8 @@ const HomePage = async () => {
   const specializations = await getAllSpecializations({})
   const doctors = await getAllDoctors({})
   const illnesses = await getAllIllnesses({})
-  const personnel = await prisma.personnel.findMany({
-    where: {},
-    include: {
-      images: {
-        select: {
-          url: true,
-        },
-      },
-    },
-  })
-
+  const personnel = await getIlPersonnel()
+  const reviews = await getAllReviews()
   return (
     <div className="relative gradient-base">
       <Hero />
@@ -58,7 +51,7 @@ const HomePage = async () => {
       {illnesses?.illnesses?.length && (
         <IllnessCarousel slides={illnesses?.illnesses} />
       )}
-      <Reviews />
+      {reviews?.length && <Reviews reviews={reviews} />}
       <Footer
         specializations={specializations?.specializations}
         doctors={doctors?.doctors}

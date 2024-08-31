@@ -311,6 +311,46 @@ export async function globalHomeSearch(params: SearchParams) {
   }
 }
 
+export const getIlPersonnel = async () => {
+  try {
+    const personnel = await prisma.personnel.findMany({
+      where: {},
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
+    })
+    return personnel
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllReviews = async () => {
+  try {
+    const personnel = await prisma.review.findMany({
+      where: {},
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        doctor: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    })
+    return personnel
+  } catch (error) {
+    console.log(error)
+  }
+}
 export type ReviewsWithUserAndImage = Review & {
   user:
     | (Partial<User> & {
