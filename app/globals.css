@@ -118,6 +118,9 @@ html {
   .gradient-base-r {
     @apply bg-gradient-to-t from-[#FFF8DC] via-[#ADD8E6] to-[#FFB6C1];
   }
+  .glass {
+    @apply custom-box-shadow backdrop-blur-md  bg-white/30;
+  }
 }
 .clip {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);

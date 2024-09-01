@@ -169,7 +169,7 @@ const Slider = ({ specializations }: SliderProps) => {
         </h1>
         <motion.div
           style={{ scaleX }}
-          className="progressBar mt-3 rounded-full custom-box-shadow backdrop-blur-md bg-white/30 h-2.5   "
+          className="progressBar mt-3 rounded-md custom-box-shadow backdrop-blur-sm bg-white/20"
         ></motion.div>
       </div>
       {specializations.map((item) => (

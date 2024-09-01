@@ -13,6 +13,7 @@ import { Phone } from 'lucide-react'
 import Link from 'next/link'
 import HeroWhatsApp from '../icons/HeroWhatsApp'
 import Carousel from './Carousel'
+import IconRipple from './IconRipple'
 type Props = {}
 
 function Hero({}: Props) {
@@ -41,7 +42,7 @@ function Hero({}: Props) {
       )
       .to('.text-reveal', {
         clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        y: -60,
+        y: -40,
         duration: 0.2,
         delay: 0.25,
       })
@@ -77,7 +78,7 @@ function Hero({}: Props) {
       <div className="container absolute top-10 inset-0 grid place-items-center  ">
         <div className="content text-center z-10 ">
           <div className="content-inner space-y-4">
-            <h1 className="title-color  text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-1 ">
+            <h1 className="title-color custom-box-shadow glass text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
             </h1>
 
@@ -85,32 +86,35 @@ function Hero({}: Props) {
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
           </div>
-          <div className=" text-reveal pt-8 flex gap-x-4 justify-center items-center ">
-            <a href="tel:03137888561" className="flex  gap-1">
+          <div className=" text-reveal !pt-24 p-8 rounded-full flex space-x-12 justify-center items-center ">
+            <a
+              href="tel:03137888561"
+              className="flex flex-col gap-3 px-8 animate-pulse"
+            >
               {/* <span className=" text-lg underline underline-offset-2 decoration-red-600 decoration-1 "> */}
-              <Button
+              {/* <Button
                 variant={'ghost'}
                 className={cn('text-lg bg-primary  flex gap-x-2 shadow-2xl ')}
               >
                 تماس
                 <Phone />
-              </Button>
+              </Button> */}
+              <IconRipple icon={Phone} iconColor="red" />
+              <p className="mt-3 text-red-600">تماس</p>
             </a>
             <Link
               href="https://wa.me/+989386472694"
               target="_blank"
-              className="flex  gap-1"
+              className="flex flex-col gap-3  px-8"
             >
               {/* <span className=" text-lg underline underline-offset-2 decoration-green-600 decoration-1 "> */}
-              <Button
+              {/* <Button
                 variant={'ghost'}
-                className={
-                  ' border border-white-70 text-lg flex gap-x-2 shadow-inner '
-                }
+                className={'   text-lg flex gap-x-2 shadow-inner '}
               >
-                پیام
-                <HeroWhatsApp className="mix-blend-multiply text-green-600 " />
-              </Button>
+              </Button> */}
+              <HeroWhatsApp className="w-8 h-8 mix-blend-multiply text-green-600 " />
+              <p className="mt-3 text-green-600">پیام</p>
             </Link>
           </div>
           {/* <div className="z-10 text-center w-full rounded-lg   ">

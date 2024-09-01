@@ -13,7 +13,7 @@ function LogoutForm({ children }: Props) {
   return (
     <form
       action={async () => {
-        const logoutVal = await logout()
+        // const logoutVal = await logout()
         // console.log('lg', logoutVal)
         router.refresh()
       }}

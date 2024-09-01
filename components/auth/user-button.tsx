@@ -38,9 +38,9 @@ export const UserButton = () => {
         className="w-40 cursor-pointer bg-transparent"
         align="center"
       >
-        <DropdownMenuItem className="bg-transparent flex items-center justify-center gap-0.5">
-          {!user?.id ? (
-            <a
+        {!user?.id ? (
+          <DropdownMenuItem className="bg-transparent flex items-center justify-center gap-0.5">
+            <Link
               href={'/login'}
               className={cn(
                 'w-full bg-transparent',
@@ -48,19 +48,22 @@ export const UserButton = () => {
               )}
             >
               ورود
-            </a>
-          ) : (
-            <button
-              onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
+            </Link>
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem className="bg-transparent flex items-center justify-center gap-0.5">
+            <Link
+              href={'/logout'}
+              // onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
             >
               {/* <LogoutButton>
                 </LogoutButton> */}
               <ExitIcon className="h-4 w-4 " />
               خروج
               <p className=" text-2xl">{user?.name}</p>
-            </button>
-          )}
-        </DropdownMenuItem>
+            </Link>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )
