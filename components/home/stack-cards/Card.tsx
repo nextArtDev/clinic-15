@@ -57,7 +57,6 @@ const Card = ({
           i % 2 ? 'gradient-base' : 'gradient-base-r'
         )}
       >
-        <SvgShadow />
         {/* <h2 className="text-primary text-xl md:text-2xl  "></h2> */}
         <h2 className="text-2xl pb-3 text-center font-bold text-pretty  sub-title-color">
           {' '}
@@ -94,6 +93,7 @@ const Card = ({
             </ul>
           </div>
         </div>
+        <SvgShadow />
       </motion.div>
     </div>
   )

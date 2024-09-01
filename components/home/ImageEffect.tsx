@@ -39,7 +39,7 @@ function ImageEffect({ imageSrc, className }: Props) {
     <section
       ref={ref}
       className={cn(
-        'ad flex justify-center items-center  rounded-md    gradient-base-r origin-center scale-75',
+        'ad flex justify-center items-center  rounded-md    gradient-base-r origin-center scale-95',
         className
       )}
       style={{ borderRadius: '15px' }}
@@ -48,7 +48,7 @@ function ImageEffect({ imageSrc, className }: Props) {
       <div
         ref={maskRef}
         style={{ borderRadius: '15px' }}
-        className="mask w-[90vw] h-[70vh] max-w-3xl max-h-3xl rounded-md overflow-hidden gradient-base"
+        className="mask w-[98vw] h-[70vh] max-w-3xl max-h-3xl rounded-md overflow-hidden gradient-base"
       >
         <SvgShadow className={'!z-[3]'} />
         {/* <motion.div

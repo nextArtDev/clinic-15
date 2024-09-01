@@ -34,14 +34,14 @@ const Single = ({ item }: SingleProps) => {
   // const lgScale = useTransform(scrollYProgress, [0, 1], [1, 0])
 
   return (
-    <section>
-      <div className="container flex items-center justify-center w-full h-full overflow-hidden">
+    <>
+      <section className=" flex items-center justify-center w-full h-full overflow-hidden">
         <Link
           href={`/specialities/${item.id}`}
-          className="wrapper relative max-w-[1366px] m-auto flex items-center justify-center gap-12 "
+          className="wrapper relative  max-w-[1366px] m-auto flex items-center justify-center gap-y-12 "
         >
           <motion.div
-            className="imageContainer  p-4  flex-1 m h-full  shrink-0"
+            className="imageContainer  p-1 flex-1  h-full  shrink-0"
             ref={ref}
             // style={{ y }}
           >
@@ -72,7 +72,7 @@ const Single = ({ item }: SingleProps) => {
             }
           >
             <motion.h2
-              className="  text-2xl sub-title-color font-bold"
+              className="custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 py-3 text-2xl md:text-4xl sub-title-color font-bold"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, scale: 1 },
@@ -101,6 +101,7 @@ const Single = ({ item }: SingleProps) => {
                     initial="hidden"
                     whileInView="visible"
                     key={doctor.id}
+                    className="custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 p-4"
                   >
                     <Link
                       href={`/doctors/${doctor.id}`}
@@ -124,8 +125,8 @@ const Single = ({ item }: SingleProps) => {
             </motion.article>
           </motion.div>
         </Link>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
