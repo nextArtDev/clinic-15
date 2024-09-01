@@ -141,24 +141,20 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
               title="بیماری‌ها"
               toggle={handleClick}
             />
-            {!!user?.name ? (
-              <CustomMobileLink
-                href="/login"
-                title="ورود/عضویت"
-                toggle={handleClick}
-              />
-            ) : (
-              // <div className="flex justify-center items-center gap-1">
-              //   <LogoutForm>
-              //     خروج <p>{`(${user?.name})`}</p>
-              //   </LogoutForm>
-              // </div>
+            {!!user ? (
               <CustomMobileLink
                 href="/logout"
                 title="خروج"
                 toggle={handleClick}
               />
+            ) : (
+              <CustomMobileLink
+                href="/login"
+                title="ورود/عضویت"
+                toggle={handleClick}
+              />
             )}
+
             {/* <CustomMobileLink
               href="/inography"
               title="اینوگرافی بیماریها"
