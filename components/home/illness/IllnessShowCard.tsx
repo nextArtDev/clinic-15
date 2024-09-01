@@ -39,7 +39,7 @@ function IllnessShowCard({ illness, dir = 'rtl', isVertical = false }: Props) {
             </BoxReveal>
           </div>
 
-          <div className="z-[2] mix-blend-hard-light flex-1  line-clamp-3 ">
+          <div className="z-[2] m-3 mix-blend-hard-light flex-1  line-clamp-3 custom-box-shadow backdrop-blur-[3px]  rounded-md p-0.5 bg-white/30 ">
             <BoxReveal duration={0.4}>
               <p
                 className={' rounded-2xl h-full  p-2  text-sm  font-semibold '}

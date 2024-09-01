@@ -35,18 +35,18 @@ const StoreMenu: FC<StoreMenuProps> = ({ routes }) => {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col pt-16 gap-y-8 items-start ">
+      <SheetContent className="flex flex-col pt-16 gap-y-4 items-start ">
         {routes.map((route) => (
           <Link
             key={route.href}
             onClick={() => closeSheetRef.current?.click()}
             href={route.href}
             className={cn(
-              buttonVariants({ variant: 'ghost' }),
-              'text-sm w-full font-medium transition-colors hover:text-primary',
-              route.active
-                ? 'text-black underline underline-offset-8 dark:text-white'
-                : 'text-muted-foreground'
+              buttonVariants({ variant: route.active ? 'secondary' : 'ghost' }),
+              'text-sm w-full font-medium transition-colors hover:text-primary'
+              // route.active
+              //   ? 'text-black underline underline-offset-8 dark:text-white'
+              //   : 'text-muted-foreground'
             )}
           >
             {route.label}

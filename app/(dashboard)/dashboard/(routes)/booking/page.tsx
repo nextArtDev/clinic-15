@@ -53,12 +53,10 @@ async function page({}: Props) {
         className="max-w-[96vw] mx-auto py-8 "
       >
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="table">وضعیت نوبت‌ها</TabsTrigger>
-          <TabsTrigger value="availability">تنظیم نوبتها</TabsTrigger>
-          <TabsTrigger value="disableEspecialDay">
-            غیرفعال کردن روزانه
-          </TabsTrigger>
-          <TabsTrigger value="disabledBooks">نوبتهای غیرفعال شده</TabsTrigger>
+          <TabsTrigger value="table">نوبتها</TabsTrigger>
+          <TabsTrigger value="availability">تنظیم</TabsTrigger>
+          <TabsTrigger value="disableEspecialDay">کنسلی روزانه</TabsTrigger>
+          <TabsTrigger value="disabledBooks">کنسلی‌ها</TabsTrigger>
         </TabsList>
         <TabsContent value="table">
           {bookedDays?.length && formattedBookedDays?.length && (

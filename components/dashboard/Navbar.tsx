@@ -1,6 +1,7 @@
 import { MainNav } from './MainNav'
 // import { ThemeToggle } from '../ui/theme-toggle'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import { UserButton } from '../auth/user-button'
 // import { ModeToggle } from '../theme-toggle'
 
 // import StoreSwitcher from '@/components/store-switcher'
@@ -26,7 +27,7 @@ const Navbar = () => {
           {/* ml-auto push everything to the right */}
           <div className="mr-auto flex items-center text-right gap-4 space-x-4">
             {/* //Should be fixed */}
-            {/* <UserButton /> */}
+            <UserButton />
 
             {/* <div className="hidden sm:block">{session.user.name}</div> */}
             {/* <ModeToggle /> */}

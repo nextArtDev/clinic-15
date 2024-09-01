@@ -25,7 +25,7 @@ function Reviews({ reviews }: Props) {
     }
   })
   const doctorReviews = review.filter((review) => !review.isFaq).slice(0, 7)
-  const clinicReviews = review.filter((review) => review.isFaq).slice(0, 7)
+  const clinicReviews = review.filter((review) => review.isFaq).slice(7, 14)
 
   return (
     <div
@@ -39,9 +39,9 @@ function Reviews({ reviews }: Props) {
         {' '}
         نظرات
       </h1>
-      <div className="flex flex-col" dir="ltr">
+      <div className="flex flex-col">
         <Marquee reverse pauseOnHover repeat={7} className="[--duration:30s]">
-          {clinicReviews.map((marquee) => (
+          {review.slice(0, 7).map((marquee) => (
             <Link
               key={marquee.id}
               href={marquee.isFaq ? '/faq' : `/doctors/${marquee.doctorId}`}
@@ -50,8 +50,9 @@ function Reviews({ reviews }: Props) {
             </Link>
           ))}
         </Marquee>
-        <Marquee pauseOnHover className="[--duration:30s] ">
-          {doctorReviews.map((marquee) => (
+
+        <Marquee pauseOnHover repeat={7} className="[--duration:30s] ">
+          {review.slice(7, 14).map((marquee) => (
             <Link
               key={marquee.id}
               href={marquee.isFaq ? '/faq' : `/doctors/${marquee.doctorId}`}

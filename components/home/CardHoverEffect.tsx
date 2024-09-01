@@ -54,14 +54,14 @@ export const HoverEffect = ({
           <Card>
             <div className="flex flex-col  items-center justify-evenly text-center gap-2">
               <CardTitle className=" ">{item.title}</CardTitle>
-              <figure className="relative w-10 h-10">
+              {/* <figure className="relative w-10 h-10">
                 <Image
                   alt={item.title}
                   fill
                   src={item.url || '/images/parallax/0000.webp'}
                   className=" object-cover"
                 />
-              </figure>
+              </figure> */}
             </div>
             {/* <CardDescription>{item.description}</CardDescription> */}
           </Card>
@@ -81,7 +81,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        'rounded-2xl h-full w-full p-4 overflow-hidden gradient-base border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20',
+        ' h-full w-full p-4 overflow-hidden custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20',
         className
       )}
     >
@@ -99,7 +99,9 @@ export const CardTitle = ({
   children: React.ReactNode
 }) => {
   return (
-    <h4 className={cn('text-primary font-bold tracking-wide mt-4', className)}>
+    <h4
+      className={cn('text-secondary font-bold tracking-wide mt-4', className)}
+    >
       {children}
     </h4>
   )
