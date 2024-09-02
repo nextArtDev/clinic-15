@@ -1,6 +1,7 @@
 'use server'
 import { prisma } from '@/lib/prisma'
 import { Review, User } from '@prisma/client'
+import { cache } from 'react'
 
 export interface GetSpecializationParams {
   page?: number
@@ -47,7 +48,7 @@ export const getAllSpecializations = async (
   }
 }
 
-export const getSpecializationWithId = async ({ id }: { id: string }) => {
+export const getSpecializationWithId = cache(async ({ id }: { id: string }) => {
   try {
     const specialization = await prisma.specialization.findUnique({
       where: { id },
@@ -66,7 +67,7 @@ export const getSpecializationWithId = async ({ id }: { id: string }) => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 
 export interface GetDoctorParams {
   page?: number
@@ -124,7 +125,7 @@ export const getAllDoctors = async (params: GetDoctorParams) => {
   }
 }
 
-export const getDoctorById = async ({ id }: { id: string }) => {
+export const getDoctorById = cache(async ({ id }: { id: string }) => {
   try {
     const doctor = await prisma.doctor.findUnique({
       where: { id },
@@ -149,7 +150,7 @@ export const getDoctorById = async ({ id }: { id: string }) => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 
 export const getAllDoctorsWithReviews = async () => {
   try {
@@ -203,7 +204,7 @@ export const getAllIllnesses = async (params: GetIllnessParams) => {
     console.log(error)
   }
 }
-export const getIllnessesById = async ({ id }: { id: string }) => {
+export const getIllnessesById = cache(async ({ id }: { id: string }) => {
   try {
     const illness = await prisma.illness.findUnique({
       where: { id },
@@ -215,7 +216,7 @@ export const getIllnessesById = async ({ id }: { id: string }) => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 // Global Search
 export interface SearchParams {
   query?: string | null

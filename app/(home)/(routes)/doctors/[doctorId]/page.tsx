@@ -3,8 +3,28 @@ import { currentUser } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { getDoctorById } from '@/lib/queries/home'
 import { getAllAvailabilitiesByDoctorId } from '@/lib/queries/home/booking'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { doctorId: string }
+}): Promise<Metadata> {
+  const doctor = await getDoctorById({ id: params.doctorId })
+
+  return {
+    title: 'دکتر' + ' ' + doctor?.doctor?.name,
+    description: doctor?.doctor?.description,
+    openGraph: {
+      images: [
+        {
+          url: doctor?.doctor?.images[0].url || '',
+        },
+      ],
+    },
+  }
+}
 const DoctorPage = async ({ params }: { params: { doctorId: string } }) => {
   const doctor = await getDoctorById({ id: params.doctorId })
   if (!doctor?.doctor) notFound()

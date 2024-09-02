@@ -1,6 +1,29 @@
 import SpecializationPage from '@/components/home/specializations/SpecializationPage'
 import { getSpecializationWithId } from '@/lib/queries/home'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { specializationId: string }
+}): Promise<Metadata> {
+  const specialization = await getSpecializationWithId({
+    id: params.specializationId,
+  })
+
+  return {
+    title: specialization?.name,
+    description: specialization?.description,
+    openGraph: {
+      images: [
+        {
+          url: specialization?.images[0].url || '',
+        },
+      ],
+    },
+  }
+}
 
 const page = async ({ params }: { params: { specializationId: string } }) => {
   const specialization = await getSpecializationWithId({

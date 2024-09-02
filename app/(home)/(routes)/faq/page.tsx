@@ -5,6 +5,15 @@ import Accordion from '@/components/home/faq/Accordion'
 import FaqComment from '@/components/home/faq/FaqComment'
 import { currentUser } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  // by default for other pages: title - new page title
+  // use title:{ absolute:'..'} to not contain this part in other pages title
+  title: 'نظرات و سوالات متداول',
+  description:
+    'درمانگاه شبانه‌روزی آیین شفق | اصفهان، ابتدای اتوبان ذوب آهن، بلوار شفق',
+}
 
 type Props = {}
 
