@@ -63,7 +63,7 @@ const DoctorCarousel: React.FC<PropType> = (props) => {
         <h2 className="text-2xl text-center font-bold text-pretty title-color mix-blend-multiply ">
           {' '}
           کادر درمان
-          <BorderBeam size={120} duration={6} delay={3} />
+          {/* <BorderBeam size={120} duration={6} delay={3} /> */}
         </h2>
         <div
           className={`${style.embla__progress} mt-6 !custom-box-shadow !backdrop-blur-md !bg-white/30  `}

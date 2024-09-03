@@ -57,16 +57,28 @@ export async function createBooking(
   // console.log('res', result.data)
   try {
     const user = await currentUser()
-    if (!user?.id) {
-      redirect('/login')
-    }
-    if (user.role !== 'ADMIN') {
+    // console.log(!user?.id)
+    if (!user?.id)
       return {
         errors: {
-          _form: ['شمااجازه دسترسی ندارید!'],
+          _form: ['شمااجازه دسترسی ندارید، به حساب کاربری خود وارد شوید.!'],
         },
       }
-    }
+
+    // if (!user) {
+    //   return {
+    //     errors: {
+    //       _form: ['شمااجازه دسترسی ندارید!'],
+    //     },
+    //   }
+    // }
+    // if (user.role !== 'ADMIN') {
+    //   return {
+    //     errors: {
+    //       _form: ['شمااجازه دسترسی ندارید!'],
+    //     },
+    //   }
+    // }
 
     const doctor = await prisma.doctor.findFirst({
       where: {
@@ -103,7 +115,7 @@ export async function createBooking(
     if (isBookedBefore)
       return {
         errors: {
-          _form: ['این نوبت قبلا گرفته شده است!'],
+          _form: ['این نوبت قبلا رزرو شده است!'],
         },
       }
     const bookedDayUpdate = await prisma.bookedDay.create({
@@ -144,6 +156,6 @@ export async function createBooking(
   }
 
   revalidatePath(path)
-  // redirect(`/doctors/${doctorId}?confetti=true`)
+
   redirect(`/doctors/${doctorId}`)
 }

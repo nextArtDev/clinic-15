@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { cn, convertDaysToArray, getDayNameFromIndex } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,15 +25,21 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Availability, BookedDay, TimeSlot } from '@prisma/client'
+import { Availability, BookedDay, TimeSlot, User } from '@prisma/client'
 import { FC, useEffect, useState, useTransition } from 'react'
 
 import { holidayDays } from '../../../constants/holidays'
 
 import { createBooking } from '@/lib/actions/booking/booking'
 import { bookingFormSchema } from '@/lib/schemas/booking'
-import { usePathname, useSearchParams } from 'next/navigation'
+import {
+  redirect,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 import { toast } from 'sonner'
+import Link from 'next/link'
 interface BookingCardProps {
   availabilities:
     | (Availability & {
@@ -42,12 +48,14 @@ interface BookingCardProps {
     | null
   doctorId: string
   disabledDaysByDoctor?: string[][]
+  user: (User & { image: { url: string } | null }) | null
 }
 
 const BookingCard: FC<BookingCardProps> = ({
   availabilities,
   doctorId,
   disabledDaysByDoctor,
+  user,
 }) => {
   const [modal, setModal] = useState('')
   // console.log(modal)
@@ -57,6 +65,7 @@ const BookingCard: FC<BookingCardProps> = ({
   const path = usePathname()
   const searchParams = useSearchParams()
   const confetti = searchParams.get('confetti')
+  const router = useRouter()
   // console.log(searchParams.get('confetti'))
 
   const [isPending, startTransition] = useTransition()
@@ -123,13 +132,14 @@ const BookingCard: FC<BookingCardProps> = ({
                 message: res?.errors.dob?.join(' و '),
               })
             } else if (res?.errors?._form) {
-              toast.error(res?.errors._form?.join(' و '))
               form.setError('root', {
                 type: 'custom',
                 message: res?.errors?._form?.join(' و '),
               })
+              toast.error(res?.errors._form?.join(' و '))
+            } else {
+              toast.success('نوبت شما رزرو شد')
             }
-            toast.success('نوبت شما رزرو شد')
           })
           .catch(() => console.log('مشکلی پیش آمده.'))
       })
@@ -299,14 +309,28 @@ const BookingCard: FC<BookingCardProps> = ({
                   return null // Return null if the day doesn't match
                 })}
               </ScrollArea>
+              {/* {!!user ? ( */}
               <Button
                 className="w-full mt-8  "
                 // type="submit"
                 onClick={() => setModal('')}
                 disabled={!selectedTime || isPending}
               >
-                تایید روز
+                {!user?.id ? (
+                  'تایید روز و ساعت'
+                ) : (
+                  <Link href={'/login'}>ورود/عضویت</Link>
+                )}
               </Button>
+              {/* // ) : (
+              //   <Link
+              //     onClick={() => setModal('')}
+              //     className={cn(buttonVariants({ variant: 'destructive' }))}
+              //     href={'/login'}
+              //   >
+              //     ورود/عضویت
+              //   </Link>
+              // )} */}
             </DialogContent>
           </Dialog>
         </form>

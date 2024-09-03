@@ -173,6 +173,7 @@ pageProps) {
                     availabilities={availabilities}
                     disabledDaysByDoctor={disabledDaysByDoctor}
                     doctorId={doctor.id}
+                    user={user}
                   />
                 )}
                 {/* <BookedDaysCard doctor={doctor} bookedDays={bookedDays} /> */}
@@ -210,7 +211,7 @@ pageProps) {
               </ul>
             </div>
           )}
-          {!beforeRated && <DoctorComment doctor={doctor} user={user} />}
+          {!!!beforeRated && <DoctorComment doctor={doctor} user={user} />}
           <UserReviews reviews={doctor.reviews} />
           {/* <div className="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
             <h1 className="truncate text-2xl font-bold text-gray-900">

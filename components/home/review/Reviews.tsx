@@ -39,7 +39,7 @@ function Reviews({ reviews }: Props) {
       <h1 className="text-2xl  text-center font-bold text-pretty p-2 title-color mix-blend-multiply">
         {' '}
         نظرات
-        <BorderBeam size={120} duration={6} delay={3} />
+        {/* <BorderBeam size={120} duration={6} delay={3} /> */}
       </h1>
       <div className="flex flex-col mt-8">
         <Marquee reverse pauseOnHover repeat={7} className="[--duration:30s]">
