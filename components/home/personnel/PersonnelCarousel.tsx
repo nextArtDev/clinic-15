@@ -9,6 +9,7 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import { Personnel } from '@prisma/client'
 import Link from 'next/link'
 import PersonnelReservationCard from './PersonnelReservationCard'
+import { BorderBeam } from '../BorderBeam'
 
 type PropType = {
   slides: (Personnel & { images: { url: string | null }[] })[]
@@ -17,7 +18,7 @@ type PropType = {
 const PersonnelCarousel: React.FC<PropType> = (props) => {
   const { slides } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, direction: 'rtl' },
+    { loop: true, direction: 'rtl', watchDrag: false },
     [AutoScroll({}) as any]
   )
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -43,9 +44,10 @@ const PersonnelCarousel: React.FC<PropType> = (props) => {
         <h2 className="text-2xl text-center font-bold text-pretty title-color mix-blend-multiply ">
           {' '}
           پرسنل کلینیک
+          <BorderBeam size={120} duration={6} delay={3} />
         </h2>
         <div
-          className={`${style.embla__progress} !custom-box-shadow !backdrop-blur-md !bg-white/30  `}
+          className={`${style.embla__progress} mt-6 !custom-box-shadow !backdrop-blur-md !bg-white/30  `}
         >
           <div
             className={`${style.embla__progress__bar} !custom-box-shadow !backdrop-blur-md !bg-white/30`}
@@ -53,11 +55,11 @@ const PersonnelCarousel: React.FC<PropType> = (props) => {
           />
         </div>
       </div>
-      <div className={`${style.embla__viewport}`} ref={emblaRef}>
-        <div className={`${style.embla__container}`}>
+      <div className={` ${style.embla__viewport}`} ref={emblaRef}>
+        <div className={` ${style.embla__container}`}>
           {slides.map((personnel) => (
-            <div className={`${style.embla__slide}`} key={personnel.id}>
-              <div className={`relative pt-6 ${style.embla__slide__number}`}>
+            <div className={`  ${style.embla__slide}`} key={personnel.id}>
+              <div className={`relative pt-6  ${style.embla__slide__number}`}>
                 <PersonnelReservationCard dir="rtl" personnel={personnel} />
               </div>
             </div>

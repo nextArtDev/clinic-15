@@ -7,6 +7,7 @@ import style from '../Doctor/DoctorsCarousel.module.css'
 import AutoScroll from 'embla-carousel-auto-scroll'
 
 import IllnessShowCard from './IllnessShowCard'
+import { BorderBeam } from '../BorderBeam'
 
 type PropType = {
   slides: any
@@ -68,6 +69,7 @@ const IllnessCarousel: React.FC<PropType> = (props) => {
         <h1 className="text-2xl title-color text-center font-bold text-pretty mix-blend-multiply ">
           {' '}
           بیماری‌ها
+          <BorderBeam size={120} duration={6} delay={3} />
         </h1>
         <div
           className={`${style.embla__progress} !custom-box-shadow !backdrop-blur-md !bg-white/30 mb-6 `}

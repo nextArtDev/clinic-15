@@ -287,7 +287,7 @@ export async function globalHomeSearch(params: SearchParams) {
       //@ts-ignore
       const queryResults = await modelInfo.model.findMany({
         where: { [modelInfo.searchField]: regexQuery },
-        take: 8,
+        take: 5,
       })
 
       results = queryResults.map((item: any) => ({

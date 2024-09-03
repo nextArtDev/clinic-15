@@ -1238,8 +1238,8 @@ export const special = [
 export const slider = [
   {
     id: '1',
-    name: 'زنان و زایمان',
-    imageUrl: '/images/head-1.webp',
+    name: 'غدد و متابولیسم',
+    imageUrl: '/images/head-6.webp',
     // imagUrlSm: '/images/',
   },
   {
@@ -1256,8 +1256,8 @@ export const slider = [
   },
   {
     id: '4',
-    name: 'غدد و متابولیسم',
-    imageUrl: '/images/head-6.webp',
+    name: 'زنان و زایمان',
+    imageUrl: '/images/head-1.webp',
     // imagUrlSm: '/images/',
   },
 ]

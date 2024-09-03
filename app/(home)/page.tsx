@@ -38,7 +38,7 @@ const HomePage = async () => {
     <div className="relative gradient-base">
       <Hero />
       <Deal />
-      {/* <Carousel slides={slider} /> */}
+
       <StackCards />
 
       {!!doctors?.doctors?.length && (

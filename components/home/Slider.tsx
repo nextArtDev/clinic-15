@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { Doctor, Specialization } from '@prisma/client'
 import { Badge } from '../ui/badge'
 import Link from 'next/link'
+import { BorderBeam } from './BorderBeam'
 
 interface SingleProps {
   item: Specialization & { images: { url: string }[] | null } & {
@@ -164,8 +165,9 @@ const Slider = ({ specializations }: SliderProps) => {
       style={{ position: 'relative' }}
     >
       <div className="progress z-30 sticky top-8 left-0  py-8 text-center text-primary text-xl font-semibold ">
-        <h1 className="text-3xl md:text-5xl title-color mix-blend-multiply ">
+        <h1 className="text-3xl w-fit mx-auto md:text-5xl title-color mix-blend-multiply  p-2">
           کلینیک‌ها
+          <BorderBeam size={170} duration={6} delay={3} />
         </h1>
         <motion.div
           style={{ scaleX }}

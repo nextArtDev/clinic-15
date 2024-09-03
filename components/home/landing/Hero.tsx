@@ -42,7 +42,7 @@ function Hero({}: Props) {
       )
       .to('.text-reveal', {
         clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        y: -40,
+        y: -70,
         duration: 0.2,
         delay: 0.25,
       })
@@ -86,7 +86,7 @@ function Hero({}: Props) {
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
           </div>
-          <div className=" text-reveal !pt-24 p-8 rounded-full flex space-x-12 justify-center items-center ">
+          <div className="  text-reveal pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
             <a
               href="tel:03137888561"
               className="flex flex-col gap-3 px-8 animate-pulse"

@@ -5,6 +5,7 @@ import { Review } from '@prisma/client'
 import { formatTimeToNow } from '@/lib/utils/date-utils'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { BorderBeam } from '../BorderBeam'
 
 type Props = {
   reviews: (Review & { doctor: { id: string } | null } & {
@@ -35,11 +36,12 @@ function Reviews({ reviews }: Props) {
         reviews.length > 6 ? 'h-[600px]' : 'h-[350px]'
       )}
     >
-      <h1 className="text-2xl pb-8 text-center font-bold text-pretty title-color mix-blend-multiply">
+      <h1 className="text-2xl  text-center font-bold text-pretty p-2 title-color mix-blend-multiply">
         {' '}
         نظرات
+        <BorderBeam size={120} duration={6} delay={3} />
       </h1>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-8">
         <Marquee reverse pauseOnHover repeat={7} className="[--duration:30s]">
           {review.slice(0, 7).map((marquee) => (
             <Link

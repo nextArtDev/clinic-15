@@ -14,6 +14,7 @@ import {
 import { DateTag, Doctor } from '@prisma/client'
 import DoctorReservationCard from './DoctorReservationCard'
 import Link from 'next/link'
+import { BorderBeam } from '../BorderBeam'
 
 type PropType = {
   slides: (Doctor & { images: { url: string | null }[] } & {
@@ -62,9 +63,10 @@ const DoctorCarousel: React.FC<PropType> = (props) => {
         <h2 className="text-2xl text-center font-bold text-pretty title-color mix-blend-multiply ">
           {' '}
           کادر درمان
+          <BorderBeam size={120} duration={6} delay={3} />
         </h2>
         <div
-          className={`${style.embla__progress} !custom-box-shadow !backdrop-blur-md !bg-white/30  `}
+          className={`${style.embla__progress} mt-6 !custom-box-shadow !backdrop-blur-md !bg-white/30  `}
         >
           <div
             className={`${style.embla__progress__bar} !custom-box-shadow !backdrop-blur-md !bg-white/30`}
