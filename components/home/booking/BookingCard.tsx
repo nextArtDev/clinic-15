@@ -316,7 +316,7 @@ const BookingCard: FC<BookingCardProps> = ({
                 onClick={() => setModal('')}
                 disabled={!selectedTime || isPending}
               >
-                {!user?.id ? (
+                {!!user?.id ? (
                   'تایید روز و ساعت'
                 ) : (
                   <Link href={'/login'}>ورود/عضویت</Link>

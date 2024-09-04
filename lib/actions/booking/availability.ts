@@ -7,6 +7,8 @@ import { revalidatePath } from 'next/cache'
 
 import { redirect } from 'next/navigation'
 import { sendCancelBookingSms } from '../auth/sms'
+import { getUserById } from '@/lib/queries/auth/user'
+import { getDoctorById } from '@/lib/queries/home'
 
 export type AvailableDays = {
   dayName: string
@@ -180,32 +182,39 @@ export const createAvailability = async ({
               const OldBookedSlots = allOldSlots.flat().filter((slot) => {
                 return slot.bookedDays && slot.bookedDays.length > 0
               })
-              // console.log('OldBookedSlots', OldBookedSlots)
-              // const OldBookedSlots = await Promise.all(
-              //   allOldSlots?.flat().map(async (slot: any) => {
-              //     return await prisma.bookedDay.findMany({
-              //       where: { timeSlotId: slot.id },
+
+              // console.log(
+              //   'OldBookedSlots',
+              //   OldBookedSlots.map((d) => d.bookedDays)
+              // )
+
+              // const sendSmsForBooked = await Promise.all(
+              //   OldBookedSlots.map( (slot) => slot.bookedDays.map(async ({id, day, userId})=>{})
+              //     return await prisma.timeSlot.findMany({
+              //       where: { id: s.id },
+              //       include: {
+              //         bookedDays: true,
+              //       },
               //       // data: { availabilityId: null },
               //     })
               //   })
               // )
-              // console.log('OldBookedSlots', OldBookedSlots.flat())
+              OldBookedSlots.map((slot) =>
+                slot.bookedDays.map(async ({ day, userId, doctorId }) => {
+                  const user = await getUserById(userId)
+                  const doctor = await getDoctorById({ id: doctorId })
+                  // console.log('sms', user?.name, user?.phone, day)
+                  if (user?.name && user?.phone && doctor?.doctor?.name) {
+                    sendCancelBookingSms({
+                      values: { phone: user?.phone },
+                      name: user?.name,
+                      dayTime: day,
+                      doctorName: doctor?.doctor?.name,
+                    })
+                  }
+                })
+              )
 
-              // const oldSlotsExceptBooked = await Promise.all(
-              //   allOldSlots?.map(async (slot: any) => {
-              //     return await prisma.timeSlot.findMany({
-              //       where: {
-              //         id: slot.id,
-
-              //         NOT: {
-              //           bookedDays: {
-              //             some: { isBooked: true },
-              //           },
-              //         },
-              //       },
-              //     })
-              //   })
-              // )
               // console.log('oldSlotsExceptBooked', oldSlotsExceptBooked.flat())
               // console.log('allOldSlots.length', allOldSlots.length)
               // console.log(

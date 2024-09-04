@@ -147,18 +147,18 @@ export const sendCancelBookingSms = async ({
 
   const { phone } = validatedFields.data
 
-  const api = new MelipayamakApi({
-    username: process.env.SMS_USERNAME!,
-    password: process.env.SMS_PASSWORD!,
-  })
-
   try {
+    const api = new MelipayamakApi({
+      username: process.env.SMS_USERNAME!,
+      password: process.env.SMS_PASSWORD!,
+    })
+    // const asm = await api.send({
     await api.send({
       from: '50002710056401',
       to: phone,
-      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است.`,
+      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است. \n کلینیک آیین شفق`,
     })
-
+    // console.log(asm)
     return { success: 'پیام کنسلی ارسال شد.' }
   } catch (error) {
     console.log(error)
