@@ -31,7 +31,7 @@ const Single = ({ item }: SingleProps) => {
   // const md = useTransform(scrollYProgress, [0, 1], [0, 30])
   const lg = useTransform(scrollYProgress, [0, 1], [0, -350])
 
-  const smScale = useTransform(scrollYProgress, [0, 1], [0.5, 1])
+  const smScale = useTransform(scrollYProgress, [0, 1], [0.3, 1])
   // const lgScale = useTransform(scrollYProgress, [0, 1], [1, 0])
 
   return (
@@ -46,14 +46,8 @@ const Single = ({ item }: SingleProps) => {
             ref={ref}
             // style={{ y }}
           >
-            {/* <img
-              src={item.img}
-              alt=""
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              className=""
-            /> */}
             <ImageEffect
-              imageSrc={item.images?.[0]?.url || '/images/parallax/0003.webp'}
+              imageSrc={item.images?.[0]?.url || '/images/0000.webp'}
             />
           </motion.div>
           <motion.div
@@ -73,13 +67,14 @@ const Single = ({ item }: SingleProps) => {
             }
           >
             <motion.h2
-              className="custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 py-3 text-2xl md:text-4xl sub-title-color font-bold"
+              className="relative  custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 py-3 text-2xl md:text-4xl sub-title-color font-bold"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, scale: 1 },
               }}
             >
               {item.name}
+              <BorderBeam size={170} duration={6} delay={3} />
             </motion.h2>
           </motion.div>
           <motion.div
@@ -165,14 +160,16 @@ const Slider = ({ specializations }: SliderProps) => {
       style={{ position: 'relative' }}
     >
       <div className="progress z-30 sticky top-8 left-0  py-8 text-center text-primary text-xl font-semibold ">
-        <h1 className="text-3xl w-fit mx-auto md:text-5xl title-color mix-blend-multiply  p-2">
+        <h1 className="text-3xl  w-fit mx-auto md:text-5xl title-color mix-blend-multiply  p-2">
           کلینیک‌ها
           {/* <BorderBeam size={170} duration={6} delay={3} /> */}
         </h1>
         <motion.div
           style={{ scaleX }}
-          className="progressBar mt-3 rounded-md custom-box-shadow backdrop-blur-sm bg-white/20"
-        ></motion.div>
+          className="relative progressBar h-2.5 mt-3 rounded-md custom-box-shadow glass backdrop-blur-sm bg-white/20"
+        >
+          {/* <BorderBeam size={170} duration={6} delay={3} /> */}
+        </motion.div>
       </div>
       {specializations.map((item) => (
         <Single item={item} key={item.id} />

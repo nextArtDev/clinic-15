@@ -9,7 +9,7 @@ async function page() {
   const session = await auth()
   if (session?.user.id) {
     toast.success('شما قبلا وارد حساب کاربری خود شده‌اید.')
-    redirect('/')
+    redirect('/user')
   }
 
   return <LoginForm />

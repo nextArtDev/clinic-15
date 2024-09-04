@@ -96,6 +96,9 @@ export default function OtpForm({ params }: { params: { phone: string } }) {
   return (
     <>
       <form dir="ltr" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="text-2xl text-secondary pb-8 text-center">
+          لطفا کد ارسال شده را وارد کنید
+        </h1>
         <Controller
           control={control}
           name="otp"

@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import { activation } from '@/lib/actions/auth/register'
 import { reactivate } from '@/lib/actions/auth/reactivate'
 import { toast } from 'sonner'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
 type FormData = {
   otp: string
@@ -103,6 +104,9 @@ export default function OtpForm({ params }: { params: { phone: string } }) {
     <>
       {sentSms ? (
         <form dir="ltr" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="text-2xl text-secondary pb-8 text-center">
+            لطفا کد ارسال شده را وارد کنید
+          </h1>
           <Controller
             control={control}
             name="otp"
@@ -120,15 +124,22 @@ export default function OtpForm({ params }: { params: { phone: string } }) {
           <FormSuccess message={success} />
         </form>
       ) : (
-        <form
-          className="w-full h-full flex flex-col items-center justify-center gap-6"
-          onSubmit={handleSubmit(smsSend)}
-        >
-          <p className="text-xl font-semibold">ارسال کد تایید به شماره:</p>
-          <Button variant={'destructive'} type="submit">
-            {params.phone}
-          </Button>
-        </form>
+        <Card className="gradient-base text-secondary">
+          <form
+            className="w-full h-full flex flex-col items-center justify-center gap-6"
+            onSubmit={handleSubmit(smsSend)}
+          >
+            <CardHeader>
+              <p className="text-xl font-semibold">ارسال کد تایید به شماره</p>
+            </CardHeader>
+            <CardContent>{params.phone}</CardContent>
+            <CardFooter>
+              <Button variant={'destructive'} type="submit">
+                تایید
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
       )}
     </>
   )
