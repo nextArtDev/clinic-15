@@ -30,22 +30,54 @@ export const getAllAvailabilitiesByDoctorId = async (id: string) => {
   //   })
 }
 
-export const getAllBookedDays = async () => {
-  try {
-    const bookedDays = await prisma.bookedDay.findMany({
-      where: {},
-      include: {
-        doctor: true,
-        timeSlot: true,
-        user: true,
-      },
-      orderBy: {
-        day: 'desc',
-      },
-    })
+interface getAllBookedDaysProps {
+  page?: number
+  pageSize?: number
+}
+export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
+  const { page = 1, pageSize = 20 } = params
+  const skipAmount = (page - 1) * pageSize
 
-    // console.log('bookedDays for doctorId:', bookedDays)
-    return bookedDays
+  try {
+    const allBookedDays = await prisma.timeSlot.findMany({
+      where: {
+        bookedDays: {
+          some: {
+            isBooked: true,
+          },
+        },
+      },
+      skip: skipAmount,
+      take: pageSize,
+    })
+    const allCompleteBookedDays = await Promise.all(
+      allBookedDays?.map(async (slot: any) => {
+        return await prisma.bookedDay.findMany({
+          where: {
+            timeSlotId: slot.id,
+          },
+          include: {
+            doctor: { select: { name: true } },
+            timeSlot: {
+              select: {
+                slot: true,
+              },
+            },
+            user: true,
+          },
+
+          orderBy: {
+            day: 'desc',
+          },
+        })
+      })
+    )
+    const totalBookedDays = await prisma.bookedDay.count()
+    // console.log('totalBookedDays', totalBookedDays)
+
+    // Calculate if there are more questions to be fetched
+    const isNext = totalBookedDays > skipAmount + allBookedDays.length
+    return { booked: allCompleteBookedDays.flat(), isNext }
   } catch (error) {
     console.log(error)
   }

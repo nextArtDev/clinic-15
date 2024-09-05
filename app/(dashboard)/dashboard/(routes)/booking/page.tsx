@@ -12,9 +12,13 @@ import { DataTable } from '@/components/dashboard/booking/data-bable/data-table'
 import { columns } from '@/components/dashboard/booking/data-bable/columns'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-type Props = {}
+async function page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined }
+}) {
+  const page = searchParams.page ? +searchParams.page : 1
 
-async function page({}: Props) {
   const doctors = await prisma.doctor.findMany({
     include: {
       availability: {
@@ -25,23 +29,24 @@ async function page({}: Props) {
     },
   })
 
-  const bookedDays = await getAllBookedDays()
+  const bookedDays = await getAllBookedDays({ page })
   const cancelledBookedDays = await getAllCancelledBookedDays()
 
-  const formattedBookedDays = bookedDays?.map((item) => ({
+  const cancelledIdentifiers = new Set(
+    cancelledBookedDays?.map(
+      (item) => `${item.day}|${item.timeSlot?.slot}|${item.user.phone}`
+    )
+  )
+
+  const formattedBookedDays = bookedDays?.booked?.map((item) => ({
     date: item.day,
     doctorName: item.doctor?.name,
     time: item.timeSlot?.slot,
     userName: item.user?.name,
     userPhone: item.user?.phone,
-    createdAt: format(item.created_at, 'dd MMMM yyyy'),
-  }))
-  const formattedCancelledBookedDays = cancelledBookedDays?.map((item) => ({
-    date: item.day,
-    doctorName: item.doctor?.name,
-    time: item.timeSlot?.slot,
-    userName: item.user?.name,
-    userPhone: item.user?.phone,
+    isCancelled: cancelledIdentifiers.has(
+      `${item.day}|${item.timeSlot?.slot}|${item.user.phone}`
+    ),
     createdAt: format(item.created_at, 'dd MMMM yyyy'),
   }))
 
@@ -52,15 +57,20 @@ async function page({}: Props) {
         defaultValue="table"
         className="max-w-[96vw] mx-auto py-8 "
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="table">نوبتها</TabsTrigger>
           <TabsTrigger value="availability">تنظیم</TabsTrigger>
           <TabsTrigger value="disableEspecialDay">کنسلی روزانه</TabsTrigger>
-          <TabsTrigger value="disabledBooks">کنسلی‌ها</TabsTrigger>
+          {/* <TabsTrigger value="disabledBooks">کنسلی‌ها</TabsTrigger> */}
         </TabsList>
         <TabsContent value="table">
-          {bookedDays?.length && formattedBookedDays?.length && (
-            <DataTable columns={columns} data={formattedBookedDays} />
+          {bookedDays?.booked.length && formattedBookedDays?.length && (
+            <DataTable
+              columns={columns}
+              data={formattedBookedDays}
+              pageNumber={searchParams?.page ? +searchParams.page : 1}
+              isNext={bookedDays.isNext}
+            />
           )}
         </TabsContent>
         <TabsContent value="availability">
@@ -69,7 +79,7 @@ async function page({}: Props) {
         <TabsContent value="disableEspecialDay">
           <DisableSpecialDay doctors={doctors} />
         </TabsContent>
-        <TabsContent value="disabledBooks">
+        {/* <TabsContent value="disabledBooks">
           {cancelledBookedDays?.length &&
             formattedCancelledBookedDays?.length && (
               <DataTable
@@ -77,7 +87,7 @@ async function page({}: Props) {
                 data={formattedCancelledBookedDays}
               />
             )}
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </section>
   )

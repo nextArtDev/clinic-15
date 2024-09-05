@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, BadgeAlert, BadgeCheck } from 'lucide-react'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -12,6 +12,8 @@ export type Payment = {
   time?: string
   userName?: string
   userPhone?: string
+  isCancelled?: boolean
+
   //   status: 'pending' | 'processing' | 'success' | 'failed'
 }
 
@@ -58,6 +60,18 @@ export const columns: ColumnDef<Payment>[] = [
           ساعت
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      )
+    },
+  },
+  {
+    accessorKey: 'isCancelled',
+    header: () => <div className="text-right">کنسل </div>,
+    cell: ({ row }) => {
+      const isCancelled = row.getValue('isCancelled')
+      return isCancelled ? (
+        <BadgeAlert className="text-red-500" />
+      ) : (
+        <BadgeCheck className="text-green-500" />
       )
     },
   },

@@ -3,14 +3,19 @@ import { FC } from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '../ui/button'
-import { formUrlQuery } from '@/lib/utils'
+import { cn, formUrlQuery } from '@/lib/utils'
 
 interface PaginationProps {
   pageNumber?: number
   isNext?: boolean
+  className?: string
 }
 
-const Pagination: FC<PaginationProps> = ({ pageNumber = 1, isNext }) => {
+const Pagination: FC<PaginationProps> = ({
+  pageNumber = 1,
+  isNext,
+  className,
+}) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -28,7 +33,9 @@ const Pagination: FC<PaginationProps> = ({ pageNumber = 1, isNext }) => {
 
   if (!isNext && pageNumber === 1) return null
   return (
-    <div className="flex w-full items-center justify-center gap-2">
+    <div
+      className={cn('flex w-full items-center justify-center gap-2', className)}
+    >
       <Button
         disabled={pageNumber === 1}
         onClick={() => handleNavigation('prev')}
@@ -36,7 +43,7 @@ const Pagination: FC<PaginationProps> = ({ pageNumber = 1, isNext }) => {
       >
         <p>قبلی</p>
       </Button>
-      <div className="flex items-center  justify-center rounded-md bg-rose-100 px-3.5 py-2">
+      <div className="flex items-center  justify-center rounded-md border px-3.5 py-2">
         <p className="font-semibold ">{pageNumber}</p>
       </div>
       <Button
