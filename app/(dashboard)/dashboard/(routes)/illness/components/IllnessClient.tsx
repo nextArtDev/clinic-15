@@ -15,9 +15,15 @@ import { cn } from '@/lib/utils'
 
 interface IllnessesClientProps {
   data: IllnessColumn[]
+  pageNumber: number
+  isNext: boolean
 }
 
-export const IllnessesClient: React.FC<IllnessesClientProps> = ({ data }) => {
+export const IllnessesClient: React.FC<IllnessesClientProps> = ({
+  data,
+  isNext,
+  pageNumber,
+}) => {
   const router = useRouter()
 
   return (
@@ -32,8 +38,14 @@ export const IllnessesClient: React.FC<IllnessesClientProps> = ({ data }) => {
         </Link>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data} />
-      <Separator />
+      <DataTable
+        searchKey="name"
+        columns={columns}
+        data={data}
+        pageNumber={pageNumber}
+        isNext={isNext}
+      />
+
       {/* <ApiList entityName="illnesses" entityIdName="illnessId" /> */}
     </>
   )

@@ -6,7 +6,16 @@ import { prisma } from '@/lib/prisma'
 import { IllnessColumn } from './components/columns'
 import { IllnessesClient } from './components/IllnessClient'
 
-const ProductsPage = async () => {
+const ProductsPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined }
+}) => {
+  const pageSize = 20
+
+  const page = searchParams.page ? +searchParams.page : 1
+  const skipAmount = (page - 1) * pageSize
+
   const illnesses = await prisma.illness.findMany({
     // where: {},
     //we include them to access them like individual objects and for example we can show them in table
@@ -15,10 +24,11 @@ const ProductsPage = async () => {
       Specialization: true,
       images: true,
     },
-    // orderBy: {
-    //   createdAt: 'desc',
-    // },
+    skip: skipAmount,
+    take: pageSize,
   })
+  const totalIllnesses = await prisma.illness.count()
+  const isNext = totalIllnesses > skipAmount + illnesses.length
 
   const formattedIllnesses: IllnessColumn[] = illnesses.map((item) => ({
     id: item.id,
@@ -35,7 +45,11 @@ const ProductsPage = async () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <IllnessesClient data={formattedIllnesses} />
+        <IllnessesClient
+          data={formattedIllnesses}
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={isNext}
+        />
       </div>
     </div>
   )

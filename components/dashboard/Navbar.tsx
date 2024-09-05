@@ -22,12 +22,12 @@ const Navbar = () => {
       <ScrollArea dir="rtl">
         <div className="flex h-16 items-center px-4 ">
           {/* <StoreSwitcher items={stores} /> */}
-          <MainNav className="px-8" />
+          <MainNav className="" />
           <ScrollBar orientation="horizontal" />
           {/* ml-auto push everything to the right */}
           <div className="mr-auto flex items-center text-right gap-4 space-x-4">
             {/* //Should be fixed */}
-            <UserButton />
+            {/* <UserButton /> */}
 
             {/* <div className="hidden sm:block">{session.user.name}</div> */}
             {/* <ModeToggle /> */}
