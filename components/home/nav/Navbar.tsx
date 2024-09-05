@@ -26,6 +26,7 @@ import MobileNav from './MobileNav'
 import { useCurrentUser } from '@/hooks/use-current-user'
 import { useSession } from 'next-auth/react'
 import { UserButton } from '@/components/auth/user-button'
+import { ExtendedUserWithoutEmail } from '@/types/next-auth'
 
 let clamp = (number: number, min: number, max: number) =>
   Math.min(Math.max(number, min), max)
@@ -48,8 +49,7 @@ function useBoundedScroll(bounds: number) {
   return { scrollYBounded, scrollYBoundedProgress }
 }
 
-const Navbar = () => {
-  const user = useCurrentUser()
+const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
   const [position, setPosition] = useState({
     left: 0,
     width: 0,

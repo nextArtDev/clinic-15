@@ -357,6 +357,25 @@ export const getAllReviews = async () => {
     console.log(error)
   }
 }
+export const getUserWithReviewsById = async ({ id }: { id: string }) => {
+  try {
+    return await prisma.user.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        BookedDay: {
+          include: {
+            doctor: true,
+          },
+        },
+        Review: true,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 export type ReviewsWithUserAndImage = Review & {
   user:
     | (Partial<User> & {

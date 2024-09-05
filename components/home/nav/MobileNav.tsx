@@ -8,7 +8,6 @@ import { motion } from 'framer-motion'
 import { ExtendedUserWithoutEmail } from '@/types/next-auth'
 import { Button } from '@/components/ui/button'
 import { signOut } from '@/auth'
-import LogoutForm from '@/app/(auth)/logout/LogoutForm'
 
 // import useThemeSwitcher from './hooks/useThemeSwitcher'
 
@@ -141,10 +140,17 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
               title="بیماری‌ها"
               toggle={handleClick}
             />
-            {!!user ? (
+            {/* {user?.phone && (
               <CustomMobileLink
-                href="/logout"
-                title="خروج"
+                href="/user"
+                title="پروفایل شخصی"
+                toggle={handleClick}
+              />
+            )} */}
+            {!!user?.phone ? (
+              <CustomMobileLink
+                href="/user"
+                title="پروفایل شخصی"
                 toggle={handleClick}
               />
             ) : (
