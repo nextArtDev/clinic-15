@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react'
 import StickyNav from './StickyNav'
 
 import GlobalSearch from '@/components/search/GlobalSearch'
-import { HomeIcon, User } from 'lucide-react'
+import { HomeIcon, User, User2Icon } from 'lucide-react'
 import { DockDemo } from './Doc'
 import { NavigationMenuDemo } from './NavigationMenuDemo'
 import { cn } from '@/lib/utils'
@@ -222,7 +222,10 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                   ):(
 
                   )} */}
-                  <UserButton />
+                  {/* <UserButton  /> */}
+                  <a href={!!user ? '/user' : '/login'}>
+                    <User2Icon className="text-primary ml-4 border border-primary p-0.5 rounded-full w-6 h-6" />
+                  </a>
                 </motion.figure>
               </div>
             </section>

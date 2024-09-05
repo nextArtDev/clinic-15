@@ -27,6 +27,9 @@ export const getBookedDaysByUserId = async (
       },
       skip: skipAmount,
       take: pageSize,
+      orderBy: {
+        day: 'desc',
+      },
     })
 
     const totalBookedDays = await prisma.bookedDay.count({

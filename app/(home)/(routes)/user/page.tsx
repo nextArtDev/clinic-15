@@ -23,7 +23,7 @@ async function ProfilePage({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) {
-  const pageSize = 10
+  const pageSize = 12
 
   const page = searchParams.page ? +searchParams.page : 1
 
@@ -32,7 +32,7 @@ async function ProfilePage({
   if (!user?.id) return notFound()
 
   const myUser = await getUserWithReviewsById({ id: user.id })
-  const userReviews = await getUserWithReviewsById({ id: user.id })
+
   const userBookedDays = await getBookedDaysByUserId({
     id: user.id,
     page,
