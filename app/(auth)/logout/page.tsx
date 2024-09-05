@@ -21,7 +21,10 @@ async function page({}: Props) {
             // redirect('/')
           }}
         >
-          <Button type="submit">تایید</Button>
+          <div className="flex justify-around">
+            <Button type="submit">تایید</Button>
+            {/* <Button variant={'ghost'} onclick >انصراف</Button> */}
+          </div>
         </form>
       </article>
     </section>

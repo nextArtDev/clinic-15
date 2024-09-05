@@ -364,11 +364,6 @@ export const getUserWithReviewsById = async ({ id }: { id: string }) => {
         id,
       },
       include: {
-        BookedDay: {
-          include: {
-            doctor: true,
-          },
-        },
         Review: true,
       },
     })
