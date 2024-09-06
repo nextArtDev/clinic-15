@@ -14,6 +14,7 @@ import Link from 'next/link'
 import HeroWhatsApp from '../icons/HeroWhatsApp'
 import Carousel from './Carousel'
 import IconRipple from './IconRipple'
+import PulsatingButton from './PulsatingButton'
 type Props = {}
 
 function Hero({}: Props) {
@@ -85,9 +86,15 @@ function Hero({}: Props) {
             <p className="text-reveal flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
+            <Link
+              className="local p-0.5 w-full flex items-center justify-center "
+              href={'/doctors'}
+            >
+              <PulsatingButton>رزرو نوبت</PulsatingButton>
+            </Link>
           </div>
           <div className="  text-reveal pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
-            <a
+            <Link
               href="tel:03137888561"
               className="flex flex-col gap-3 px-8 animate-pulse"
             >
@@ -101,7 +108,7 @@ function Hero({}: Props) {
               </Button> */}
               <IconRipple icon={Phone} iconColor="red" />
               <p className="mt-3 text-red-600">تماس</p>
-            </a>
+            </Link>
             <Link
               href="https://wa.me/+989386472694"
               target="_blank"

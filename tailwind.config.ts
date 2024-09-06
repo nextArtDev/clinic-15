@@ -107,8 +107,13 @@ const config = {
               'rotatex(20deg) rotateZ(-20deg) skewX(20deg) translateZ(0) translateY(-100%)',
           },
         },
+        pulse: {
+          '0%, 100%': { boxShadow: '0 0 0 0 var(--pulse-color)' },
+          '50%': { boxShadow: '0 0 0 8px var(--pulse-color)' },
+        },
       },
       animation: {
+        pulse: 'pulse var(--duration) ease-out infinite',
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
