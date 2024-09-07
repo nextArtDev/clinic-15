@@ -56,7 +56,7 @@ const HomePage = async () => {
           <Slider specializations={specializations.specializations} />
         </section>
       )}
-      {/* <DoctorCarousel slides={doctors} /> */}
+
       {!!illnesses?.illnesses?.length && (
         <IllnessCarousel slides={illnesses?.illnesses} />
       )}

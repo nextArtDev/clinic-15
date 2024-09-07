@@ -2,12 +2,13 @@
 import { motion } from 'framer-motion'
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ y: -300, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ ease: 'easeInOut', duration: 0.75 }}
+    <div
+    // className="animate-fade-in [--animation-delay:100ms] opacity-0"
+    // initial={{ y: -300, opacity: 0 }}
+    // animate={{ y: 0, opacity: 1 }}
+    // transition={{ ease: 'easeInOut', duration: 0.75 }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

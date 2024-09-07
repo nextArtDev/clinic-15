@@ -65,14 +65,14 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
     [0, 0, 1]
   )
   return (
-    <section className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden">
+    <section className="  relative  mx-auto flex w-full max-w-3xl flex-1 overflow-hidden">
       <Link
         className="fixed border animate-pulse  z-50 bg-primary bottom-8 left-2 w-fit h-auto px-2 py-1 rounded-md "
         href={'/dashboard'}
       >
         دشبورد
       </Link>
-      <article className="z-50 fixed top-0 lg:top-0   max-w-full px-4 py-8 font-semibold  dark:text-light w-full h-12 bg-transparent grid place-content-center grid-cols-6 md:hidden ">
+      <article className="animate-fade-in [--animation-delay:1500ms] opacity-0 z-50 fixed top-0 lg:top-0   max-w-full px-4 py-8 font-semibold  dark:text-light w-full h-12 bg-transparent grid place-content-center grid-cols-6 md:hidden ">
         <div className="col-span-1 ">
           <MobileNav user={user} />
         </div>

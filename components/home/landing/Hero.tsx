@@ -19,66 +19,66 @@ type Props = {}
 
 function Hero({}: Props) {
   const bgRef = useRef(null)
-  useEffect(() => {
-    const tl = gsap.timeline({ Defaults: { ease: Expo.easeOut } })
-    // const tl = gsap.timeline({ Defaults: {} })
+  // useEffect(() => {
+  //   const tl = gsap.timeline({ Defaults: { ease: Expo.easeOut } })
+  //   // const tl = gsap.timeline({ Defaults: {} })
 
-    //    timeline.fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
-    tl.from(bgRef.current, {
-      scale: 0.6,
-      duration: 2,
-      opacity: 0,
-      ease: Expo.easeOut,
-      delay: 0.75,
-    })
-      .to(
-        '.text-reveal',
-        {
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-          y: 30,
-          stagger: 0.3,
-          duration: 0.5,
-        },
-        '-=2.9'
-      )
-      .to('.text-reveal', {
-        clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
-        y: -70,
-        duration: 0.2,
-        delay: 0.25,
-      })
-      .to('.text-reveal', {
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-        stagger: 0.7,
-        duration: 0.3,
-        delay: 0.25,
-      })
-      .to('.svgLogo', {
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-        duration: 1,
-        y: -150,
-      })
-      .to(
-        '.local',
-        {
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
-          // xPercent: '100',
-          stagger: 0.7,
-          opacity: 1,
-          duration: 1.2,
-        },
-        '-=0.7'
-      )
+  //   //    timeline.fromTo(ref.current, { opacity: 0 }, { opacity: 1 })
+  //   tl.from(bgRef.current, {
+  //     scale: 0.6,
+  //     duration: 2,
+  //     opacity: 0,
+  //     ease: Expo.easeOut,
+  //     delay: 0.75,
+  //   })
+  //     .to(
+  //       '.text-reveal',
+  //       {
+  //         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+  //         y: 30,
+  //         stagger: 0.3,
+  //         duration: 0.5,
+  //       },
+  //       '-=2.9'
+  //     )
+  //     .to('.text-reveal', {
+  //       clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)',
+  //       y: -70,
+  //       duration: 0.2,
+  //       delay: 0.25,
+  //     })
+  //     .to('.text-reveal', {
+  //       clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+  //       stagger: 0.7,
+  //       duration: 0.3,
+  //       delay: 0.25,
+  //     })
+  //     .to('.svgLogo', {
+  //       clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+  //       duration: 1,
+  //       y: -150,
+  //     })
+  //     .to(
+  //       '.local',
+  //       {
+  //         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
+  //         // xPercent: '100',
+  //         stagger: 0.7,
+  //         opacity: 1,
+  //         duration: 1.2,
+  //       },
+  //       '-=0.7'
+  //     )
 
-    return () => {
-      tl.kill() // Cleanup the timeline when the component unmounts
-    }
-  }, [])
+  //   return () => {
+  //     tl.kill() // Cleanup the timeline when the component unmounts
+  //   }
+  // }, [])
   return (
     <section className="relative w-full h-[calc(h-screen-5rem)]">
       <div className="container absolute top-10 inset-0 grid place-items-center  ">
         <div className="content text-center z-10 ">
-          <div className="content-inner space-y-4">
+          {/* <div className="content-inner space-y-4">
             <h1 className="title-color custom-box-shadow glass text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
             </h1>
@@ -92,8 +92,23 @@ function Hero({}: Props) {
             >
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
+          </div> */}
+          <div className="   space-y-4">
+            <h1 className="animate-fade-in [--animation-delay:700ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
+              درمانگاه آئین شفق
+            </h1>
+
+            <p className="animate-fade-in [--animation-delay:1000ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
+              پذیرش بیماران درمانگاهی توسط پزشکان عمومی
+            </p>
+            <Link
+              className="animate-fade-in [--animation-delay:1200ms] opacity-0 p-0.5 w-full flex items-center justify-center "
+              href={'/doctors'}
+            >
+              <PulsatingButton>رزرو نوبت</PulsatingButton>
+            </Link>
           </div>
-          <div className="  text-reveal pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
+          <div className=" animate-fade-in [--animation-delay:1500ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:03137888561"
               className="flex flex-col gap-3 px-8 animate-pulse"

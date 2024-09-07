@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import DoctorImage from '@/public/images/1.jpg'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import ImageEffect from './ImageEffect'
@@ -18,6 +18,13 @@ interface SingleProps {
   }
 }
 const Single = ({ item }: SingleProps) => {
+  // const [mounted, setMounted] = useState(false)
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  // useEffect(() => {
+  //   setMounted(true)
+  // }, [])
+
   // Its container is image section, not the whole section, imageRef
   const ref = useRef(null)
 
@@ -33,6 +40,9 @@ const Single = ({ item }: SingleProps) => {
 
   const smScale = useTransform(scrollYProgress, [0, 1], [0.3, 1])
   // const lgScale = useTransform(scrollYProgress, [0, 1], [1, 0])
+  // if (!mounted) {
+  //   return null
+  // }
 
   return (
     <>
@@ -74,18 +84,21 @@ const Single = ({ item }: SingleProps) => {
               }}
             >
               {item.name}
-              <BorderBeam size={170} duration={6} delay={3} />
+              {/* <BorderBeam size={170} duration={6} delay={3} /> */}
             </motion.h2>
           </motion.div>
           <motion.div
             className={`z-[2] absolute w-full left-1/2 h-full top-3   -translate-x-1/2  border-none   cursor-pointer overflow-hidden   `}
           >
-            <motion.article className="flex absolute bottom-4 left-1/2 -translate-x-1/2  gap-4 ">
+            <motion.article className="flex absolute  bottom-4 left-1/2 -translate-x-1/2  gap-4 ">
               {item?.doctors?.map((doctor, index) => {
                 return (
                   <motion.div
                     style={{
                       // x: index % 2 == 0 ? lg : md,
+                      position: 'absolute',
+                      // bottom: index < 2 ? '16px' : '150px',
+                      bottom: `${Math.floor(index / 2) * 130 + 16}px`,
                       left:
                         index % 2 == 0
                           ? `${100 / index + 25}%`
