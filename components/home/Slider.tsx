@@ -98,11 +98,11 @@ const Single = ({ item }: SingleProps) => {
                       // x: index % 2 == 0 ? lg : md,
                       position: 'absolute',
                       // bottom: index < 2 ? '16px' : '150px',
-                      bottom: `${Math.floor(index / 2) * 130 + 16}px`,
+                      bottom: `${Math.floor(index / 2) * 130 + 16}px`!,
                       left:
                         index % 2 == 0
-                          ? `${100 / index + 25}%`
-                          : `${100 / index - 25}%`,
+                          ? `${100 / index - 25}%`
+                          : `${100 / index + 25}%`,
 
                       y: lg,
                       scale: smScale,

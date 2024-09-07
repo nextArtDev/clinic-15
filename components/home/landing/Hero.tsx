@@ -15,6 +15,7 @@ import HeroWhatsApp from '../icons/HeroWhatsApp'
 import Carousel from './Carousel'
 import IconRipple from './IconRipple'
 import PulsatingButton from './PulsatingButton'
+import GradualSpacing from '../GradualSpacing'
 type Props = {}
 
 function Hero({}: Props) {
@@ -77,7 +78,7 @@ function Hero({}: Props) {
   return (
     <section className="relative w-full h-[calc(h-screen-5rem)]">
       <div className="container absolute top-10 inset-0 grid place-items-center  ">
-        <div className="content text-center z-10 ">
+        <div className="content text-center z-10 space-y-8">
           {/* <div className="content-inner space-y-4">
             <h1 className="title-color custom-box-shadow glass text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
@@ -93,7 +94,7 @@ function Hero({}: Props) {
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
           </div> */}
-          <div className="   space-y-4">
+          <div className="h-full   space-y-8">
             <h1 className="animate-fade-in [--animation-delay:700ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
             </h1>
@@ -107,11 +108,21 @@ function Hero({}: Props) {
             >
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
+            {/* <GradualSpacing
+              className="hidden pt-6 p-0.5 custom-box-shadow  title-color  md:block  text-center text-3xl font-bold tracking-[-0.1em] md:leading-[2rem]"
+              text="03137888561"
+            /> */}
           </div>
-          <div className=" animate-fade-in [--animation-delay:1500ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
+
+          <GradualSpacing
+            className="hidden   p-0.5 w-fit md:block  text-center text-3xl font-bold tracking-[-0.1em] md:leading-[2rem]"
+            text="03137888561"
+          />
+
+          <div className="md:hidden animate-fade-in md:[--animation-delay:1ms] [--animation-delay:1500ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:03137888561"
-              className="flex flex-col gap-3 px-8 animate-pulse"
+              className="flex flex-col md:hidden gap-3 px-8 animate-pulse"
             >
               {/* <span className=" text-lg underline underline-offset-2 decoration-red-600 decoration-1 "> */}
               {/* <Button
@@ -127,7 +138,7 @@ function Hero({}: Props) {
             <Link
               href="https://wa.me/+989386472694"
               target="_blank"
-              className="flex flex-col gap-3  px-8"
+              className="flex flex-col gap-3 md:hidden px-8"
             >
               {/* <span className=" text-lg underline underline-offset-2 decoration-green-600 decoration-1 "> */}
               {/* <Button
