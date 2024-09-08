@@ -54,3 +54,29 @@ export function formatTimeToNow(date: Date): string {
     },
   })
 }
+
+export interface Schedule {
+  time: string | null
+
+  day: string | null
+}
+
+export const getCurrentStartOfDay = (schedule: Schedule[]): Date => {
+  const today = new Date()
+
+  const currentDay = today
+    .toLocaleString('en-US', { weekday: 'long' })
+    .toLowerCase()
+
+  const foundSchedule = schedule.find((item) => item.day === currentDay)
+
+  if (foundSchedule && foundSchedule.time) {
+    const [hours, minutes] = foundSchedule.time.split(':').map(Number)
+
+    today.setHours(hours, minutes, 0, 0)
+  } else {
+    today.setHours(0, 0, 0, 0)
+  }
+
+  return today
+}

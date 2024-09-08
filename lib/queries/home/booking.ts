@@ -1,5 +1,7 @@
 'use server'
 import { prisma } from '@/lib/prisma'
+import { format } from 'date-fns-jalali'
+import moment from 'moment'
 
 export const getAllAvailabilitiesByDoctorId = async (id: string) => {
   try {
@@ -37,7 +39,15 @@ interface getAllBookedDaysProps {
 export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
   const { page = 1, pageSize = 20 } = params
   const skipAmount = (page - 1) * pageSize
+  const convertJalaliStringToDate = (jalaliString: string) => {
+    // Parse the Jalali date string
+    const [year, month, day] = jalaliString.split('/').map(Number)
 
+    // Create a date object (Jalali dates will be handled correctly)
+    const jalaliDate = new Date(year, month - 1, day) // month is 0-indexed in JS
+
+    return jalaliDate
+  }
   try {
     const allBookedDays = await prisma.timeSlot.findMany({
       where: {
@@ -50,11 +60,15 @@ export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
       skip: skipAmount,
       take: pageSize,
     })
+
     const allCompleteBookedDays = await Promise.all(
       allBookedDays?.map(async (slot: any) => {
         return await prisma.bookedDay.findMany({
           where: {
             timeSlotId: slot.id,
+            // day:{
+            //   gte:
+            // }
           },
           include: {
             doctor: { select: { name: true } },
@@ -72,6 +86,10 @@ export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
         })
       })
     )
+    // allCompleteBookedDays.map((b) =>
+    //   b.map((a) => console.log(a.day > '1403/08/30'))
+    // )
+    // console.log('m', format(Date.now(), 'yyyy/MM/dd'))
     const totalBookedDays = await prisma.bookedDay.count()
     // console.log('totalBookedDays', totalBookedDays)
 
@@ -96,6 +114,9 @@ export const getAllCancelledBookedDays = async () => {
         return await prisma.bookedDay.findMany({
           where: {
             timeSlotId: slot.id,
+            day: {
+              gte: format(Date.now(), 'yyyy/MM/dd'),
+            },
           },
           include: {
             doctor: true,

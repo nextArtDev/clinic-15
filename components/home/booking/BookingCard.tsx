@@ -40,6 +40,7 @@ import {
 } from 'next/navigation'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { getCurrentStartOfDay, Schedule } from '@/lib/utils/date-utils'
 interface BookingCardProps {
   availabilities:
     | (Availability & {
@@ -57,7 +58,34 @@ const BookingCard: FC<BookingCardProps> = ({
   disabledDaysByDoctor,
   user,
 }) => {
+  const [today, setToday] = useState<Date | null>(null)
+
   const [modal, setModal] = useState('')
+  const schedule = availabilities?.map((availability) => {
+    return {
+      time: availability.times?.[0].slot,
+      day: availability.availableDay,
+    }
+  })
+
+  useEffect(() => {
+    const validSchedule = schedule?.filter(
+      (item) => item.time !== undefined
+    ) as Schedule[]
+
+    const currentToday = getCurrentStartOfDay(validSchedule || [])
+
+    // Only update if the value has changed
+
+    if (!today || today.getTime() !== currentToday.getTime()) {
+      setToday(currentToday)
+    }
+  }, [schedule, today])
+
+  // console.log(today)
+  // console.log(new Date())
+  // today.setHours(0, 0, 0, 0)
+
   // console.log(modal)
   const [showConfetti, setShowConfetti] = useState(false)
   const [selectedTime, setSelectedTime] = useState('')
@@ -86,6 +114,7 @@ const BookingCard: FC<BookingCardProps> = ({
     const disabledDayIndexes = convertDaysToArray(
       availabilities?.map((availability) => availability.availableDay)
     )
+
     // console.log(disabledDayIndexes)
     setDisabledDays(disabledDayIndexes)
   }, [availabilities])
@@ -207,8 +236,8 @@ const BookingCard: FC<BookingCardProps> = ({
                             setModal(format(date, 'yyyy/MM/dd'))
                           }
                           disabled={(date) =>
-                            date <= new Date() ||
-                            date < new Date('1900-01-01') ||
+                            date < (today || new Date()) ||
+                            date < new Date('2023-01-01') ||
                             !disabledDays?.includes(date.getDay()) ||
                             holidayDays.some(
                               (d) => d === format(date, 'yyyy/MM/dd')
