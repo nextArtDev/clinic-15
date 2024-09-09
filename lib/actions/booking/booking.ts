@@ -157,5 +157,5 @@ export async function createBooking(
 
   revalidatePath(path)
 
-  redirect(`/doctors/${doctorId}`)
+  redirect(`/user`)
 }

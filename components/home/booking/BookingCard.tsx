@@ -41,6 +41,8 @@ import {
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { getCurrentStartOfDay, Schedule } from '@/lib/utils/date-utils'
+import { BorderBeam } from '../BorderBeam'
+import { isBefore, isSameDay, subDays } from 'date-fns'
 interface BookingCardProps {
   availabilities:
     | (Availability & {
@@ -67,7 +69,18 @@ const BookingCard: FC<BookingCardProps> = ({
       day: availability.availableDay,
     }
   })
-
+  const disableToday = ({
+    date,
+    nowDay,
+  }: {
+    date: Date | null
+    nowDay: Date | null
+  }) => {
+    if (!date || !nowDay) return null
+    if (isSameDay(date, nowDay) && isBefore(date, nowDay)) {
+      return false
+    }
+  }
   useEffect(() => {
     const validSchedule = schedule?.filter(
       (item) => item.time !== undefined
@@ -122,17 +135,7 @@ const BookingCard: FC<BookingCardProps> = ({
   const form = useForm<z.infer<typeof bookingFormSchema>>({
     resolver: zodResolver(bookingFormSchema),
   })
-  // const handleSlotClick = async ({
-  //   timeId,
-  //   availabilityId,
-  // }: {
-  //   timeId: string
-  //   availabilityId: string
-  // }) => {
-  //   // await createBooking({ timeId, availabilityId, doctorId })
-  //   // setTimeSlots(timeSlots.filter((time) => !time.isSame(slot)))
-  //   // setRemovedSlots([...removedSlots, slot])
-  // }
+
   const handleTimeClick = (time: any) => {
     setSelectedTime(time === selectedTime ? null : time)
 
@@ -236,7 +239,9 @@ const BookingCard: FC<BookingCardProps> = ({
                             setModal(format(date, 'yyyy/MM/dd'))
                           }
                           disabled={(date) =>
-                            date < (today || new Date()) ||
+                            disableToday({ date, nowDay: today }) ||
+                            // date < new Date() ||
+                            isBefore(date, subDays(new Date(), 1)) ||
                             date < new Date('2023-01-01') ||
                             !disabledDays?.includes(date.getDay()) ||
                             holidayDays.some(
@@ -263,7 +268,7 @@ const BookingCard: FC<BookingCardProps> = ({
           ) : (
             selectedTime &&
             !modal && (
-              <article className="bg-transparent border-none flex flex-col items-center justify-between font-semibold">
+              <article className=" bg-transparent border-none flex flex-col items-center justify-between font-semibold">
                 <div className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
                   <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
                     {' '}
@@ -273,8 +278,21 @@ const BookingCard: FC<BookingCardProps> = ({
                     )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
                   </p>
 
-                  <Button disabled={isPending} className="w-full" type="submit">
+                  <Button
+                    disabled={isPending}
+                    className=" w-full"
+                    type="submit"
+                  >
                     تایید نوبت
+                  </Button>
+                  <Button
+                    type="reset"
+                    variant={'ghost'}
+                    disabled={isPending}
+                    className="border w-full"
+                    onClick={() => router.back()}
+                  >
+                    انصراف
                   </Button>
                 </div>
               </article>

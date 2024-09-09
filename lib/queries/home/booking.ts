@@ -37,17 +37,9 @@ interface getAllBookedDaysProps {
   pageSize?: number
 }
 export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
-  const { page = 1, pageSize = 20 } = params
+  const { page = 1, pageSize = 100 } = params
   const skipAmount = (page - 1) * pageSize
-  const convertJalaliStringToDate = (jalaliString: string) => {
-    // Parse the Jalali date string
-    const [year, month, day] = jalaliString.split('/').map(Number)
 
-    // Create a date object (Jalali dates will be handled correctly)
-    const jalaliDate = new Date(year, month - 1, day) // month is 0-indexed in JS
-
-    return jalaliDate
-  }
   try {
     const allBookedDays = await prisma.timeSlot.findMany({
       where: {
@@ -66,9 +58,10 @@ export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
         return await prisma.bookedDay.findMany({
           where: {
             timeSlotId: slot.id,
-            // day:{
-            //   gte:
-            // }
+            day: {
+              gte: format(Date.now(), 'yyyy/MM/dd'),
+              // gte: '1403/06/28',
+            },
           },
           include: {
             doctor: { select: { name: true } },
@@ -114,9 +107,6 @@ export const getAllCancelledBookedDays = async () => {
         return await prisma.bookedDay.findMany({
           where: {
             timeSlotId: slot.id,
-            day: {
-              gte: format(Date.now(), 'yyyy/MM/dd'),
-            },
           },
           include: {
             doctor: true,

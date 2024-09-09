@@ -72,11 +72,17 @@ async function ProfilePage({
         defaultValue="bookings"
         className="w-full  bg-transparent px-2"
       >
-        <TabsList className="flex h-14 !glass rounded-none bg-transparent ">
-          <TabsTrigger className="flex-1 h-full " value="bookings">
+        <TabsList className=" flex h-14 !glass rounded-none bg-transparent ">
+          <TabsTrigger
+            className="data-[state=active]:bg-background/50  flex-1 h-full "
+            value="bookings"
+          >
             نوبتها
           </TabsTrigger>
-          <TabsTrigger className="flex-1 h-full " value="comments">
+          <TabsTrigger
+            className="data-[state=active]:bg-background/50  flex-1 h-full "
+            value="comments"
+          >
             کامنتها
           </TabsTrigger>
         </TabsList>

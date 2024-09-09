@@ -115,7 +115,7 @@ function Hero({}: Props) {
           </div>
 
           <GradualSpacing
-            className="hidden   p-0.5 w-fit md:block  text-center text-3xl font-bold tracking-[-0.1em] md:leading-[2rem]"
+            className="hidden custom-number-shadow p-0.5 w-fit md:block  text-center text-3xl font-bold tracking-[-0.1em] md:leading-[2rem]"
             text="03137888561"
           />
 

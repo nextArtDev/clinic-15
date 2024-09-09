@@ -72,7 +72,7 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
       >
         دشبورد
       </Link>
-      <article className="animate-fade-in [--animation-delay:1500ms] opacity-0 z-50 fixed top-0 lg:top-0   max-w-full px-4 py-8 font-semibold  dark:text-light w-full h-12 bg-transparent grid place-content-center grid-cols-6 md:hidden ">
+      <article className=" z-50 fixed top-0 lg:top-0   max-w-full px-4 py-8 font-semibold  dark:text-light w-full h-12 bg-transparent grid place-content-center grid-cols-6 md:hidden ">
         <div className="col-span-1 ">
           <MobileNav user={user} />
         </div>
@@ -80,7 +80,7 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
           <GlobalSearch />
         </div>
         <Link href={'/'} className="m-auto col-span-1">
-          <HomeIcon />
+          <HomeIcon className="stroke-primary/60" />
         </Link>
       </article>
 
@@ -130,11 +130,12 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                         scrollYBoundedProgressThrottled,
                         [0, 1],
                         // [max , min] height
-                        [1, 0.6]
+                        [1, 1.2]
                       ),
                     }}
                   >
-                    <Image src={sun} alt="Sun" width={48} height={48} />
+                    {/* <Image src={sun} alt="Sun" width={48} height={48} /> */}
+                    <HomeIcon className="mr-4" />
                   </motion.figure>
                 </Link>
               </div>

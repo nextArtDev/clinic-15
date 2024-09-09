@@ -88,18 +88,20 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
         onClick={handleClick}
       >
         <span
-          className={` gradient-base block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
-            isOpen ? 'text rotate-45 translate-y-1' : '-translate-y-0.5'
+          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
+            isOpen
+              ? '!bg-red-500 text rotate-45 translate-y-1'
+              : '-translate-y-0.5'
           } `}
         ></span>
         <span
-          className={` gradient-base block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm my-0.5 ${
+          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm my-0.5 ${
             isOpen ? 'opacity-0' : 'opacity-100'
           } `}
         ></span>
         <span
-          className={` gradient-base block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
-            isOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'
+          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
+            isOpen ? '!bg-red-500 -rotate-45 -translate-y-1' : 'translate-y-0.5'
           }`}
         ></span>
       </button>

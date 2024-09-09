@@ -36,7 +36,7 @@ const Card = ({
     offset: ['start end', 'start start'],
   })
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2])
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.4])
   //   const imageRotate = useTransform(scrollYProgress, [0, 1], [360, 0])
   const scale = useTransform(progress, range, [1, targetScale])
 
