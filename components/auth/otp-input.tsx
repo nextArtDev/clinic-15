@@ -146,7 +146,7 @@ export default function OtpInput({
   }
 
   return (
-    <div className="otp-group flex w-full max-w-[360px]">
+    <div className="otp-group flex mx-auto max-w-[360px] w-[90vw]">
       {!disabled ? (
         valueItems.map((digit, idx) => (
           <input
@@ -157,7 +157,7 @@ export default function OtpInput({
             autoComplete="one-time-code"
             pattern="\d{1}"
             maxLength={valueLength}
-            className="otp-input w-full h-14 border border-[#ccc] rounded-sm p-0 text-center text-[32px] font-bold "
+            className="bg-secondary/50 otp-input w-full h-14 border border-[#ccc] rounded-sm p-0 text-center text-[32px] font-bold "
             value={digit}
             onChange={(e) => inputOnChange(e, idx)}
             onKeyDown={inputOnKeyDown}

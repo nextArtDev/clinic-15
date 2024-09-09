@@ -88,8 +88,9 @@ model Doctor {
   open_time   DateTag[]
   // slug              String?         @unique
   // price       Int
-  illnesses   Illness[]
-  images      Image[]
+
+  illnesses Illness[]
+  images    Image[]
 
   specialization Specialization[]
   created_at     DateTime         @default(now())

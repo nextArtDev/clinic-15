@@ -16,7 +16,8 @@ import OtpInput from '../../../../../components/auth/otp-input'
 import { Button } from '@/components/ui/button'
 import { activation } from '@/lib/actions/auth/register'
 import { reactivate } from '@/lib/actions/auth/reactivate'
-
+import Countdown from 'react-countdown'
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 type FormData = {
   otp: string
 }
@@ -96,8 +97,8 @@ export default function OtpForm({ params }: { params: { phone: string } }) {
   return (
     <>
       <form dir="ltr" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-2xl text-secondary pb-8 text-center">
-          لطفا کد ارسال شده را وارد کنید
+        <h1 className="font-semibold text-sm md:text-2xl text-secondary mb-8 text-center">
+          :لطفا کد ارسال شده را وارد کنید
         </h1>
         <Controller
           control={control}
@@ -112,6 +113,26 @@ export default function OtpForm({ params }: { params: { phone: string } }) {
             />
           )}
         />
+        <section
+          dir="ltr"
+          className="flex flex-col justify-center items-center my-8"
+        >
+          <CountdownCircleTimer
+            isPlaying
+            duration={120}
+            colors={['#ADD8E6', '#30e8bf', '#FFB6C1', '#e96f18']}
+            colorsTime={[120, 60, 30, 15]}
+            size={60}
+            strokeWidth={10}
+            onComplete={() => router.push('/login')}
+            strokeLinecap={'butt'}
+          >
+            {({ remainingTime }) => remainingTime}
+          </CountdownCircleTimer>
+          <p className="text-xs md:text-sm text-blue-600 text-center pt-2 pb-8">
+            مدت اعتبار دو دقیقه
+          </p>
+        </section>
         <FormError message={error} />
         <FormSuccess message={success} />
       </form>

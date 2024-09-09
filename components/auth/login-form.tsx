@@ -129,14 +129,14 @@ export const LoginForm = () => {
                     </div>
                   </FormControl>
                   <FormMessage className="" />
-                  <Button
+                  {/* <Button
                     size="sm"
                     variant="link"
                     asChild
                     className="px-0 font-normal  "
                   >
                     <Link href="/reset">رمز عبور را فراموش کرده‌اید؟</Link>
-                  </Button>
+                  </Button> */}
                 </FormItem>
               )}
             />
