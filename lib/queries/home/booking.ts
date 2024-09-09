@@ -41,53 +41,85 @@ export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
   const skipAmount = (page - 1) * pageSize
 
   try {
-    const allBookedDays = await prisma.timeSlot.findMany({
+    // const allBookedDays = await prisma.timeSlot.findMany({
+    //   where: {
+    //     bookedDays: {
+    //       some: {
+    //         isBooked: true,
+    //       },
+    //     },
+    //   },
+    // })
+
+    // const allCompleteBookedDays = await Promise.all(
+    //   allBookedDays?.map(async (slot: any) => {
+    //     return await prisma.bookedDay.findMany({
+    //       where: {
+    //         timeSlotId: slot.id,
+    //         day: {
+    //           gte: format(Date.now(), 'yyyy/MM/dd'),
+    //         },
+    //       },
+    //       include: {
+    //         doctor: { select: { name: true } },
+    //         timeSlot: {
+    //           select: {
+    //             slot: true,
+    //           },
+    //         },
+    //         user: true,
+    //       },
+    //       skip: skipAmount,
+    //       take: pageSize,
+
+    //       orderBy: {
+    //         day: 'desc',
+    //       },
+    //     })
+    //   })
+    // )
+
+    const allCompleteBookedDays = await prisma.bookedDay.findMany({
       where: {
-        bookedDays: {
-          some: {
-            isBooked: true,
+        day: {
+          gte: format(Date.now(), 'yyyy/MM/dd'),
+        },
+      },
+      include: {
+        doctor: { select: { name: true } },
+        timeSlot: {
+          select: {
+            slot: true,
           },
         },
+        user: true,
       },
       skip: skipAmount,
       take: pageSize,
+
+      orderBy: {
+        day: 'desc',
+      },
     })
-
-    const allCompleteBookedDays = await Promise.all(
-      allBookedDays?.map(async (slot: any) => {
-        return await prisma.bookedDay.findMany({
-          where: {
-            timeSlotId: slot.id,
-            day: {
-              gte: format(Date.now(), 'yyyy/MM/dd'),
-              // gte: '1403/06/28',
-            },
-          },
-          include: {
-            doctor: { select: { name: true } },
-            timeSlot: {
-              select: {
-                slot: true,
-              },
-            },
-            user: true,
-          },
-
-          orderBy: {
-            day: 'desc',
-          },
-        })
-      })
-    )
     // allCompleteBookedDays.map((b) =>
     //   b.map((a) => console.log(a.day > '1403/08/30'))
     // )
-    // console.log('m', format(Date.now(), 'yyyy/MM/dd'))
-    const totalBookedDays = await prisma.bookedDay.count()
+    // console.log('allBookedDays', allCompleteBookedDays.length)
+
+    const totalBookedDays = await prisma.bookedDay.count({
+      where: {
+        day: {
+          gte: format(Date.now(), 'yyyy/MM/dd'),
+        },
+      },
+    })
     // console.log('totalBookedDays', totalBookedDays)
 
     // Calculate if there are more questions to be fetched
-    const isNext = totalBookedDays > skipAmount + allBookedDays.length
+    // console.log('totalBookedDays', totalBookedDays)
+    // console.log('skipAmount', skipAmount)
+
+    const isNext = totalBookedDays > skipAmount + allCompleteBookedDays.length
     return { booked: allCompleteBookedDays.flat(), isNext }
   } catch (error) {
     console.log(error)

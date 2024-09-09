@@ -156,7 +156,8 @@ export const sendCancelBookingSms = async ({
     await api.send({
       from: '50002710056401',
       to: phone,
-      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است. \n کلینیک آیین شفق`,
+      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است.`,
+      // text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است. \n کلینیک آیین شفق`,
     })
     // console.log(asm)
     return { success: 'پیام کنسلی ارسال شد.' }

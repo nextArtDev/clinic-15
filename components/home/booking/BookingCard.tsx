@@ -77,8 +77,8 @@ const BookingCard: FC<BookingCardProps> = ({
     nowDay: Date | null
   }) => {
     if (!date || !nowDay) return null
-    if (isSameDay(date, nowDay) && isBefore(date, nowDay)) {
-      return false
+    if (!isBefore(nowDay, date)) {
+      return true
     }
   }
   useEffect(() => {
