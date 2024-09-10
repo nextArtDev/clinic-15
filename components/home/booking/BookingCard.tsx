@@ -40,7 +40,12 @@ import {
 } from 'next/navigation'
 import { toast } from 'sonner'
 import Link from 'next/link'
-import { getCurrentStartOfDay, Schedule } from '@/lib/utils/date-utils'
+import {
+  compareTimeStrings,
+  getCurrentStartOfDay,
+  getCurrentTime,
+  Schedule,
+} from '@/lib/utils/date-utils'
 import { BorderBeam } from '../BorderBeam'
 import { isBefore, isSameDay, subDays } from 'date-fns'
 interface BookingCardProps {
@@ -60,7 +65,7 @@ const BookingCard: FC<BookingCardProps> = ({
   disabledDaysByDoctor,
   user,
 }) => {
-  const [today, setToday] = useState<Date | null>(null)
+  const [currentTimeToDisable, setCurrentTimeToDisable] = useState('')
 
   const [modal, setModal] = useState('')
   const schedule = availabilities?.map((availability) => {
@@ -69,37 +74,7 @@ const BookingCard: FC<BookingCardProps> = ({
       day: availability.availableDay,
     }
   })
-  const disableToday = ({
-    date,
-    nowDay,
-  }: {
-    date: Date | null
-    nowDay: Date | null
-  }) => {
-    if (!date || !nowDay) return null
-    if (!isBefore(nowDay, date)) {
-      return true
-    }
-  }
-  useEffect(() => {
-    const validSchedule = schedule?.filter(
-      (item) => item.time !== undefined
-    ) as Schedule[]
 
-    const currentToday = getCurrentStartOfDay(validSchedule || [])
-
-    // Only update if the value has changed
-
-    if (!today || today.getTime() !== currentToday.getTime()) {
-      setToday(currentToday)
-    }
-  }, [schedule, today])
-
-  // console.log(today)
-  // console.log(new Date())
-  // today.setHours(0, 0, 0, 0)
-
-  // console.log(modal)
   const [showConfetti, setShowConfetti] = useState(false)
   const [selectedTime, setSelectedTime] = useState('')
   const [disabledDays, setDisabledDays] = useState<number[] | undefined>([])
@@ -141,6 +116,18 @@ const BookingCard: FC<BookingCardProps> = ({
 
     // setDefaultResultOrder(time)
   }
+  useEffect(() => {
+    if (
+      new Date().getDay() === form?.getValues('dob')?.getDay() &&
+      format(form?.getValues('dob'), 'yyyy/MM/dd') ===
+        format(new Date(), 'yyyy/MM/dd')
+    ) {
+      const currentTime = getCurrentTime()
+      setCurrentTimeToDisable(currentTime)
+    }
+
+    return () => setCurrentTimeToDisable('')
+  }, [form?.getValues('dob'), modal, form])
 
   async function onSubmit(data: z.infer<typeof bookingFormSchema>) {
     // console.log(data)
@@ -175,14 +162,6 @@ const BookingCard: FC<BookingCardProps> = ({
           })
           .catch(() => console.log('مشکلی پیش آمده.'))
       })
-      // await createBooking({
-      //   time: selectedTime,
-      //   availabilityDay: data.dob.getDay().toString(),
-      //   doctorId,
-      //   day: format(data.dob, 'yyyy/MM/dd'),
-      // })
-      // console.log(format(data.dob, 'yyyy/MM/dd'))
-      // console.log(getDayNameFromIndex(data.dob.getDay()))
     } catch (error) {
       toast.error('مشکلی پیش آمده، لطفا دوباره امتحان کنید!')
     }
@@ -239,7 +218,9 @@ const BookingCard: FC<BookingCardProps> = ({
                             setModal(format(date, 'yyyy/MM/dd'))
                           }
                           disabled={(date) =>
-                            disableToday({ date, nowDay: today }) ||
+                            // disableToday({ date, nowDay: today }) ||
+                            // date < today ||
+                            // isDateDisabled(date) ||
                             // date < new Date() ||
                             isBefore(date, subDays(new Date(), 1)) ||
                             date < new Date('2023-01-01') ||
@@ -330,22 +311,24 @@ const BookingCard: FC<BookingCardProps> = ({
                               selectedTime === time.slot ? 'default' : 'outline'
                             }
                             disabled={
-                              time.bookedDays.some(
+                              (currentTimeToDisable &&
+                                compareTimeStrings(
+                                  currentTimeToDisable,
+                                  time.slot
+                                )) ||
+                              (time.bookedDays.some(
                                 (bookDay) => bookDay?.timeSlotId === time.id
                               ) &&
-                              time.bookedDays?.some(
-                                (bookedDay) =>
-                                  bookedDay?.day ===
-                                  format(form.getValues('dob'), 'yyyy/MM/dd')
-                              )
+                                time.bookedDays?.some(
+                                  (bookedDay) =>
+                                    bookedDay?.day ===
+                                    format(form.getValues('dob'), 'yyyy/MM/dd')
+                                ))
                             }
                             onClick={() => {
                               handleTimeClick(time.slot)
-
-                              // Handle button click here
-                              // console.log(time.slot)
                             }}
-                            className="text-sm max-w-16 "
+                            className={cn('text-sm max-w-16 ')}
                           >
                             {time.slot}
                           </Button>

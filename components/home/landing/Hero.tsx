@@ -95,15 +95,15 @@ function Hero({}: Props) {
             </Link>
           </div> */}
           <div className="h-full   space-y-8">
-            <h1 className="animate-fade-in [--animation-delay:700ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
+            <h1 className="animate-fade-in [--animation-delay:200ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
             </h1>
 
-            <p className="animate-fade-in [--animation-delay:1000ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
+            <p className="animate-fade-in [--animation-delay:500ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
             <Link
-              className="animate-fade-in [--animation-delay:1200ms] opacity-0 p-0.5 w-full flex items-center justify-center "
+              className="animate-fade-in [--animation-delay:700ms] opacity-0 p-0.5 w-full flex items-center justify-center "
               href={'/doctors'}
             >
               <PulsatingButton>رزرو نوبت</PulsatingButton>
@@ -119,7 +119,7 @@ function Hero({}: Props) {
             text="03137888561"
           />
 
-          <div className="md:hidden animate-fade-in md:[--animation-delay:1ms] [--animation-delay:1500ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
+          <div className="md:hidden animate-fade-in [--animation-delay:1000ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:03137888561"
               className="flex flex-col md:hidden gap-3 px-8 animate-pulse"

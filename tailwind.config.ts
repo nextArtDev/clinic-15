@@ -117,7 +117,7 @@ const config = {
         },
       },
       animation: {
-        'fade-in': 'fade-in 1300ms var(--animation-delay, 0ms) ease forwards',
+        'fade-in': 'fade-in 1000ms var(--animation-delay, 0ms) ease forwards',
         pulse: 'pulse var(--duration) ease-out infinite',
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
         'accordion-down': 'accordion-down 0.2s ease-out',

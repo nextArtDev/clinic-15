@@ -30,7 +30,8 @@ export const sendSms = async (values: z.infer<typeof PhoneSchema>) => {
       to: phone,
       text: `کد تایید شما: ${
         verificationCode as number
-      } \n مدت اعتبار این کد ۲ دقیقه می‌باشد`,
+      } \n مدت اعتبار این کد ۲ دقیقه می‌باشد
+       \n https://shafagh.iran.liara.run`,
     })
 
     return { success: 'کد تایید به شماره شما ارسال شد.', verificationCode }
@@ -124,7 +125,8 @@ export const sendBookingSms = async ({
     await api.send({
       from: '50002710056401',
       to: phone,
-      text: `${name}\n نوبت ${dayTime} شما  \n با دکتر ${doctorName} رزرو شد.`,
+      text: `${name}\n نوبت ${dayTime} شما  \n با دکتر ${doctorName} رزرو شد.
+      \n https://shafagh.iran.liara.run`,
     })
 
     return { success: 'پیام رزرو ارسال شد.' }
@@ -156,7 +158,8 @@ export const sendCancelBookingSms = async ({
     await api.send({
       from: '50002710056401',
       to: phone,
-      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است.`,
+      text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است.
+      \n https://shafagh.iran.liara.run`,
       // text: `${name}\nنوبت ${dayTime} شما  \n با دکتر ${doctorName} کنسل شده است. \n کلینیک آیین شفق`,
     })
     // console.log(asm)
