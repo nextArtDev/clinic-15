@@ -40,6 +40,20 @@ const Card = ({
   //   const imageRotate = useTransform(scrollYProgress, [0, 1], [360, 0])
   const scale = useTransform(progress, range, [1, targetScale])
 
+  const wrapper = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  const text = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 },
+  }
   return (
     <div ref={container} className={cn(styles.cardContainer, '')}>
       <motion.div
@@ -79,9 +93,14 @@ const Card = ({
               'text-lg font-semibold  text-right'
             )}
           >
-            <ul className="absolute top-16 left-1/2 w-full space-y-4 -translate-x-1/2 flex flex-col  justify-around items-center text-justify z-[2]">
+            <motion.ul
+              variants={wrapper}
+              initial="hidden"
+              whileInView="show"
+              className="absolute top-16 left-1/2 w-full space-y-4 -translate-x-1/2 flex flex-col  justify-around items-center text-justify z-[2]"
+            >
               {items?.map((item) => (
-                <li key={item.id}>
+                <motion.li variants={text} key={item.id}>
                   <Badge className="px-2 py-1 flex gap-1 custom-box-shadow backdrop-blur-md  bg-white/30 rounded-md text-sm md:text-base">
                     <CheckCircle
                       className="text-primary"
@@ -90,9 +109,9 @@ const Card = ({
                     />
                     <p>{item.text}</p>
                   </Badge>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </div>
         </div>
         <SvgShadow />

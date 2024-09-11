@@ -224,9 +224,9 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
 
                   )} */}
                   {/* <UserButton  /> */}
-                  <a href={!!user ? '/user' : '/login'}>
+                  <Link href={!!user ? '/user' : '/login'}>
                     <User2Icon className="text-primary ml-4 border border-primary p-0.5 rounded-full w-6 h-6" />
-                  </a>
+                  </Link>
                 </motion.figure>
               </div>
             </section>
