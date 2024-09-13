@@ -17,7 +17,7 @@ export function NavigationMenuDemo() {
   // const specials = await getAllSpecializations({})
 
   return (
-    <NavigationMenu>
+    <NavigationMenu className="text-primary-foreground">
       <NavigationMenuList className=" w-full flex items-baseline justify-evenly">
         <NavigationMenuItem>
           <Link href="/faq" legacyBehavior passHref>

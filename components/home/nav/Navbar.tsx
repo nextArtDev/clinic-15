@@ -27,6 +27,7 @@ import { useCurrentUser } from '@/hooks/use-current-user'
 import { useSession } from 'next-auth/react'
 import { UserButton } from '@/components/auth/user-button'
 import { ExtendedUserWithoutEmail } from '@/types/next-auth'
+import DesktopNavbar from './DesktopNavbar'
 
 let clamp = (number: number, min: number, max: number) =>
   Math.min(Math.max(number, min), max)
@@ -180,9 +181,12 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                 </div>
               </MenuItem>
             </Menu> */}
-              <div className=" flex-1 px-6">
-                <NavigationMenuDemo />
+              <div className="relative  flex-1 px-6 w-full flex items-end justify-center">
+                <DesktopNavbar className="top-2" />
               </div>
+              {/* <div className=" flex-1 px-6">
+                <NavigationMenuDemo />
+              </div> */}
 
               <div className="flex items-baseline gap-7 max-sm:justify-end max-sm:flex-1">
                 <motion.div

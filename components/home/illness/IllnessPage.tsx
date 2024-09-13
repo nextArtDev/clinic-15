@@ -18,7 +18,7 @@ function IllnessPage({ illness }: Props) {
       <div key={illness.id} className="px-4 py-10 pt-20 sm:px-6 lg:px-8  ">
         <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-x-8">
           {illnessImages.length > 0 ? (
-            <div className="xl:max-w-xl xl:mx-auto">
+            <div className=" ">
               <CarouselOrientation images={illnessImages} />
             </div>
           ) : (

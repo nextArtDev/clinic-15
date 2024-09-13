@@ -34,7 +34,7 @@ const CarouselOrientation = ({ images }: CarouselOrientationProps) => {
             rounded-xl bg-background overflow-hidden"
             >
               <Image
-                src={image.urls || '/images/parallax/0000.webp'}
+                src={image.urls || '/images/0000.webp'}
                 fill
                 alt={image.alt}
                 className="object-cover gradient-base"

@@ -3,7 +3,6 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { cn } from '@/lib/utils'
 
 const transition = {
   type: 'spring',
@@ -29,7 +28,7 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        className="cursor-pointer  text-primary-foreground hover:opacity-[0.9] dark:text-white"
       >
         {item}
       </motion.p>
@@ -40,11 +39,11 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+            <div className="absolute top-[calc(100%_+_0.2rem)] left-1/2 transform -translate-x-1/2 pt-1">
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-white dark:bg-black backdrop-blur-sm   overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+                className="glass backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
               >
                 <motion.div
                   layout // layout ensures smooth animation
@@ -64,16 +63,14 @@ export const MenuItem = ({
 export const Menu = ({
   setActive,
   children,
-  className,
 }: {
   setActive: (item: string | null) => void
   children: React.ReactNode
-  className?: string
 }) => {
   return (
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className={cn(className, 'relative gap-x-4')}
+      className="relative text-xl  bg-transparent pr-8 flex gap-x-4  py-6"
     >
       {children}
     </nav>
@@ -92,7 +89,7 @@ export const ProductItem = ({
   src: string
 }) => {
   return (
-    <Link href={href} className="flex gap-x-2">
+    <Link href={href} className="flex space-x-2">
       <Image
         src={src}
         width={140}
@@ -101,12 +98,8 @@ export const ProductItem = ({
         className="flex-shrink-0 rounded-md shadow-2xl"
       />
       <div>
-        <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
-          {title}
-        </h4>
-        <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
-          {description}
-        </p>
+        <h4 className="text-xl font-bold mb-1 text-green-500">{title}</h4>
+        <p className="text-red-500  text-sm max-w-[10rem]  ">{description}</p>
       </div>
     </Link>
   )
@@ -114,10 +107,7 @@ export const ProductItem = ({
 
 export const HoveredLink = ({ children, ...rest }: any) => {
   return (
-    <Link
-      {...rest}
-      className=" text-neutral-700 dark:text-neutral-200 hover:text-black "
-    >
+    <Link {...rest} className="text-primary-foreground hover:text-primary">
       {children}
     </Link>
   )
