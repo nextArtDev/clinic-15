@@ -28,6 +28,7 @@ import { useSession } from 'next-auth/react'
 import { UserButton } from '@/components/auth/user-button'
 import { ExtendedUserWithoutEmail } from '@/types/next-auth'
 import DesktopNavbar from './DesktopNavbar'
+import SimpleDesktopMenu from './SimpleDesktopMenu'
 
 let clamp = (number: number, min: number, max: number) =>
   Math.min(Math.max(number, min), max)
@@ -136,54 +137,16 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                     }}
                   >
                     {/* <Image src={sun} alt="Sun" width={48} height={48} /> */}
-                    <HomeIcon className="mr-4" />
+                    <HomeIcon className="mr-4 stroke-primary/60" />
                   </motion.figure>
                 </Link>
               </div>
+              {/* Desktop Nav */}
+              <section className="relative  flex-1 px-6 w-full ">
+                {/* <DesktopNavbar className="top-2" /> */}
 
-              {/* <Menu
-              setActive={setActive}
-              className={'flex flex-1   justify-center  max-sm:hidden '}
-            >
-              <MenuItem setActive={setActive} active={active} item="خدمات">
-                <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/web-dev">Web Development</HoveredLink>
-                  <HoveredLink href="/interface-design">
-                    Interface Design
-                  </HoveredLink>
-                  <HoveredLink href="/seo">
-                    Search Engine Optimization
-                  </HoveredLink>
-                  <HoveredLink href="/branding">Branding</HoveredLink>
-                </div>
-              </MenuItem>
-
-              <MenuItem setActive={setActive} active={active} item="دکترها">
-                <div className="  text-sm grid grid-cols-2 gap-10 p-4">
-                  {doctors.map((nav) => (
-                    <ProductItem
-                      key={nav.id}
-                      title={nav.name}
-                      href={`/doctors/${nav.id}`}
-                      src={nav.imageSrc}
-                      description="Prepare for tech interviews like never before."
-                    />
-                  ))}
-                </div>
-              </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="تخصصها">
-                <div className="flex flex-col space-y-4 text-sm">
-                  {special.map((sp) => (
-                    <HoveredLink key={sp.id} href={`/specials/${sp.id}`}>
-                      {sp.name}
-                    </HoveredLink>
-                  ))}
-                </div>
-              </MenuItem>
-            </Menu> */}
-              <div className="relative  flex-1 px-6 w-full flex items-end justify-center">
-                <DesktopNavbar className="top-2" />
-              </div>
+                <SimpleDesktopMenu />
+              </section>
               {/* <div className=" flex-1 px-6">
                 <NavigationMenuDemo />
               </div> */}
@@ -214,27 +177,13 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                     ),
                   }}
                 >
-                  {/* <Image src={BagImage} alt="bag" width={18} height={18} /> */}
-                  {/* {user?.data?.user && (
-                    <Link className="flex gap-1" href={'/login'}>
-                      {
-                        <p className="hidden md:flex-1">
-                          {user?.data?.user.name}
-                        </p>
-                      }
-                      <User size={'sm'} className="ml-4 w-6" />
-                    </Link>
-                  ):(
-
-                  )} */}
-                  {/* <UserButton  /> */}
                   <Link href={!!user ? '/user' : '/login'}>
                     <User2Icon className="text-primary ml-4 border border-primary p-0.5 rounded-full w-6 h-6" />
                   </Link>
                 </motion.figure>
               </div>
             </section>
-            {/* <motion.ul
+            <motion.ul
               onMouseLeave={() => {
                 setPosition((pv) => ({
                   ...pv,
@@ -242,7 +191,7 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
                 }))
               }}
               className=" flex flex-1 space-x-4 pb-2.5 justify-center  max-sm:hidden "
-            ></motion.ul> */}
+            ></motion.ul>
           </nav>
 
           <motion.div
@@ -261,7 +210,7 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
             <GlobalSearch />
           </motion.div>
         </motion.header>
-        {/* <div className="mx-auto ">
+        {/* <div className=" ">
           <StickyNav> */}
         {/* {special.map((tab) => (
               <button
