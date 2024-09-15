@@ -24,11 +24,7 @@ interface GlobalResultProps {
 const GlobalResult: FC<GlobalResultProps> = ({ social }) => {
   const searchParams = useSearchParams()
 
-  const [result, setResult] = useState([
-    // { type: 'question', id: 1, title: 'Next.js' },
-    // { type: 'tag', id: 1, title: 'Nextjs' },
-    // { type: 'user', id: 1, title: 'jsm' },
-  ])
+  const [result, setResult] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   const global = searchParams.get('global')
@@ -77,7 +73,7 @@ const GlobalResult: FC<GlobalResultProps> = ({ social }) => {
       </p>
       <div className="my-5 h-[1px] bg-muted " />
       <div className="space-y-5">
-        <p className="px-5">بهترین نتایج</p>
+        <p className="px-5  text-muted-foreground">بهترین نتایج</p>
         {isLoading ? (
           <div className="flex flex-col items-center justify-center px-5">
             <Loader2 size={40} className="animate-spin" />

@@ -40,21 +40,24 @@ const GlobalFilters: FC<GlobalFiltersProps> = ({ filters }) => {
   }
   return (
     <div className=" flex items-center gap-1 px-1">
-      <div className="flex flex-wrap items-center gap-3">
-        <p className="font-semibold">فیلتر:</p>
-        {filters.map((item) => (
-          <Button
-            key={item.value}
-            onClick={() => handleTypeClick(item.value)}
-            className={cn(
-              `rounded-full   `
-              // active === item.value ? 'bg-rose-400 text-slate-200 ' : ''
-            )}
-            variant={active === item.value ? 'destructive' : 'secondary'}
-          >
-            {item.name}
-          </Button>
-        ))}
+      <div className="flex flex-col   gap-1">
+        <p className="font-semibold text-muted-foreground">فیلتر</p>
+        <article className="flex flex-wrap gap-0.5">
+          {filters.map((item) => (
+            <Button
+              key={item.value}
+              size={'sm'}
+              onClick={() => handleTypeClick(item.value)}
+              className={cn(
+                `rounded-full `
+                // active === item.value ? 'bg-rose-400 text-slate-200 ' : ''
+              )}
+              variant={active === item.value ? 'destructive' : 'secondary'}
+            >
+              {item.name}
+            </Button>
+          ))}
+        </article>
       </div>
     </div>
   )

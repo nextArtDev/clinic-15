@@ -179,14 +179,14 @@ export const days = [
   { id: 5, name: 'چهارشنبه' },
   { id: 6, name: 'پنجشنبه' },
 ]
-export type DoctorType = {
-  id: number
-  name: string
-  imageSrc: string
-  specialty: string[]
-  illnessId: number[]
-  booking: string[]
-}
+// export type DoctorType = {
+//   id: number
+//   name: string
+//   imageSrc: string
+//   specialty: string[]
+//   illnessId: number[]
+//   booking: string[]
+// }
 export const doctors = [
   {
     id: 1,

@@ -346,11 +346,11 @@ const BookingCard: FC<BookingCardProps> = ({
                 onClick={() => setModal('')}
                 disabled={!selectedTime || isPending}
               >
-                {!!user?.id ? (
-                  'تایید روز و ساعت'
-                ) : (
-                  <Link href={'/login'}>ورود/عضویت</Link>
-                )}
+                تایید روز و ساعت
+                {/* {!!user?.id ? ( */}
+                {/* // ) : (
+                //   <Link href={'/login'}>ورود/عضویت</Link>
+                // )} */}
               </Button>
               {/* // ) : (
               //   <Link

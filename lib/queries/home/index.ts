@@ -9,44 +9,44 @@ export interface GetSpecializationParams {
   searchQuery?: string
 }
 
-export const getAllSpecializations = async (
-  params: GetSpecializationParams
-) => {
-  const { searchQuery, page = 1, pageSize = 10 } = params
+export const getAllSpecializations = cache(
+  async (params: GetSpecializationParams) => {
+    const { searchQuery, page = 1, pageSize = 10 } = params
 
-  const skipAmount = (page - 1) * pageSize
-  const query: any = {} // This will be used to build the Prisma query
+    const skipAmount = (page - 1) * pageSize
+    const query: any = {} // This will be used to build the Prisma query
 
-  if (searchQuery) {
-    query.OR = [
-      { name: { contains: searchQuery } },
-      { description: { contains: searchQuery } },
-    ]
-  }
+    if (searchQuery) {
+      query.OR = [
+        { name: { contains: searchQuery } },
+        { description: { contains: searchQuery } },
+      ]
+    }
 
-  try {
-    const specializations = await prisma.specialization.findMany({
-      where: query,
-      include: {
-        images: { select: { url: true } },
-        doctors: {
-          include: { images: { select: { url: true } } },
+    try {
+      const specializations = await prisma.specialization.findMany({
+        where: query,
+        include: {
+          images: { select: { url: true } },
+          doctors: {
+            include: { images: { select: { url: true } } },
+          },
         },
-      },
-      skip: skipAmount,
-      take: pageSize,
-    })
-    const totalSpecializations = await prisma.specialization.count({
-      where: query,
-    })
+        skip: skipAmount,
+        take: pageSize,
+      })
+      const totalSpecializations = await prisma.specialization.count({
+        where: query,
+      })
 
-    // Calculate if there are more questions to be fetched
-    const isNext = totalSpecializations > skipAmount + specializations.length
-    return { specializations, isNext }
-  } catch (error) {
-    console.log(error)
+      // Calculate if there are more questions to be fetched
+      const isNext = totalSpecializations > skipAmount + specializations.length
+      return { specializations, isNext }
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
+)
 
 export const getSpecializationWithId = cache(async ({ id }: { id: string }) => {
   try {
@@ -75,7 +75,7 @@ export interface GetDoctorParams {
   searchQuery?: string
 }
 
-export const getAllDoctors = async (params: GetDoctorParams) => {
+export const getAllDoctors = cache(async (params: GetDoctorParams) => {
   try {
     const { searchQuery, page = 1, pageSize = 10 } = params
 
@@ -123,7 +123,7 @@ export const getAllDoctors = async (params: GetDoctorParams) => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 
 export const getDoctorById = cache(async ({ id }: { id: string }) => {
   try {
@@ -152,7 +152,7 @@ export const getDoctorById = cache(async ({ id }: { id: string }) => {
   }
 })
 
-export const getAllDoctorsWithReviews = async () => {
+export const getAllDoctorsWithReviews = cache(async () => {
   try {
     const doctors = await prisma.doctor.findMany({
       include: {
@@ -164,7 +164,7 @@ export const getAllDoctorsWithReviews = async () => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 
 export interface GetIllnessParams {
   page?: number
@@ -172,7 +172,7 @@ export interface GetIllnessParams {
   searchQuery?: string
   filter?: string
 }
-export const getAllIllnesses = async (params: GetIllnessParams) => {
+export const getAllIllnesses = cache(async (params: GetIllnessParams) => {
   try {
     const { searchQuery, page = 1, pageSize = 10 } = params
     const skipAmount = (page - 1) * pageSize
@@ -203,7 +203,7 @@ export const getAllIllnesses = async (params: GetIllnessParams) => {
   } catch (error) {
     console.log(error)
   }
-}
+})
 export const getIllnessesById = cache(async ({ id }: { id: string }) => {
   try {
     const illness = await prisma.illness.findUnique({
@@ -224,6 +224,7 @@ export interface SearchParams {
 }
 
 const searchableHomeTypes = ['specialization', 'doctor', 'illness']
+
 export async function globalHomeSearch(params: SearchParams) {
   try {
     const { query, type } = params
@@ -266,14 +267,10 @@ export async function globalHomeSearch(params: SearchParams) {
         results.push(
           ...queryResults.map((item: any) => ({
             title: item[searchField],
+
             type,
 
             id: item.id,
-            // type === 'specialization'
-            //   ? item.id
-            //   : type === 'contributor'
-            //     ? item.id
-            //     :item.id,
           }))
         )
       }
@@ -286,22 +283,14 @@ export async function globalHomeSearch(params: SearchParams) {
       }
       //@ts-ignore
       const queryResults = await modelInfo.model.findMany({
-        where: { [modelInfo.searchField]: regexQuery },
+        where: { OR: [{ name: regexQuery }, { description: regexQuery }] },
         take: 5,
       })
 
       results = queryResults.map((item: any) => ({
         title: item[modelInfo.searchField],
-        // type === 'specialization'
-        //   ? `تخصص شامل ${query}`
-        //   : item[modelInfo.searchField],
         type,
         id: item.id,
-        // type === 'specialization'
-        //   ? item.id
-        //   : // : type === 'answer'
-        //     // ? item.questionId
-        //     item.id,
       }))
     }
     // console.log(results)
@@ -311,7 +300,6 @@ export async function globalHomeSearch(params: SearchParams) {
     throw error
   }
 }
-
 export const getAllPersonnel = async () => {
   try {
     const personnel = await prisma.personnel.findMany({
