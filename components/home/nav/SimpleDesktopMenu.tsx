@@ -15,7 +15,7 @@ const CustomMobileLink = ({ href, title, className = '' }: MobileLinks) => {
   return (
     <Link
       href={href}
-      className={`${className}  relative group text-lg text-primary   my-2`}
+      className={`${className}  relative group text-lg  sub-title-color  my-2`}
     >
       {title}
       <span

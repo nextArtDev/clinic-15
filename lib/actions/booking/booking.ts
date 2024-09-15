@@ -61,7 +61,7 @@ export async function createBooking(
     if (!user?.id)
       return {
         errors: {
-          _form: ['شمااجازه دسترسی ندارید، به حساب کاربری خود وارد شوید.!'],
+          _form: ['شمااجازه دسترسی ندارید، به حساب کاربری خود وارد شوید.'],
         },
       }
 

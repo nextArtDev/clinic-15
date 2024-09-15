@@ -76,8 +76,8 @@ function Hero({}: Props) {
   //   }
   // }, [])
   return (
-    <section className="relative w-full h-[calc(h-screen-5rem)]">
-      <div className="container absolute top-10 inset-0 grid place-items-center  ">
+    <section className="relative w-full h-[calc(h-vdh-6rem)]">
+      <div className="container absolute top-10  inset-0 grid place-items-center  ">
         <div className="content text-center z-10 space-y-8">
           {/* <div className="content-inner space-y-4">
             <h1 className="title-color custom-box-shadow glass text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
@@ -95,16 +95,16 @@ function Hero({}: Props) {
             </Link>
           </div> */}
           <div className="h-full   space-y-8">
-            <h1 className="animate-fade-in [--animation-delay:200ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
+            <h1 className="animate-fade-in [--animation-delay:1300ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
             </h1>
 
-            <p className="animate-fade-in [--animation-delay:500ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
+            <p className="animate-fade-in [--animation-delay:1600ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">
               پذیرش بیماران درمانگاهی توسط پزشکان عمومی
             </p>
             <Link
-              className="animate-fade-in [--animation-delay:700ms] opacity-0 p-0.5 w-full flex items-center justify-center "
-              href={'/doctors'}
+              className="animate-fade-in [--animation-delay:1800ms] opacity-0 p-0.5 w-full flex items-center justify-center "
+              href={'/specialities'}
             >
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
@@ -119,10 +119,10 @@ function Hero({}: Props) {
             text="03137888561"
           />
 
-          <div className="md:hidden animate-fade-in [--animation-delay:1000ms] opacity-0 pt-20 absolute bottom-4 left-0 rounded-full flex w-full  items-center justify-center ">
+          <div className="md:hidden animate-fade-in [--animation-delay:2100ms] opacity-0 pt-14 absolute bottom-12 left-0 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:03137888561"
-              className="flex flex-col md:hidden gap-3 px-8 animate-pulse"
+              className="flex flex-col md:hidden gap-2 px-8 animate-pulse"
             >
               {/* <span className=" text-lg underline underline-offset-2 decoration-red-600 decoration-1 "> */}
               {/* <Button
@@ -133,12 +133,12 @@ function Hero({}: Props) {
                 <Phone />
               </Button> */}
               <IconRipple icon={Phone} iconColor="red" />
-              <p className="mt-3 text-red-600">تماس</p>
+              <p className="mt-2 text-red-600">تماس</p>
             </Link>
             <Link
               href="https://wa.me/+989386472694"
               target="_blank"
-              className="flex flex-col gap-3 md:hidden px-8"
+              className="flex flex-col gap-2 md:hidden px-8"
             >
               {/* <span className=" text-lg underline underline-offset-2 decoration-green-600 decoration-1 "> */}
               {/* <Button
@@ -147,7 +147,7 @@ function Hero({}: Props) {
               >
               </Button> */}
               <HeroWhatsApp className="w-8 h-8 mix-blend-multiply text-green-600 " />
-              <p className="mt-3 text-green-600">پیام</p>
+              <p className="mt-2 text-green-600">پیام</p>
             </Link>
           </div>
           {/* <div className="z-10 text-center w-full rounded-lg   ">

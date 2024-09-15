@@ -57,7 +57,7 @@ const CustomMobileLink = ({
   return (
     <Link
       href={href}
-      className={`${className} relative group text-xl text-primary-foreground   my-2`}
+      className={`${className} relative group text-xl sub-title-color  my-2`}
       onClick={handleClick}
     >
       {title}

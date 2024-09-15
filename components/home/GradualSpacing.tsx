@@ -14,17 +14,18 @@ interface GradualSpacingProps {
 
 export default function GradualSpacing({
   text,
-  duration = 1,
-  delayMultiple = 0.2,
+  duration = 0.8,
+  delayMultiple = 0.1,
   framerProps = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 },
   },
+
   className,
 }: GradualSpacingProps) {
   return (
     <div dir="ltr" className="flex justify-center space-x-1">
-      <AnimatePresence>
+      <AnimatePresence mode="sync" initial>
         {text.split('').map((char, i) => (
           <motion.h1
             key={i}

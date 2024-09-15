@@ -18,6 +18,7 @@ import {
 } from '@/lib/queries/home'
 import { prisma } from '@/lib/prisma'
 import PersonnelCarousel from '@/components/home/personnel/PersonnelCarousel'
+import { Suspense } from 'react'
 
 const HomePage = async () => {
   const specializationsPromise = getAllSpecializations({})
@@ -36,7 +37,9 @@ const HomePage = async () => {
     ])
   return (
     <div className="relative gradient-base">
-      <Hero />
+      <Suspense fallback={null}>
+        <Hero />
+      </Suspense>
       <Deal />
 
       <StackCards />

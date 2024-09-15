@@ -22,7 +22,7 @@ model User {
   role       Role    @default(USER)
   isVerified Boolean @default(false)
   imageId    String?
-  doctor     Doctor?
+  // doctor     Doctor?
 
   verificationCode Int?
   verificationDate DateTime?
@@ -100,10 +100,10 @@ model Doctor {
 
   availability Availability[]
   BookedDay    BookedDay[]
-  user         User?          @relation(fields: [userId], references: [id])
-  userId       String?
+  // user         User?          @relation(fields: [userId], references: [id])
+  // userId       String?
 
-  @@unique([userId])
+  // @@unique([userId])
 }
 
 model Personnel {
