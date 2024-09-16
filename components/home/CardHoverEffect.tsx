@@ -22,7 +22,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-2 md:grid-cols-4  lg:grid-cols-6  py-10',
+        'grid grid-cols-2 md:grid-cols-4 place-content-center place-items-center    py-10',
         className
       )}
     >
@@ -52,16 +52,17 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <div className="flex flex-col  items-center justify-evenly text-center gap-2">
-              <CardTitle className=" ">{item.title}</CardTitle>
-              {/* <figure className="relative w-10 h-10">
-                <Image
-                  alt={item.title}
-                  fill
-                  src={item.url || '/images/parallax/0000.webp'}
-                  className=" object-cover"
-                />
-              </figure> */}
+            <div className="flex flex-col w-full h-full items-center justify-evenly text-center gap-2">
+              <CardTitle className="glass px-2 py-1 relative ">
+                {item.title}
+              </CardTitle>
+
+              <Image
+                alt={item.title}
+                fill
+                src={item.url || '/images/0000.webp'}
+                className="-z-10 object-cover   opacity-65 backdrop-grayscale-70"
+              />
             </div>
             {/* <CardDescription>{item.description}</CardDescription> */}
           </Card>
@@ -81,7 +82,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        ' h-full w-full p-4 overflow-hidden custom-box-shadow backdrop-blur-md  rounded-md bg-white/30 border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20',
+        ' h-full w-full p-4 overflow-hidden custom-box-shadow backdrop-blur-md  rounded-md   border border-transparent   group-hover:border-slate-700 relative z-20',
         className
       )}
     >
@@ -100,7 +101,7 @@ export const CardTitle = ({
 }) => {
   return (
     <h4
-      className={cn('text-secondary font-bold tracking-wide mt-4', className)}
+      className={cn('text-secondary  font-bold tracking-wide mt-4', className)}
     >
       {children}
     </h4>
@@ -115,10 +116,7 @@ export const CardDescription = ({
 }) => {
   return (
     <p
-      className={cn(
-        'mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm',
-        className
-      )}
+      className={cn('mt-8   tracking-wide leading-relaxed text-sm', className)}
     >
       {children}
     </p>

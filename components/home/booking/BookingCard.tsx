@@ -68,12 +68,6 @@ const BookingCard: FC<BookingCardProps> = ({
   const [currentTimeToDisable, setCurrentTimeToDisable] = useState('')
 
   const [modal, setModal] = useState('')
-  const schedule = availabilities?.map((availability) => {
-    return {
-      time: availability.times?.[0].slot,
-      day: availability.availableDay,
-    }
-  })
 
   const [showConfetti, setShowConfetti] = useState(false)
   const [selectedTime, setSelectedTime] = useState('')
@@ -185,7 +179,9 @@ const BookingCard: FC<BookingCardProps> = ({
                 name="dob"
                 render={({ field }) => (
                   <FormItem className="flex flex-col py-6">
-                    <FormLabel>رزرو نوبت</FormLabel>
+                    {/* <FormLabel className="text-xl sub-title-color">
+                      رزرو نوبت
+                    </FormLabel> */}
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -271,7 +267,7 @@ const BookingCard: FC<BookingCardProps> = ({
                     variant={'ghost'}
                     disabled={isPending}
                     className="border w-full"
-                    onClick={() => router.back()}
+                    onClick={() => router.refresh()}
                   >
                     انصراف
                   </Button>

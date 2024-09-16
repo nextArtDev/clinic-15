@@ -18,27 +18,35 @@ type Props = {
 function SpecializationPage({ specialization }: Props) {
   return (
     <section className="mx-auto px-1 py-8 max-w-7xl w-full flex flex-col gap-12">
-      <h1 className="text-2xl title-color mix-blend-multiply md:text-4xl text-center ">
+      <h1 className="text-2xl title-color   md:text-4xl text-center ">
         {specialization.name}
       </h1>
-      <article className="flex flex-col gap-4">
-        <h2 className="text-xl text-center  md:text-2xl ">دکترهای مرتبط</h2>
-        <div className="grid place-items-center place-content-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {specialization.doctors.map((doctor) => (
-            <Link key={doctor.id} href={`/doctors/${doctor.id}`}>
-              <DoctorReservationCard doctor={doctor} isVertical={true} />
-            </Link>
-          ))}
-        </div>
-      </article>
-      <article className="flex flex-col gap-4">
-        <h2 className="text-xl text-center  md:text-2xl ">بیماری‌های مرتبط</h2>
-        <div className="grid place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ">
-          {specialization?.illness?.map((illness) => (
-            <IllnessShowCard illness={illness} key={illness.id} />
-          ))}
-        </div>
-      </article>
+      {!!specialization.doctors.length && (
+        <article className="flex flex-col gap-4">
+          <h2 className="text-xl sub-title-color py-4 text-center  md:text-2xl ">
+            دکترهای مرتبط ({specialization.doctors.length})
+          </h2>
+          <div className="grid place-items-center place-content-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {specialization.doctors.map((doctor) => (
+              <Link key={doctor.id} href={`/doctors/${doctor.id}`}>
+                <DoctorReservationCard doctor={doctor} isVertical={true} />
+              </Link>
+            ))}
+          </div>
+        </article>
+      )}
+      {!!specialization?.illness?.length && (
+        <article className="flex flex-col gap-4">
+          <h2 className="text-xl sub-title-color py-4 text-center  md:text-2xl ">
+            بیماری‌های مرتبط ({specialization.illness.length})
+          </h2>
+          <div className="grid place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ">
+            {specialization?.illness?.map((illness) => (
+              <IllnessShowCard illness={illness} key={illness.id} />
+            ))}
+          </div>
+        </article>
+      )}
     </section>
   )
 }

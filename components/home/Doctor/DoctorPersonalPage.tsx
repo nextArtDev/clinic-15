@@ -25,6 +25,7 @@ import SkewedInfiniteScroll from './SkewedInfiniteScroll'
 import UserReviews from './UserReviews'
 import BookingCard from '../booking/BookingCard'
 import BookedDaysCard from '../booking/BookedDaysCard'
+import { BorderBeam } from '../BorderBeam'
 
 interface pageProps {
   doctor: Doctor & { illnesses: Illness[] | null } & {
@@ -136,7 +137,17 @@ pageProps) {
                 )}
               </div>
             </div>
-            <div className=" mt-6  sm:min-w-0 sm:flex-1 sm:items-center sm:justify-between sm:space-x-6 sm:pb-1">
+            <div className=" mt-6 text-secondary sm:min-w-0 sm:flex-1 sm:items-center sm:justify-between sm:space-x-6 sm:pb-1">
+              <div className="relative w-fit self-center text-center">
+                {!!availabilities?.length && (
+                  <BookingCard
+                    availabilities={availabilities}
+                    disabledDaysByDoctor={disabledDaysByDoctor}
+                    doctorId={doctor.id}
+                    user={user}
+                  />
+                )}
+              </div>
               <div className="mt-6 text-secondary flex flex-col justify-stretch space-y-3 sm:flex-row sm:justify-evenly sm:space-x-4 sm:space-y-0">
                 {!!doctor?.description && (
                   <div className="grainy  inline-flex text-center justify-center items-center rounded-md bg-transparent backdrop-blur-sm px-3 py-4 text-sm font-semibold shadow-sm  ">
@@ -150,7 +161,7 @@ pageProps) {
                     <ul
                       className={cn(
                         'font-semibold',
-                        'flex flex-wrap gap-x-2 py-4  items-center flex-row-reverse '
+                        'flex flex-wrap gap-x-2 py-4  items-center '
                       )}
                     >
                       {doctor?.open_time?.map((booking) => (
@@ -168,15 +179,6 @@ pageProps) {
                     </ul>
                   </div>
                 ) : null}
-                {!!availabilities?.length && (
-                  <BookingCard
-                    availabilities={availabilities}
-                    disabledDaysByDoctor={disabledDaysByDoctor}
-                    doctorId={doctor.id}
-                    user={user}
-                  />
-                )}
-                {/* <BookedDaysCard doctor={doctor} bookedDays={bookedDays} /> */}
               </div>
             </div>
           </div>
