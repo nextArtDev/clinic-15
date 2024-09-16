@@ -1,37 +1,61 @@
 import { Heading } from '@/components/dashboard/Heading'
+import { Overview } from '@/components/dashboard/Overview'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { prisma } from '@/lib/prisma'
 import {
   getAllDoctors,
   getAllPersonnel,
   getAllReviews,
   getAllSpecializations,
+  getGraphRevenue,
 } from '@/lib/queries/home'
 // import { getGraphRevenue } from '@/lib/queries/dashboard/get-graph-revenue'
 // import { getSalesCount } from '@/lib/queries/dashboard/get-sales-count'
 // import { getStockCount } from '@/lib/queries/dashboard/get-stock-count'
 // import { getTotalRevenue } from '@/lib/queries/dashboard/get-total-revenue'
 // import { formatter } from '@/lib/utils'
-import { Command, CreditCard, DollarSign, Package, PenLine } from 'lucide-react'
+import {
+  BookHeart,
+  Command,
+  CreditCard,
+  DollarSign,
+  GraduationCap,
+  HeartHandshake,
+  Package,
+  PenLine,
+  Pill,
+  User,
+  Users,
+} from 'lucide-react'
 // import { LuCreditCard, LuDollarSign, LuPackage } from 'react-icons/lu'
 
 const DashboardPage = async () => {
-  // const totalRevenuePromise = getTotalRevenue(params.storeId)
-  // const graphRevenuePromise = getGraphRevenue(params.storeId)
-  // const salesCountPromise = getSalesCount(params.storeId)
-  // const stockCountPromise = getStockCount(params.storeId)
-  const totalDoctorsPromise = getAllDoctors({})
-  const totalSpecializationPromise = getAllSpecializations({})
-  const totalPersonnelPromise = getAllPersonnel()
-  const totalReviewsPromise = getAllReviews()
+  const totalDoctorsPromise = prisma.doctor.count()
+  const totalSpecializationPromise = prisma.specialization.count()
+  const getTotalIllnesses = prisma.illness.count({})
+  const totalPersonnelPromise = prisma.personnel.count()
+  const totalReviewsPromise = prisma.review.count()
+  const totalGraphRevenue = getGraphRevenue()
+  const getTotalUsers = prisma.user.count({})
 
-  const [totalDoctors, totalSpecialization, totalPersonnel, totalReviews] =
-    await Promise.all([
-      totalDoctorsPromise,
-      totalSpecializationPromise,
-      totalPersonnelPromise,
-      totalReviewsPromise,
-    ])
+  const [
+    totalDoctors,
+    totalSpecialization,
+    totalIllnesses,
+    totalPersonnel,
+    totalReviews,
+    graphRevenue,
+    totalUsers,
+  ] = await Promise.all([
+    totalDoctorsPromise,
+    totalSpecializationPromise,
+    getTotalIllnesses,
+    totalPersonnelPromise,
+    totalReviewsPromise,
+    totalGraphRevenue,
+    getTotalUsers,
+  ])
 
   return (
     <div className="flex-col">
@@ -41,34 +65,61 @@ const DashboardPage = async () => {
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-col text-center gap-y-2 sm:gap-x-2 sm:text-right sm:flex-row items-center justify-evenly space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">کادر درمان</CardTitle>
-              <DollarSign className="h-6 w-6 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">تعداد کاربر</CardTitle>
+              <Users className="h-6 w-6 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
-                {totalDoctors?.doctors.length} نفر
+                {totalUsers} نفر
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-col text-center gap-y-2 sm:gap-x-2 sm:text-right sm:flex-row items-center justify-evenly space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">تعداد پرسنل</CardTitle>
-              <CreditCard className="h-6 w-6 text-muted-foreground" />
+
+              <HeartHandshake className="h-6 w-6 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
-                {totalPersonnel?.length} نفر
+                {totalPersonnel} نفر
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-col text-center gap-y-2 sm:gap-x-2 sm:text-right sm:flex-row items-center justify-evenly space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">کادر درمان</CardTitle>
+
+              <GraduationCap className="h-6 w-6 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
+                {totalDoctors} نفر
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-col text-center gap-y-2 sm:gap-x-2 sm:text-right sm:flex-row items-center justify-evenly space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">تعداد تخصص</CardTitle>
-              <Package className="h-6 w-6 text-muted-foreground" />
+              <BookHeart className="h-6 w-6 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
-                {totalSpecialization?.specializations.length} تخصص
+                {totalSpecialization} تخصص
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-col text-center gap-y-2 sm:gap-x-2 sm:text-right sm:flex-row items-center justify-evenly space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                تعداد بیماری
+              </CardTitle>
+
+              <Pill className="h-6 w-6 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
+                {totalIllnesses} بیماری
               </div>
             </CardContent>
           </Card>
@@ -79,19 +130,19 @@ const DashboardPage = async () => {
             </CardHeader>
             <CardContent>
               <div className="mt-8 text-lg md:text-2xl font-bold text-center text-red-500 ">
-                {totalReviews?.length} نظر
+                {totalReviews} نظر
               </div>
             </CardContent>
           </Card>
         </div>
-        {/* <Card className="col-span-4">
+        <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>کامنت‌ها</CardTitle>
+            <CardTitle>رزرو نوبت</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <Overview data={graphRevenue} />
           </CardContent>
-        </Card> */}
+        </Card>
       </div>
     </div>
   )

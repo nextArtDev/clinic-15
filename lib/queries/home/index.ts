@@ -1,6 +1,7 @@
 'use server'
 import { prisma } from '@/lib/prisma'
 import { Review, User } from '@prisma/client'
+import { getMonth } from 'date-fns-jalali'
 import { cache } from 'react'
 
 export interface GetSpecializationParams {
@@ -367,4 +368,72 @@ export type ReviewsWithUserAndImage = Review & {
         } | null
       })
     | null
+}
+
+interface GraphData {
+  name: string
+  total: number
+}
+
+export const getGraphRevenue = async (): Promise<GraphData[]> => {
+  const booked = await prisma.bookedDay.findMany({
+    where: {
+      isBooked: true,
+    },
+    include: {
+      doctor: {
+        include: {
+          specialization: true,
+        },
+      },
+    },
+  })
+  // const numberOfBooked = await prisma.bookedDay.count({
+  //   where: {
+  //     isBooked: true,
+  //   },
+  // })
+  const monthlyRevenue: { [key: number]: number } = {}
+
+  // Grouping the orders by month and summing the revenue
+  for (const book of booked) {
+    const month = getMonth(book.created_at) // 0 for Jan, 1 for Feb, ...
+    console.log(' getMonth(book.created_at)', getMonth(book.created_at))
+
+    let revenueForOrder = 0
+
+    for (const item of booked) {
+      if (item.isBooked) {
+        revenueForOrder += 1
+      }
+    }
+    console.log('revenueForOrder', revenueForOrder)
+
+    // Adding the revenue for this order to the respective month
+    monthlyRevenue[month] = revenueForOrder
+    console.log(' monthlyRevenue[month]', monthlyRevenue[month])
+  }
+
+  // Converting the grouped data into the format expected by the graph
+  const graphData: GraphData[] = [
+    { name: 'فروردین', total: 0 },
+    { name: 'اردیبهشت', total: 0 },
+    { name: 'خرداد', total: 0 },
+    { name: 'تیر', total: 0 },
+    { name: 'مرداد', total: 0 },
+    { name: 'شهریور', total: 0 },
+    { name: 'مهر', total: 0 },
+    { name: 'آبان', total: 0 },
+    { name: 'آذر', total: 0 },
+    { name: 'دی', total: 0 },
+    { name: 'بهمن', total: 0 },
+    { name: 'اسفند', total: 0 },
+  ]
+
+  // Filling in the revenue data
+  for (const month in monthlyRevenue) {
+    graphData[parseInt(month)].total = monthlyRevenue[parseInt(month)]
+  }
+
+  return graphData
 }

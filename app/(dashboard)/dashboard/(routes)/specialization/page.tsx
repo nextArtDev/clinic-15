@@ -24,7 +24,7 @@ const ProductsPage = async () => {
     (item) => ({
       id: item.id,
       name: item.name,
-      description: item?.description,
+      // description: item?.description,
       // specialization: item.specialization.id,
       // images: item.images.url.map((ur) => ur),
       //Because its Decimal in prisma model, we have to convert it to number by "toNumber"

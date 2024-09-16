@@ -119,7 +119,7 @@ function Hero({}: Props) {
             text="03137888561"
           />
 
-          <div className="md:hidden animate-fade-in [--animation-delay:2100ms] opacity-0 pt-14 absolute bottom-12 left-0 rounded-full flex w-full  items-center justify-center ">
+          <div className="md:hidden animate-fade-in [--animation-delay:2100ms] opacity-0 pt-14 absolute bottom-16 left-0 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:03137888561"
               className="flex flex-col md:hidden gap-2 px-8 animate-pulse"

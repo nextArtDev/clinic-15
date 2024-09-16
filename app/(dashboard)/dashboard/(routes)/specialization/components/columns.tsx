@@ -7,7 +7,7 @@ import { CellAction } from './CellAction'
 export type SpecializationColumn = {
   id: string
   name: string | null
-  description: string | null
+  // description: string | null
 }
 
 export const columns: ColumnDef<SpecializationColumn>[] = [
@@ -15,10 +15,10 @@ export const columns: ColumnDef<SpecializationColumn>[] = [
     accessorKey: 'name',
     header: 'نام',
   },
-  {
-    accessorKey: 'description',
-    header: 'توضیحات',
-  },
+  // {
+  //   accessorKey: 'description',
+  //   header: 'توضیحات',
+  // },
   // {
   //   accessorKey: 'open_time',
   //   header: 'زمان شروع',
