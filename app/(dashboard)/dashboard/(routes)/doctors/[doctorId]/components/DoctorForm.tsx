@@ -35,6 +35,7 @@ import {
   editDoctor,
 } from '@/lib/actions/dashboard/doctor'
 import { useFormState } from 'react-dom'
+import React from 'react'
 // import { MultiSelect } from '@/components/dashboard/MultiSelect'
 
 type DoctorFormValues = z.infer<typeof createDoctorSchema>
@@ -450,19 +451,6 @@ const DoctorForm: FC<DoctorFormProps> = ({ initialData, specialization }) => {
                   <FormLabel>
                     تخصص <span className="text-rose-500">*</span>
                   </FormLabel>
-                  {/* <MultiSelect
-                    selected={field.value!}
-                    options={specialization.map((specialization) => {
-                      return {
-                        value: specialization.id,
-                        label: specialization.name,
-                      }
-                    })}
-                    // onChange={console.log(form.getValues('specializationId'))}
-
-                    {...field}
-                    // className="sm:w-[510px]"
-                  /> */}
                   <MultiSelect
                     options={specialization.map((special) => ({
                       value: special.id,

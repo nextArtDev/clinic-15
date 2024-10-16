@@ -1,19 +1,11 @@
-import { FC } from 'react'
-import { days, DoctorType } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { FC } from 'react'
 
-import { cn } from '@/lib/utils'
-import {
-  BracketsIcon,
-  CircleEllipsisIcon,
-  FlagIcon,
-  StarIcon,
-} from 'lucide-react'
-import GlowingCard from './GlowingCard'
 import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { Doctor } from '@prisma/client'
+import GlowingCard from './GlowingCard'
 
 interface DoctorCardProps {
   doctor: Doctor & { images: { url: string | null }[] }

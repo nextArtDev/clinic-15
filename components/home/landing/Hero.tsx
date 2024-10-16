@@ -76,7 +76,7 @@ function Hero({}: Props) {
   //   }
   // }, [])
   return (
-    <section className="relative w-full h-[calc(h-vdh-6rem)]">
+    <section className="relative w-full h-[calc(h-dvh-6rem)]">
       <div className="container absolute top-10  inset-0 grid place-items-center  ">
         <div className="content text-center z-10 space-y-8">
           {/* <div className="content-inner space-y-4">

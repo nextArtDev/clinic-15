@@ -23,7 +23,7 @@ import DoctorComment from './DoctorComment'
 import ReviewCard from './ReviewCard'
 import SkewedInfiniteScroll from './SkewedInfiniteScroll'
 import UserReviews from './UserReviews'
-import BookingCard from '../booking/BookingCard'
+import BookingCard from '../booking/BookingCardExperimenetal'
 import BookedDaysCard from '../booking/BookedDaysCard'
 import { BorderBeam } from '../BorderBeam'
 
@@ -139,6 +139,14 @@ pageProps) {
             </div>
             <div className=" mt-6 text-secondary sm:min-w-0 sm:flex-1 sm:items-center sm:justify-between sm:space-x-6 sm:pb-1">
               <div className="relative w-fit self-center text-center">
+                {/* {!!availabilities?.length && (
+                  <BookingCard
+                    availabilities={availabilities}
+                    disabledDaysByDoctor={disabledDaysByDoctor}
+                    doctorId={doctor.id}
+                    user={user}
+                  />
+                )} */}
                 {!!availabilities?.length && (
                   <BookingCard
                     availabilities={availabilities}

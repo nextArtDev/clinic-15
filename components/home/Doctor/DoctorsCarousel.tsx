@@ -3,8 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import style from './DoctorsCarousel.module.css'
-import { doctors, DoctorType } from '@/constants'
-import DoctorCard from './DoctorCard'
+
 import AutoScroll from 'embla-carousel-auto-scroll'
 import {
   NextButton,
