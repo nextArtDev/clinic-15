@@ -9,9 +9,8 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   // by default for other pages: title - new page title
   // use title:{ absolute:'..'} to not contain this part in other pages title
-  title: { default: 'درمانگاه آئین شفق', template: '%s - درمانگاه آئین شفق' },
-  description:
-    'درمانگاه شبانه‌روزی آیین شفق | اصفهان، ابتدای اتوبان ذوب آهن، بلوار شفق',
+  title: { default: 'درمانگاه ', template: '%s - درمانگاه    ' },
+  description: 'درمانگاه شبانه‌روزی   | اصفهان، ابتدای اتوبان ذوب آهن،    ',
   twitter: {
     card: 'summary_large_image',
   },

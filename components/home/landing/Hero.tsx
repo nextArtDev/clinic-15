@@ -96,7 +96,7 @@ function Hero({}: Props) {
           </div> */}
           <div className="h-full   space-y-8">
             <h1 className="animate-fade-in [--animation-delay:1300ms] opacity-0 title-color custom-box-shadow glass  text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
-              درمانگاه آئین شفق
+              درمانگاه
             </h1>
 
             <p className="animate-fade-in [--animation-delay:1600ms] opacity-0   flex flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold sub-title-color">

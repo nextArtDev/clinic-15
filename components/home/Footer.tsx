@@ -65,10 +65,10 @@ const Footer = ({ specializations, doctors, illnesses }: FooterProps) => {
               {/* <Image src="/logo-purple.svg" width={116} height={38} alt="logo" /> */}
 
               <p className="mix-blend-multiply text-blue-600 text-start text-lg md:text-lg font-bold mt-5 max-w-xs">
-                درمانگاه شبانه روزی آیین شفق
+                درمانگاه شبانه روزی
               </p>
               <p className="mix-blend-multiply text-blue-400  text-start text-xs font-normal max-w-md">
-                اصفهان-ابتدای اتوبان ذوب‌آهن- بلوار شفق-نبش کوچه 12- پلاک 13
+                اصفهان-ابتدای اتوبان ذوب‌آهن کوچه 12- پلاک 13
                 <br />
                 تلفن: 031-37888561
                 {' و '}

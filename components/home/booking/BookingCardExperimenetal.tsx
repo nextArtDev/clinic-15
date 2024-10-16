@@ -352,9 +352,9 @@ const BookingCard: FC<BookingCardProps> = ({
                       )}
                       <div className="flex flex-col items-center justify-center gap-4 ">
                         <Button
-                          // type="button"
+                          type="button"
                           className="w-full mt-8  "
-                          type="submit"
+                          // type="submit"
                           onClick={() => {
                             setModal('')
                             setStep(3)
@@ -372,16 +372,7 @@ const BookingCard: FC<BookingCardProps> = ({
                               بعدی
                             </Button>
                           )} */}
-                          {step === 3 && (
-                            <Button
-                              onClick={() => {
-                                form.handleSubmit(onSubmit)
-                              }}
-                              type="submit"
-                            >
-                              تایید
-                            </Button>
-                          )}
+                          {step === 3 && <Button type="submit">تایید</Button>}
                         </div>
                       </div>
                     </DialogContent>
