@@ -17,7 +17,7 @@ interface CreateBookingFormState {
   // success?: string
   errors: {
     dob?: string[]
-    // time?: string[]
+    time?: string[]
     // day?: string[]
     // doctorId?: string[]
 
@@ -39,13 +39,14 @@ interface CreateBooking {
 //  )
 export async function createBooking(
   formData: FormData,
-  time: string,
+  // time: string,
   day: string,
   doctorId: string,
   path: string
 ): Promise<CreateBookingFormState> {
   const result = createBookingFormSchema.safeParse({
     dob: formData.get('dob'),
+    time: formData.get('time'),
   })
   if (!result.success) {
     console.log(result.error.flatten().fieldErrors)
@@ -100,7 +101,7 @@ export async function createBooking(
     // console.log(availability)
     const timeSlot = await prisma.timeSlot.findFirst({
       where: {
-        slot: time,
+        slot: result.data.time,
         availabilityId: availability?.id,
       },
     })
@@ -131,7 +132,7 @@ export async function createBooking(
     if (user.name && user.phone && doctor.name) {
       const sms = await sendBookingSms({
         values: { phone: user.phone },
-        dayTime: `${day} ساعت ${time}`,
+        dayTime: `${day} ساعت ${result.data.time}`,
         doctorName: doctor.name,
         name: user.name,
       })

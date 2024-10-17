@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/popover'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Availability, BookedDay, TimeSlot, User } from '@prisma/client'
-import { FC, useEffect, useState, useTransition } from 'react'
+import { FC, useEffect, useRef, useState, useTransition } from 'react'
 
 import { holidayDays } from '../../../constants/holidays'
 
@@ -74,8 +74,8 @@ const BookingCard: FC<BookingCardProps> = ({
   disabledDaysByDoctor,
   user,
 }) => {
-  const { form, handleNextStep, step, setStep, handlePresStep } =
-    useMultiStepForm()
+  const { handleNextStep, step, setStep, handlePresStep } = useMultiStepForm()
+  const submitRef = useRef<HTMLButtonElement | null>(null)
   const [currentTimeToDisable, setCurrentTimeToDisable] = useState('')
 
   const [modal, setModal] = useState('')
@@ -112,9 +112,13 @@ const BookingCard: FC<BookingCardProps> = ({
     setDisabledDays(disabledDayIndexes)
   }, [availabilities])
 
-  // const form = useForm<z.infer<typeof bookingFormSchema>>({
-  //   resolver: zodResolver(bookingFormSchema),
-  // })
+  const form = useForm<z.infer<typeof bookingFormSchema>>({
+    resolver: zodResolver(bookingFormSchema),
+    defaultValues: {
+      dob: undefined,
+      time: '',
+    },
+  })
 
   const handleTimeClick = (time: any) => {
     setSelectedTime(time === selectedTime ? null : time)
@@ -132,44 +136,46 @@ const BookingCard: FC<BookingCardProps> = ({
     }
 
     return () => setCurrentTimeToDisable('')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form?.getValues('dob'), modal, form])
 
   async function onSubmit(data: z.infer<typeof bookingFormSchema>) {
     // console.log(data)
-    console.log('data', data)
+    // console.log('data', data)
     const formData = new FormData()
 
     formData.append('dob', data.dob.getDay().toString())
-    // try {
-    //   startTransition(() => {
-    //     createBooking(
-    //       formData,
-    //       selectedTime,
-    //       format(data.dob, 'yyyy/MM/dd'),
-    //       doctorId,
-    //       path
-    //     )
-    //       .then((res) => {
-    //         if (res?.errors?.dob) {
-    //           form.setError('dob', {
-    //             type: 'custom',
-    //             message: res?.errors.dob?.join(' و '),
-    //           })
-    //         } else if (res?.errors?._form) {
-    //           form.setError('root', {
-    //             type: 'custom',
-    //             message: res?.errors?._form?.join(' و '),
-    //           })
-    //           toast.error(res?.errors._form?.join(' و '))
-    //         } else {
-    //           toast.success('نوبت شما رزرو شد')
-    //         }
-    //       })
-    //       .catch(() => console.log('مشکلی پیش آمده.'))
-    //   })
-    // } catch (error) {
-    //   toast.error('مشکلی پیش آمده، لطفا دوباره امتحان کنید!')
-    // }
+    data.time && formData.append('time', data.time)
+    try {
+      startTransition(() => {
+        createBooking(
+          formData,
+          // selectedTime,
+          format(data.dob, 'yyyy/MM/dd'),
+          doctorId,
+          path
+        )
+          .then((res) => {
+            if (res?.errors?.dob) {
+              form.setError('dob', {
+                type: 'custom',
+                message: res?.errors.dob?.join(' و '),
+              })
+            } else if (res?.errors?._form) {
+              form.setError('root', {
+                type: 'custom',
+                message: res?.errors?._form?.join(' و '),
+              })
+              toast.error(res?.errors._form?.join(' و '))
+            } else {
+              toast.success('نوبت شما رزرو شد')
+            }
+          })
+          .catch(() => console.log('مشکلی پیش آمده.'))
+      })
+    } catch (error) {
+      toast.error('مشکلی پیش آمده، لطفا دوباره امتحان کنید!')
+    }
   }
   return (
     <div className="">
@@ -261,8 +267,14 @@ const BookingCard: FC<BookingCardProps> = ({
               name="time"
               render={({ field }) => (
                 <FormItem className="flex flex-col py-6">
-                  <Dialog open={step > 1}>
-                    <DialogContent className="gradient-base w-full mx-auto">
+                  <Dialog
+                    open={step > 1}
+                    onOpenChange={() => {
+                      setStep(1)
+                      router.refresh()
+                    }}
+                  >
+                    <DialogContent className="gradient-base w-full mx-auto ">
                       {step === 2 && (
                         <ScrollArea
                           scrollHideDelay={5000}
@@ -340,43 +352,58 @@ const BookingCard: FC<BookingCardProps> = ({
                         </ScrollArea>
                       )}
                       {step === 3 && (
-                        <div className="gradient-base rounded-lg flex p-4 justify-between min-h-[180px] flex-col max-w-sm mx-auto  ">
-                          <p className="text-sm text-center text-primary-foreground pt-4 mx-auto w-4/5 ">
-                            {' '}
-                            {`شما برای روز ${format(
-                              form.getValues('dob'),
-                              'yyyy/MM/dd'
-                            )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
-                          </p>
-                        </div>
+                        <p className="text-sm font-semibold text-center text-primary-foreground py-8 mx-auto w-4/5 ">
+                          {' '}
+                          {`شما برای روز ${format(
+                            form.getValues('dob'),
+                            'yyyy/MM/dd'
+                          )} ساعت ${selectedTime} نوبت رزرو  می‌کنید؟`}
+                        </p>
                       )}
-                      <div className="flex flex-col items-center justify-center gap-4 ">
-                        <Button
-                          type="button"
-                          className="w-full mt-8  "
-                          // type="submit"
-                          onClick={() => {
-                            setModal('')
-                            setStep(3)
-                          }}
-                          disabled={!selectedTime || isPending}
-                        >
-                          تایید روز و ساعت
-                        </Button>
+                      <div className="flex  items-center justify-center gap-4 ">
+                        {step == 2 && (
+                          <Button
+                            type="button"
+                            className="w-full order-last"
+                            // type="submit"
+                            onClick={() => {
+                              setModal('')
+                              setStep(3)
+                            }}
+                            disabled={!selectedTime || isPending}
+                          >
+                            تایید روز و ساعت
+                          </Button>
+                        )}
                         <div className="flex fw-full items-center justify-around gap-4">
-                          <Button type="button" onClick={handlePresStep}>
-                            قبلی
+                          <Button
+                            variant={'ghost'}
+                            className=" border text-primary"
+                            type="button"
+                            onClick={handlePresStep}
+                          >
+                            بازگشت
                           </Button>
                           {/* {step < 3 && (
                             <Button type="button" onClick={handleNextStep}>
                               بعدی
                             </Button>
                           )} */}
-                          {step === 3 && <Button type="submit">تایید</Button>}
+                          {step === 3 && (
+                            <Button
+                              onClick={() => submitRef.current?.click()}
+                              type="submit"
+                            >
+                              تایید
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </DialogContent>
                   </Dialog>
+                  <Button ref={submitRef} className="hidden" type="submit">
+                    تایید
+                  </Button>
                 </FormItem>
               )}
             />

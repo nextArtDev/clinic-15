@@ -9,6 +9,7 @@ export const createBookingFormSchema = z.object({
   dob: z.string({
     required_error: 'انتخاب تاریخ الزامی است.',
   }),
+  time: z.string().optional(),
 })
 
 export const availabilityFormSchema = z.object({
