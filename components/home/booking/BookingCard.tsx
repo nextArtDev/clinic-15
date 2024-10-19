@@ -133,7 +133,7 @@ const BookingCard: FC<BookingCardProps> = ({
       startTransition(() => {
         createBooking(
           formData,
-          selectedTime,
+          // selectedTime,
           format(data.dob, 'yyyy/MM/dd'),
           doctorId,
           path
