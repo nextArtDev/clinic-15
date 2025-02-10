@@ -18,6 +18,9 @@ import PulsatingButton from './PulsatingButton'
 import GradualSpacing from '../GradualSpacing'
 import RotatingText from '../RotatingText'
 import HeroSvg from './HeroSvg'
+import Image from 'next/image'
+import Logo from '../../../public/images/logo.png'
+import LogoSvg from './LogoSvg'
 type Props = {}
 
 function Hero({}: Props) {
@@ -78,9 +81,14 @@ function Hero({}: Props) {
   //   }
   // }, [])
   return (
-    <section className="relative w-full h-[calc(h-dvh-6rem)]">
-      <div className="container absolute top-10  inset-0 grid place-items-center  ">
-        <div className="content text-center z-10 space-y-12">
+    <section className="relative w-full h-[calc(h-[100vh]-10rem)]">
+      {/* <div className="container absolute top-10  inset-0 grid place-items-center  "> */}
+      <div className="container absolute  top-[15%]  inset-0 flex flex-col justify-between h-full items-center ">
+        <div className="content text-center z-10  ">
+          {/* <figure className="relative w-72 h-72 mx-auto">
+            <Image src={Logo} fill alt="logo" className="bg-transparent  " />
+          </figure> */}
+
           {/* <div className="content-inner space-y-4">
             <h1 className="title-color custom-box-shadow glass text-reveal text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
               درمانگاه آئین شفق
@@ -96,44 +104,52 @@ function Hero({}: Props) {
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
           </div> */}
-          <div className="h-full  space-y-12">
-            <h1 className="!w-fit px-4 mx-auto animate-fade-in [--animation-delay:1300ms] opacity-0 title-color glass !rounded-lg text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
-              {/* مجتمع پزشکی کوثر */}
-              <HeroSvg />
-            </h1>
+          <div className="h-full   space-y-12">
+            <article className="flex flex-col mx-auto items-center justify-center gap-2">
+              <LogoSvg className="mx-auto animate-fade-in [--animation-delay:1100ms] opacity-0" />
 
-            <p className="animate-fade-in [--animation-delay:1600ms] opacity-0   flex  flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold ">
-              {/* پذیرش بیماران درمانگاهی توسط پزشکان عمومی */}
-              <p className="sub-title-color ">دارای بخش‌های</p>
-              <RotatingText
-                texts={[
-                  'آزمایشگاه',
-                  'ترک اعتیاد',
-                  'سونوگرافی',
-                  'رادیولوژی ',
-                  'شنوایی سنجی',
-                  'تست سرگیجه و تعادل',
-                  'بینایی‌سنجی',
-                  'لیزر',
-                ]}
-                mainClassName="px-2  sm:px-2 md:px-3 !glass overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center text-[#ED3245] rounded-lg custom-text-shadow"
-                staggerFrom={'last'}
-                splitBy="words"
-                initial={{ y: '100%' }}
-                animate={{ y: '0' }}
-                exit={{ y: '-120%' }}
-                staggerDuration={0.025}
-                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-                rotationInterval={3000}
-              />
-            </p>
+              {/* <h1 className="!w-fit px-4 mx-auto animate-fade-in [--animation-delay:1300ms] opacity-0 title-color glass !rounded-lg text-center text-4xl md:text-5xl font-bold mb-0 py-2 ">
+                مجتمع پزشکی کوثر
+              </h1> */}
+              <span className="!w-full mx-auto animate-fade-in [--animation-delay:1300ms] opacity-0  glass !rounded-lg mb-0 py-2  px-1 ">
+                <HeroSvg className=" " />
+              </span>
+            </article>
             <Link
               className="animate-fade-in [--animation-delay:1800ms] opacity-0 p-0.5 w-full flex items-center justify-center "
               href={'/specialities'}
             >
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
+            <p className="animate-fade-in [--animation-delay:1600ms] opacity-0   flex  flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold ">
+              {/* پذیرش بیماران درمانگاهی توسط پزشکان عمومی */}
+              {/* <p className="sub-title-color ">دارای بخش‌های</p> */}
+              <span className="title-color-kossar">
+                <RotatingText
+                  texts={[
+                    'آزمایشگاه',
+                    'ترک اعتیاد',
+                    'سونوگرافی',
+                    'رادیولوژی ',
+                    'شنوایی سنجی',
+                    'تست سرگیجه و تعادل',
+                    'بینایی‌سنجی',
+                    'لیزر',
+                  ]}
+                  mainClassName="px-2  sm:px-3 md:px-4 !glass overflow-hidden py-1 sm:py-1 md:py-2 justify-center title-color-kossar rounded-lg custom-text-shadow text-3xl "
+                  staggerFrom={'last'}
+                  splitBy="words"
+                  initial={{ y: '100%' }}
+                  animate={{ y: '0' }}
+                  exit={{ y: '-120%' }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                  transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                  rotationInterval={3000}
+                />
+              </span>
+            </p>
+
             {/* <GradualSpacing
               className="hidden pt-6 p-0.5 custom-box-shadow  title-color  md:block  text-center text-3xl font-bold tracking-[-0.1em] md:leading-[2rem]"
               text="03137888561"
@@ -145,7 +161,7 @@ function Hero({}: Props) {
             text="03137888561"
           />
 
-          <div className="md:hidden animate-fade-in [--animation-delay:2100ms] opacity-0 pt-14 absolute bottom-16 left-0 rounded-full flex w-full  items-center justify-center ">
+          <div className="md:hidden animate-fade-in [--animation-delay:2100ms] opacity-0 pt-6 rounded-full flex w-full  items-center justify-center ">
             <Link
               href="tel:+989352310831"
               className="flex flex-col md:hidden gap-2 px-8 animate-pulse"
