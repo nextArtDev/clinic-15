@@ -47,7 +47,8 @@ const Carousel: React.FC<PropType> = (props) => {
                   fill
                   className="object-cover"
                 />
-                <motion.div className="absolute inset-0 bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC] opacity-45  backdrop-blur-[150px] z-[2]"></motion.div>
+                {/* <motion.div className="absolute inset-0 bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC] opacity-45  backdrop-blur-[150px] z-[2]"></motion.div> */}
+                <motion.div className="absolute inset-0 bg-gradient-to-t from-[#FFB6C1] via-[#eb6f8a] to-[#FFF8DC] opacity-40  backdrop-blur-[150px] z-[2]"></motion.div>
               </div>
             </div>
           ))}

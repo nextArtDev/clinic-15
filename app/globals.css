@@ -216,6 +216,9 @@ html {
 .custom-text-shadow {
   text-shadow: 1px 1px #ffb6c1, -1px -1px #fff8dc;
 }
+.custom-text-shadow {
+  text-shadow: 1px 1px #ffb6c188, -1px -1px #fff8dc88;
+}
 .custom-number-shadow {
   text-shadow: 0.7px 0.7px #000000, -0.7px -0.7px #fff8dc;
 }
