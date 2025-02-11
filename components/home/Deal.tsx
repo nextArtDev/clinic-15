@@ -9,10 +9,22 @@ import SvgShadow from './SvgShadow'
 
 export default function Deal() {
   return (
-    <div className="gradient-base relative flex h-44  w-full flex-col items-center justify-center overflow-hidden    bg-transparent md:shadow-xl">
+    <div className="gradient-kossar relative flex h-fit  w-full flex-col items-center justify-center overflow-hidden    bg-transparent md:shadow-xl">
       <SvgShadow />
       <Marquee className="[--duration:20s]">
-        {deal.map(({ id, name, imageUrl }) => (
+        {deal.slice(0, deal.length / 2).map(({ id, name, imageUrl }) => (
+          <div key={id} className="relative h-36 w-36 ">
+            <Image
+              src={imageUrl}
+              alt={name}
+              fill={true}
+              className="  object-contain object-center"
+            />
+          </div>
+        ))}
+      </Marquee>
+      <Marquee reverse className="[--duration:20s]">
+        {deal.slice(deal.length / 2).map(({ id, name, imageUrl }) => (
           <div key={id} className="relative h-36 w-36 ">
             <Image
               src={imageUrl}

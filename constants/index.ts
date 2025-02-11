@@ -1262,16 +1262,33 @@ export const slider = [
   },
 ]
 export type Slider = { id: string; name: string; imageUrl: string }
-
+// دی سینا نوین البرز میهن سلامت خدمات اتیه
 export const deal = [
-  { id: '1', name: 'آتیه‌سازان', imageUrl: '/images/deal/atieh.svg' },
-  { id: '2', name: 'بیمه ایران', imageUrl: '/images/deal/iran.svg' },
+  { id: '1', name: 'بیمه کوثر', imageUrl: '/images/deal/Kosar.png' },
+  { id: '2', name: 'بیمه رازی', imageUrl: '/images/deal/Razi.png' },
   {
     id: '3',
-    name: 'بیمه خدمات درمانی',
-    imageUrl: '/images/deal/khadamatdarmani.svg',
+    name: 'تامین اجتماعی',
+    imageUrl: '/images/deal/tamin-ejtemaei.svg',
   },
-  { id: '4', name: 'بیمه سلامت', imageUrl: '/images/deal/salamat.svg' },
+  { id: '4', name: 'بیمه ایران', imageUrl: '/images/deal/Iran1.png' },
+  { id: '5', name: 'بیمه ملت', imageUrl: '/images/deal/Mellat.png' },
+  { id: '6', name: 'بیمه سامان', imageUrl: '/images/deal/Saman.png' },
+  { id: '7', name: 'بیمه دانا', imageUrl: '/images/deal/Dana.png' },
+  { id: '8', name: 'بیمه آسیا', imageUrl: '/images/deal/Asia.png' },
+  { id: '9', name: 'بیمه سلامت', imageUrl: '/images/deal/salamat.svg' },
+  { id: '10', name: 'بیمه معلم', imageUrl: '/images/deal/Moallem1.png' },
+  { id: '11', name: 'بیمه نوین', imageUrl: '/images/deal/Novin.png' },
+  { id: '12', name: 'آتیه‌سازان', imageUrl: '/images/deal/atieh.svg' },
+  // {
+  //   id: '13',
+  //   name: 'بیمه خدمات درمانی',
+  //   imageUrl: '/images/deal/khadamatdarmani.svg',
+  // },
+  { id: '14', name: 'بیمه البرز', imageUrl: '/images/deal/Alborz.png' },
+  { id: '15', name: 'بیمه دی', imageUrl: '/images/deal/Day.png' },
+  { id: '16', name: 'بیمه میهن', imageUrl: '/images/deal/Mihan.png' },
+  { id: '17', name: 'بیمه سینا', imageUrl: '/images/deal/Sina1.png' },
 ]
 export type Deal = { id: string; name: string; imageUrl: string }
 
@@ -1288,13 +1305,14 @@ export const rooms = [
     src: '/images/parts/omomi.webp',
     items: [
       { id: '1', text: 'تزریق وریدی با رعایت طرح انطباق' },
-      { id: '2', text: 'تزریق ماهیچه‌ای با رعایت طرح انطباق' },
+      { id: '2', text: 'شست‌وشوی گوش' },
 
       { id: '3', text: 'وصل سرم' },
       { id: '4', text: 'انجام نوار قلب' },
       { id: '5', text: 'انجام بخیه' },
       { id: '6', text: 'انجام پانسمان ساده و تخصصی' },
       { id: '7', text: 'برداشتن خال، میخچه، کرایوتراپی' },
+      { id: '8', text: 'حجامت' },
     ],
   },
   {
