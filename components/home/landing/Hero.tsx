@@ -81,9 +81,9 @@ function Hero({}: Props) {
   //   }
   // }, [])
   return (
-    <section className="relative w-full h-[calc(h-[100vh]-10rem)]">
+    <section className="relative w-full h-[calc(h-[100vh]-10rem)] ">
       {/* <div className="container absolute top-10  inset-0 grid place-items-center  "> */}
-      <div className="container absolute  top-[15%]  inset-0 flex flex-col justify-between h-full items-center ">
+      <div className="container absolute  top-[15%]  inset-0 flex flex-col justify-between h-[80vh] items-center ">
         <div className="content text-center z-10  ">
           {/* <figure className="relative w-72 h-72 mx-auto">
             <Image src={Logo} fill alt="logo" className="bg-transparent  " />
@@ -124,7 +124,7 @@ function Hero({}: Props) {
             <p className="animate-fade-in [--animation-delay:1600ms] opacity-0   flex  flex-col justify-center items-center gap-4 text-center text-xl md:text-3xl  font-semibold ">
               {/* پذیرش بیماران درمانگاهی توسط پزشکان عمومی */}
               {/* <p className="sub-title-color ">دارای بخش‌های</p> */}
-              <span className="title-color-kossar">
+              <span className="!glass ">
                 <RotatingText
                   texts={[
                     'آزمایشگاه',
@@ -136,7 +136,7 @@ function Hero({}: Props) {
                     'بینایی‌سنجی',
                     'لیزر',
                   ]}
-                  mainClassName="px-2  sm:px-3 md:px-4 !glass overflow-hidden py-1 sm:py-1 md:py-2 justify-center title-color-kossar rounded-lg custom-text-shadow text-3xl "
+                  mainClassName="px-2  sm:px-3 md:px-4  overflow-hidden py-1 sm:py-1 md:py-2 justify-center  rounded-lg text-3xl "
                   staggerFrom={'last'}
                   splitBy="words"
                   initial={{ y: '100%' }}
