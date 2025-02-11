@@ -19,6 +19,7 @@ import {
 import { prisma } from '@/lib/prisma'
 import PersonnelCarousel from '@/components/home/personnel/PersonnelCarousel'
 import { Suspense } from 'react'
+import LogoLoader from '@/components/home/logo-loader'
 
 const HomePage = async () => {
   const specializationsPromise = getAllSpecializations({})
