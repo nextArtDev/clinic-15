@@ -1,7 +1,12 @@
 import React, { ReactNode } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
-import Carousel, { Slider, SliderContainer, ThumsSlider } from './carousel'
+import Carousel, {
+  Slider,
+  SliderContainer,
+  ThumsSlider,
+} from './carousel-component'
 import Image from 'next/image'
+import GoldsmithLabeledSection from './GoldsMith'
 // import { imgPreview } from '@/components/website/constant'
 const laboratories = [
   {
@@ -44,135 +49,32 @@ const laboratories = [
 ]
 
 function ThumnailSlider() {
-  const OPTIONS: EmblaOptionsType = { loop: false }
+  const OPTIONS: EmblaOptionsType = { loop: true }
   return (
     <section dir="ltr">
-      <div className=" 2xl:w-[70%] bg-background sm:w-[80%] w-[90%] mx-auto">
+      <div className="rounded-lg 2xl:w-[70%] bg-background sm:w-[80%] w-[90%] mx-auto">
         <Carousel options={OPTIONS} className=" relative" isAutoPlay={true}>
-          <SliderContainer className="gap-2">
-            {laboratories.map((laboratory) => (
+          <SliderContainer className="gap-1">
+            {laboratories.map((laboratory, index) => (
               <Slider
-                key={laboratory.id}
-                className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-                thumnailSrc={laboratory.image}
+                key={`slide-${index}`}
+                className="relative  xl:h-[400px] sm:h-[550px] h-[500px] w-full rounded-md overflow-hidden !outline-none "
+                // thumnailSrc={laboratory.image}
+                thumbnail={<GoldsmithLabeledSection title={laboratory.title} />}
               >
                 <Image
                   src={laboratory.image}
-                  width={1400}
-                  height={800}
-                  alt="image"
+                  // width={1400}
+                  // height={800}
+                  fill
+                  alt={laboratory.title}
                   className="h-full object-cover rounded-lg w-full"
                 />
+                <h2 className="absolute top-0 left-1/2 -translate-x-1/2  ">
+                  {laboratory.description}
+                </h2>
               </Slider>
             ))}
-            {/* <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img2}
-            >
-              <Image
-                src={imgPreview.img2}
-                width={1400}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img3}
-            >
-              <Image
-                src={imgPreview.img3}
-                width={1400}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img4}
-            >
-              <Image
-                src={imgPreview.img4}
-                width={1400}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img5}
-            >
-              <Image
-                src={imgPreview.img5}
-                width={1400}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img6}
-            >
-              <Image
-                src={imgPreview.img6}
-                width={1400}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img7}
-            >
-              <Image
-                src={imgPreview.img7}
-                width={1200}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className="xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img8}
-            >
-              <Image
-                src={imgPreview.img8}
-                width={1200}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className=" xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img9}
-            >
-              <Image
-                src={imgPreview.img9}
-                width={1200}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider>
-            <Slider
-              className=" xl:h-[400px] sm:h-[350px] h-[300px] w-full"
-              thumnailSrc={imgPreview.img10}
-            >
-              <Image
-                src={imgPreview.img10}
-                width={1200}
-                height={800}
-                alt="image"
-                className="h-full object-cover rounded-lg w-full"
-              />
-            </Slider> */}
           </SliderContainer>
           <ThumsSlider />
         </Carousel>
