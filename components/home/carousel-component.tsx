@@ -562,8 +562,8 @@ export const ThumsSlider: React.FC = () => {
     useCarouselContext()
 
   return (
-    <div className="overflow-hidden mt-2" ref={emblaThumbsRef}>
-      <div className="flex flex-row gap-2">
+    <div className="overflow-hidden my-0.5" ref={emblaThumbsRef}>
+      <div className="flex flex-row gap-0.5">
         {slidesrArr.map((slide, index) => (
           <div
             key={`thumb-${index}`}
@@ -574,7 +574,7 @@ export const ThumsSlider: React.FC = () => {
                 : 'border-transparent opacity-30'
             }`}
             // style={{ flex: '0 0 15%' }}
-            style={{ flex: '0 0 18.5%' }}
+            style={{ flex: '0 0 19.5%' }}
             onClick={() => onThumbClick(index)}
           >
             {slide}
