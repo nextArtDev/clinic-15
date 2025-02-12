@@ -39,6 +39,7 @@ const HomePage = async () => {
     ])
   return (
     <div className="relative gradient-base">
+      <LogoLoader />
       <Suspense fallback={null}>
         <Hero />
       </Suspense>

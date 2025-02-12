@@ -1,3 +1,4 @@
+'use client'
 import React, { ReactNode } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
 import Carousel, {
@@ -6,6 +7,7 @@ import Carousel, {
   ThumsSlider,
 } from './carousel-component'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import GoldsmithLabeledSection from './GoldsMith'
 // import { imgPreview } from '@/components/website/constant'
 const laboratories = [
@@ -56,23 +58,40 @@ function ThumnailSlider() {
         آزمایشگاه
       </h2>
       <div className="rounded-t-lg 2xl:w-[70%] glass p-0.5 sm:w-[80%] w-[94%] mx-auto">
-        <Carousel options={OPTIONS} className=" relative" isAutoPlay={true}>
+        <Carousel
+          options={OPTIONS}
+          className=" relative"
+          isAutoPlay={true}
+          // isScale={true}
+        >
           <SliderContainer className="gap-1">
             {laboratories.map((laboratory, index) => (
               <Slider
                 key={`slide-${index}`}
-                className="relative  xl:h-[600px] sm:h-[550px] h-[500px] w-full rounded-md overflow-hidden !outline-none "
+                className="relative  xl:h-[600px] sm:h-[550px] h-[500px] w-full rounded-md overflow-hidden "
                 // thumnailSrc={laboratory.image}
                 thumbnail={<GoldsmithLabeledSection title={laboratory.title} />}
               >
-                <Image
-                  src={laboratory.image}
-                  // width={1400}
-                  // height={800}
-                  fill
-                  alt={laboratory.title}
-                  className="h-full object-cover rounded-lg w-full"
-                />
+                <motion.figure
+                  // // initial={{ scale: 3 }}
+                  // className="scale-125"
+                  // whileInView={{ scale: 1 }}
+                  // transition={{ duration: 0.3 }}
+                  initial={{ zoom: 1.3 }} // Start scaled up
+                  whileInView={{ zoom: 1 }} // Scale down to normal size when in view
+                  transition={{ duration: 0.3 }}
+                  viewport={{ once: false }} // Allow multiple triggers
+                  className="w-full h-full  "
+                >
+                  <Image
+                    src={laboratory.image}
+                    // width={1400}
+                    // height={800}
+                    fill
+                    alt={laboratory.title}
+                    className="h-full  object-cover rounded-lg w-full"
+                  />
+                </motion.figure>
                 {/* <h2 className="absolute top-0 left-1/2 -translate-x-1/2  ">
                   {laboratory.description}
                 </h2> */}

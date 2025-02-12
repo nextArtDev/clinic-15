@@ -1251,13 +1251,13 @@ export const slider = [
   {
     id: '3',
     name: 'بیماری‌های عفونی',
-    imageUrl: '/images/head-4.webp',
+    imageUrl: '/images/14.webp',
     // imagUrlSm: '/images/',
   },
   {
     id: '4',
     name: 'زنان و زایمان',
-    imageUrl: '/images/head-1.webp',
+    imageUrl: '/images/11.webp',
     // imagUrlSm: '/images/',
   },
 ]
