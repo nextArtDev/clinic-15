@@ -1257,7 +1257,7 @@ export const slider = [
   {
     id: '4',
     name: 'زنان و زایمان',
-    imageUrl: '/images/11.webp',
+    imageUrl: '/images/head-1.webp',
     // imagUrlSm: '/images/',
   },
 ]

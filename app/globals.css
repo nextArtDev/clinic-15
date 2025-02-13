@@ -107,10 +107,16 @@ html {
 
 @layer components {
   .gradient-base {
-    @apply bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC];
+    /* @apply bg-gradient-to-t from-[#FFB6C1] via-[#ADD8E6] to-[#FFF8DC]; */
+    /* @apply bg-gradient-to-t from-[#56C2D8] via-[#FFF8DC] to-[#9CCB3D85]; */
+    @apply bg-gradient-to-t from-[#56C2D8] via-[#cee59e] to-[#9adae8];
   }
   .gradient-kossar {
-    @apply bg-gradient-to-t from-[#56C2D8] via-[#FFF8DC] to-[#9CCB3D85];
+    /* @apply bg-gradient-to-t from-[#56C2D8] via-[#FFF8DC] to-[#9CCB3D85]; */
+    @apply bg-gradient-to-t from-[#56C2D8] via-[#cee59e] to-[#9adae8];
+  }
+  .gradient-kossar-r {
+    @apply bg-gradient-to-t from-[#9adae8] via-[#cee59e] to-[#56C2D8];
   }
   .title-color-kossar {
     @apply drop-shadow-[0_1.6px_1.6px_rgba(0,0,0,0.8)] font-bold bg-gradient-to-r from-[#56C2D8] via-[#FFF8DC] to-[#9CCB3D] bg-clip-text text-transparent;
@@ -125,7 +131,9 @@ html {
     @apply drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] font-bold bg-gradient-to-r to-[#FFF8DC] from-[#e96f18]  via-[#30e8bf] bg-clip-text text-transparent;
   }
   .gradient-base-r {
-    @apply bg-gradient-to-t from-[#FFF8DC] via-[#ADD8E6] to-[#FFB6C1];
+    /* @apply bg-gradient-to-t from-[#FFF8DC] via-[#ADD8E6] to-[#FFB6C1]; */
+    /* @apply bg-gradient-to-t from-[#FFF8DC] via-[#9CCB3D85] to-[#56C2D8]; */
+    @apply bg-gradient-to-t from-[#9adae8] via-[#cee59e] to-[#56C2D8];
   }
   .glass {
     @apply custom-box-shadow backdrop-blur-md  bg-white/30;

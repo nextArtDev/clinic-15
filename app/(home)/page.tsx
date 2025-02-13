@@ -39,10 +39,10 @@ const HomePage = async () => {
     ])
   return (
     <div className="relative gradient-base">
-      <LogoLoader />
-      <Suspense fallback={null}>
-        <Hero />
-      </Suspense>
+      {/* <LogoLoader /> */}
+      <Hero />
+      {/* <Suspense fallback={null}>
+      </Suspense> */}
       <Deal />
       <StackCards />
 
