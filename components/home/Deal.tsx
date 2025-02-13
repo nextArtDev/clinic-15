@@ -12,25 +12,25 @@ export default function Deal() {
     <div className="gradient-kossar relative flex h-fit  w-full flex-col items-center justify-center overflow-hidden  bg-transparent md:shadow-xl">
       <SvgShadow />
       <Marquee className="[--duration:20s]">
-        {deal.slice(0, deal.length / 2).map(({ id, name, imageUrl }) => (
-          <div key={id} className="relative h-32 w-32 ">
-            <Image
-              src={imageUrl}
-              alt={name}
-              fill={true}
-              className="grayscale-[0.5]  object-contain object-center"
-            />
-          </div>
-        ))}
-      </Marquee>
-      <Marquee reverse className="[--duration:20s]">
         {deal.slice(deal.length / 2).map(({ id, name, imageUrl }) => (
           <div key={id} className="relative h-32 w-32 ">
             <Image
               src={imageUrl}
               alt={name}
               fill={true}
-              className="grayscale-[0.5] object-contain object-center"
+              className="grayscale-[0.75]  object-contain object-center"
+            />
+          </div>
+        ))}
+      </Marquee>
+      <Marquee reverse className="[--duration:20s]">
+        {deal.slice(0, deal.length / 2).map(({ id, name, imageUrl }) => (
+          <div key={id} className="relative h-32 w-32 ">
+            <Image
+              src={imageUrl}
+              alt={name}
+              fill={true}
+              className="grayscale-[0.87] object-contain object-center"
             />
           </div>
         ))}

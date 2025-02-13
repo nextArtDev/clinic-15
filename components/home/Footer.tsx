@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Doctor, Illness, Specialization } from '@prisma/client'
 import { cn, shuffleArray } from '@/lib/utils'
 import { ArrowBigDownIcon, ArrowLeft, ForwardIcon } from 'lucide-react'
+import Location from './location'
 
 type FooterProps = {
   specializations?: Partial<Specialization>[]
@@ -54,59 +55,54 @@ const Footer = ({ specializations, doctors, illnesses }: FooterProps) => {
     },
   ]
   return (
-    <div
-      className="gradient-base relative min-h-screen h-[550px]"
-      style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
-    >
-      <div className="fixed bottom-0  h-[530px] w-full">
-        <section className="  text-black px-8 flex items-center justify-start flex-col paddings w-full gap-20   ">
-          <div className="flex flex-col gap-8 w-full text-xs md:text-sm lg:text-base ">
-            <div className="flex items-start flex-col gap-4 ">
-              {/* <Image src="/logo-purple.svg" width={116} height={38} alt="logo" /> */}
+    // <div
+    //   className="gradient-base relative min-h-screen h-[550px]"
+    //   style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
+    // >
+    //   <div className="fixed bottom-0  h-[530px] w-full">
+    <section className="  text-black px-8 flex items-center justify-start flex-col paddings w-full gap-20  shadow-2xl ">
+      <div className="flex flex-col gap-8 w-full text-xs md:text-sm lg:text-base ">
+        <div className="flex items-start flex-col gap-4 ">
+          {/* <Image src="/logo-purple.svg" width={116} height={38} alt="logo" /> */}
 
-              <p className="mix-blend-multiply text-blue-600 text-start text-lg md:text-lg font-bold mt-5 max-w-xs">
-                درمانگاه شبانه روزی
-              </p>
-              <p className="mix-blend-multiply text-blue-400  text-start text-xs font-normal max-w-md">
-                اصفهان-ابتدای اتوبان ذوب‌آهن کوچه 12- پلاک 13
-                <br />
-                تلفن: 031-37888561
-                {' و '}
-                031-37884672
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-12">
-              {footerLinks?.[0].links.length > 0 && (
+          <p className="mix-blend-multiply text-blue-600 text-start text-lg md:text-lg font-bold mt-5 max-w-xs">
+            درمانگاه شبانه روزی
+          </p>
+          <div className="flex flex-col items-center justify-between md:justify-around">
+            <p className="mix-blend-multiply text-start text-xs font-normal max-w-md">
+              اصفهان-ابتدای اتوبان ذوب‌آهن کوچه 12- پلاک 13
+              <br />
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-12">
+          {footerLinks?.[0].links.length > 0 && (
+            <FooterColumn
+              title={footerLinks[0].title}
+              links={footerLinks[0].links}
+            />
+          )}
+
+          <div className="flex-1 flex flex-col gap-4 flex-wrap  ">
+            {footerLinks?.[1].links.length > 0 && (
+              <FooterColumn
+                title={footerLinks[1].title}
+                links={footerLinks[1].links}
+              />
+            )}
+          </div>
+          <div className="flex-1 justify-between items-center">
+            <div className=" flex flex-col gap-4 flex-wrap ">
+              {footerLinks?.[2].links.length > 0 && (
                 <FooterColumn
-                  title={footerLinks[0].title}
-                  links={footerLinks[0].links}
+                  title={footerLinks[2].title}
+                  links={footerLinks[2].links}
                 />
               )}
+            </div>
+          </div>
 
-              <div className="flex-1 flex flex-col gap-4 flex-wrap  ">
-                {footerLinks?.[1].links.length > 0 && (
-                  <FooterColumn
-                    title={footerLinks[1].title}
-                    links={footerLinks[1].links}
-                  />
-                )}
-              </div>
-              <div className="flex-1 flex flex-col gap-4 flex-wrap ">
-                {footerLinks?.[2].links.length > 0 && (
-                  <FooterColumn
-                    title={footerLinks[2].title}
-                    links={footerLinks[2].links}
-                  />
-                )}
-              </div>
-              {/* <div className="flex-1 flex flex-col gap-4 flex-wrap pointer-events-none ">
-                <FooterColumn
-                  title={footerLinks[3].title}
-                  links={footerLinks[3].links}
-                />
-              </div> */}
-
-              {/* <FooterColumn
+          {/* <FooterColumn
           title={footerLinks[3].title}
           //   links={footerLinks[3].links.url}
           />
@@ -115,24 +111,26 @@ const Footer = ({ specializations, doctors, illnesses }: FooterProps) => {
           title={footerLinks[6].title}
           //   links={footerLinks[6].links.url}
           /> */}
-            </div>
-            <p dir="ltr" className=" xl:hidden text-center text-black/40  ">
-              @2023 Saeid_Mehmanparast: +989352310831. All rights reserved
-            </p>
-          </div>
-          <p dir="ltr" className="hidden xl:block text-center text-black/40   ">
-            @2023 Saeid_Mehmanparast: +989352310831. All rights reserved
-          </p>
+        </div>
+        <Location />
+        <p className=" font-semibold  text-center text-black/40 text-sm py-12 ">
+          کلیه حقوق مادی و معنوی این وب سایت برای سعید مهمانپرست محفوظ می باشد.
+          {/* ©{new Date().getFullYear()} */}
+        </p>
+      </div>
+      {/* <p dir="ltr" className="hidden xl:block text-center text-black/40   ">
+        @2023 Saeid_Mehmanparast: +989352310831. All rights reserved
+      </p> */}
 
-          {/* <div className="flex justify-between items-center max-sm:flex-col w-full text-sm font-normal  "> */}
-          {/* <p className="text-gray">
+      {/* <div className="flex justify-between items-center max-sm:flex-col w-full text-sm font-normal  "> */}
+      {/* <p className="text-gray">
         <span className="text-black font-semibold">10,214</span> projects
         submitted
         </p> */}
-          {/* </div> */}
-        </section>
-      </div>
-    </div>
+      {/* </div> */}
+    </section>
+    //   </div>
+    // </div>
   )
 }
 export default Footer
