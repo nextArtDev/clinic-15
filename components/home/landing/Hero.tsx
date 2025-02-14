@@ -81,7 +81,7 @@ function Hero({}: Props) {
   //   }
   // }, [])
   return (
-    <section className="relative w-full ">
+    <section className="relative w-full h-[100dvh]">
       {/* <div className="container absolute top-10  inset-0 grid place-items-center  "> */}
       <div className="container absolute  top-[15%] md:top-[20%]  inset-0 flex flex-col justify-between h-[80vh] items-center ">
         <div className="content text-center z-10  ">
@@ -104,7 +104,7 @@ function Hero({}: Props) {
               <PulsatingButton>رزرو نوبت</PulsatingButton>
             </Link>
           </div> */}
-          <div className="h-full  space-y-12 md:space-y-8">
+          <div className="h-full  space-y-10 md:space-y-8">
             <article className="flex flex-col mx-auto items-center justify-center gap-2">
               <LogoSvg className=" mx-auto animate-fade-in [--animation-delay:1100ms] opacity-0" />
 
@@ -119,8 +119,16 @@ function Hero({}: Props) {
               className="animate-fade-in [--animation-delay:1800ms] opacity-0 p-0.5 w-full flex items-center justify-center "
               href={'/specialities'}
             >
-              <PulsatingButton className="text-lg font-bold ">
-                رزرو نوبت
+              <PulsatingButton className="  text-sm font-semibold flex flex-col items-center justify-between gap-0.5">
+                <p className="">رزرو نوبت</p>
+                <figure className="relative text-center w-8 h-8 mx-auto">
+                  <Image
+                    fill
+                    src={'/icons/booking-icon.png'}
+                    alt="booking icon"
+                    className="object-contain"
+                  />
+                </figure>
               </PulsatingButton>
             </Link>
             <div className="animate-fade-in [--animation-delay:1600ms] opacity-0 ">
@@ -134,7 +142,7 @@ function Hero({}: Props) {
                   'سونوگرافی',
                   'رادیولوژی ',
                   'شنوایی سنجی',
-                  'تست سرگیجه و تعادل',
+                  'تست سرگیجه‌وتعادل',
                   'بینایی‌سنجی',
                   'لیزر',
                 ]}

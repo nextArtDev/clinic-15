@@ -100,27 +100,25 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
   }, [isOpen])
 
   return (
-    <header className="relative w-full h-full">
+    <header className="relative w-full h-full mt-2 pr-1">
       <button
         ref={buttonRef}
-        className="z-50 flex-col pt-6 justify-center items-center md:hidden"
+        className="z-50 glass flex-col px-1.5 py-3 rounded-md justify-center items-center md:hidden  "
         onClick={handleClick}
       >
         <span
-          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
-            isOpen
-              ? '!bg-red-500 text rotate-45 translate-y-1'
-              : '-translate-y-0.5'
+          className={`bg-black/50 backdrop-blur-sm rounded-full block h-0.5 w-2 transition-all duration-300 ease-out  ${
+            isOpen ? '!w-6 text rotate-45 translate-y-1' : '-translate-y-0.5'
           } `}
         ></span>
         <span
-          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm my-0.5 ${
+          className={`bg-black/50 backdrop-blur-sm block h-0.5 w-3 transition-all duration-300 ease-out rounded-full my-0.5 ${
             isOpen ? 'opacity-0' : 'opacity-100'
           } `}
         ></span>
         <span
-          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
-            isOpen ? '!bg-red-500 -rotate-45 -translate-y-1' : 'translate-y-0.5'
+          className={`bg-black/50 backdrop-blur-sm block h-0.5 w-5 transition-all duration-300 ease-out rounded-full ${
+            isOpen ? '!w-6 -rotate-45 -translate-y-1' : 'translate-y-0.5'
           }`}
         ></span>
       </button>

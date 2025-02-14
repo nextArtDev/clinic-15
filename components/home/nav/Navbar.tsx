@@ -81,8 +81,8 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
         <div className="col-span-4">
           <GlobalSearch />
         </div>
-        <Link href={'/'} className="m-auto col-span-1">
-          <HomeIcon className="stroke-primary/80" />
+        <Link href={'/'} className="m-auto glass rounded-md p-1.5 col-span-1">
+          <HomeIcon className="stroke-black/50" />
         </Link>
       </article>
 
