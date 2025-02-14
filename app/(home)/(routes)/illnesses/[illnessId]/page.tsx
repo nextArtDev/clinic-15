@@ -18,7 +18,7 @@ export async function generateMetadata({
     openGraph: {
       images: [
         {
-          url: illness?.images[0].url || '',
+          url: illness?.images[0].url || '/images/0000.webp',
         },
       ],
     },

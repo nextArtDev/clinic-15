@@ -113,7 +113,7 @@ html {
   }
   .gradient-kossar {
     /* @apply bg-gradient-to-t from-[#56C2D8] via-[#FFF8DC] to-[#9CCB3D85]; */
-    @apply bg-gradient-to-t from-[#56C2D8] via-[#cee59e] to-[#9adae8];
+    @apply bg-gradient-to-t from-[#56c2d8] via-[#cee59e] to-[#9adae8];
   }
   .gradient-kossar-r {
     @apply bg-gradient-to-t from-[#9adae8] via-[#cee59e] to-[#56C2D8];

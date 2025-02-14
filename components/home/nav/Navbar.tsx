@@ -82,13 +82,13 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
           <GlobalSearch />
         </div>
         <Link href={'/'} className="m-auto col-span-1">
-          <HomeIcon className="stroke-primary/60" />
+          <HomeIcon className="stroke-primary/80" />
         </Link>
       </article>
 
       <div className="hidden md:flex z-50 flex-1 overflow-y-scroll">
         <motion.header
-          className="fixed inset-x-0 grid grid-rows-2 h-32 py-auto w-full "
+          className="fixed inset-x-0 grid grid-rows-2 h-36 py-auto w-full "
           style={{
             height: useTransform(
               scrollYBoundedProgressThrottled,
@@ -99,19 +99,19 @@ const Navbar = ({ user }: { user?: ExtendedUserWithoutEmail }) => {
             background: useMotionTemplate`
               linear-gradient(
                 to top,
-                rgba(255, 182, 193, ${useTransform(
+                rgba(86, 194, 216, ${useTransform(
                   scrollYBoundedProgressThrottled,
                   [0, 0.85, 1],
                   [0.1, 0.2, 1]
                 )}) 0%,
 
-                rgba(173, 216, 230, ${useTransform(
+                rgba(206, 229, 158, ${useTransform(
                   scrollYBoundedProgressThrottled,
                   [0, 0.85, 1],
                   [0.1, 0.2, 1]
                 )}) 50%,
 
-                rgba(255, 248, 220, ${useTransform(
+                rgba(154, 218, 232, ${useTransform(
                   scrollYBoundedProgressThrottled,
                   [0, 0.85, 1],
                   [0.1, 0.2, 1]

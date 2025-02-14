@@ -65,7 +65,9 @@ function PersonnelReservationCard({
             fill
             alt={personnel.name}
             className="eight object-cover"
-            src={personnel?.images?.[0]?.url || '/2.jpeg'}
+            src={
+              personnel?.images?.[0]?.url || '/images/blank-profile-picture.png'
+            }
           />
           {/* <div className="absolute inset-0 bg-[#c33c3345]"></div> */}
         </div>

@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 // import Logo from './Logo'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -73,34 +73,53 @@ const CustomMobileLink = ({
   )
 }
 function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
-  //   const [mode, setMode] = useThemeSwitcher()
-
   const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
-  const handleClick = () => {
-    setIsOpen(!isOpen)
-  }
+  const handleClick = () => setIsOpen(!isOpen)
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick)
+    }
+  }, [isOpen])
+
   return (
-    <header className="">
-      {/* Hamberguer Menue */}
+    <header className="relative w-full h-full">
       <button
+        ref={buttonRef}
         className="z-50 flex-col pt-6 justify-center items-center md:hidden"
         onClick={handleClick}
       >
         <span
-          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
+          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
             isOpen
               ? '!bg-red-500 text rotate-45 translate-y-1'
               : '-translate-y-0.5'
           } `}
         ></span>
         <span
-          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm my-0.5 ${
+          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm my-0.5 ${
             isOpen ? 'opacity-0' : 'opacity-100'
           } `}
         ></span>
         <span
-          className={`bg-primary/60 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
+          className={`bg-primary/80 block h-0.5 w-6 transition-all duration-300 ease-out rounded-sm ${
             isOpen ? '!bg-red-500 -rotate-45 -translate-y-1' : 'translate-y-0.5'
           }`}
         ></span>
@@ -109,11 +128,12 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
       {/* Large Menu */}
 
       {/* Mobile Menu */}
-      {isOpen ? (
+      {isOpen && (
         <motion.div
+          ref={menuRef}
           initial={{ scale: 0, opacity: 0, x: '-50%', y: '-50%' }}
           animate={{ scale: 1, opacity: 1 }}
-          className=" custom-box-shadow bg-white/30 backdrop-blur-sm overflow-hidden min-w-[75vw] z-30 flex flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg  py-20 "
+          className="custom-box-shadow bg-white/30 backdrop-blur-sm overflow-hidden min-w-[75vw] z-30 flex flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg py-20"
         >
           <nav className="flex items-center flex-col justify-center sub-title-color ">
             <CustomMobileLink href="/" title="خانه" toggle={handleClick} />
@@ -172,7 +192,7 @@ function MobileNav({ user }: { user?: ExtendedUserWithoutEmail }) {
             {/* <UserNavbar /> */}
           </nav>
         </motion.div>
-      ) : null}
+      )}
       {/* <div className="absolute left-[50%] top-2 translate-x-[-50%] ">
         <Logo />
       </div> */}

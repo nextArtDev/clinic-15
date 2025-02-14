@@ -18,7 +18,9 @@ export async function generateMetadata({
     openGraph: {
       images: [
         {
-          url: specialization?.images[0].url || '',
+          url:
+            specialization?.images?.[0]?.url ||
+            '/images/no-specialization-photo.webp',
         },
       ],
     },
