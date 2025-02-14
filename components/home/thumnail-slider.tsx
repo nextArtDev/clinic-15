@@ -9,6 +9,7 @@ import Carousel, {
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import GoldsmithLabeledSection from './GoldsMith'
+import SvgShadow from './SvgShadow'
 // import { imgPreview } from '@/components/website/constant'
 const laboratories = [
   {
@@ -53,11 +54,11 @@ const laboratories = [
 function ThumnailSlider() {
   const OPTIONS: EmblaOptionsType = { loop: true }
   return (
-    <section dir="ltr" className="w-full mx-auto">
+    <section dir="ltr" className="w-full mx-auto  max-h-screen ">
       <h2 className="px-2 py-1 w-fit text-center mx-auto text-2xl  font-bold text-pretty glass  title-color">
         آزمایشگاه
       </h2>
-      <div className="rounded-t-lg 2xl:w-[70%] glass p-0.5 sm:w-[80%] w-[94%] mx-auto">
+      <div className="rounded-t-lg 2xl:w-[60%] glass p-0.5 sm:w-[80%] w-[94%] mx-auto">
         <Carousel
           options={OPTIONS}
           className=" relative"
@@ -68,7 +69,7 @@ function ThumnailSlider() {
             {laboratories.map((laboratory, index) => (
               <Slider
                 key={`slide-${index}`}
-                className="relative  xl:h-[600px] sm:h-[550px] h-[500px] w-full rounded-md overflow-hidden "
+                className="relative sm:h-[550px] h-[500px] w-full rounded-md overflow-hidden "
                 // thumnailSrc={laboratory.image}
                 thumbnail={<GoldsmithLabeledSection title={laboratory.title} />}
               >
@@ -95,6 +96,7 @@ function ThumnailSlider() {
                 {/* <h2 className="absolute top-0 left-1/2 -translate-x-1/2  ">
                   {laboratory.description}
                 </h2> */}
+                <SvgShadow className="!z-[3]" />
               </Slider>
             ))}
           </SliderContainer>

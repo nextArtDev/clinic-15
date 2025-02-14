@@ -24,7 +24,7 @@ function IllnessShowCard({ illness, dir = 'rtl', isVertical = false }: Props) {
             'linear-gradient(to bottom, #fff8dc 0%, #56C2D896 75%, [#9CCB3D85 100%)',
         }}
         className={cn(
-          ` relative  rounded-xl overflow-hidden max-w-sm w-[94vw] h-[50vh] `
+          ` relative  rounded-xl overflow-hidden max-w-sm w-[94vw] h-[50vh] gradient-base-r`
         )}
       >
         <SvgShadow className="!z-[3]" />

@@ -4,7 +4,8 @@ import { Doctor, Illness, Specialization } from '@prisma/client'
 import { cn, shuffleArray } from '@/lib/utils'
 import { ArrowBigDownIcon, ArrowLeft, ForwardIcon } from 'lucide-react'
 import Location from './location'
-
+import Image from 'next/image'
+import TelegramIcon from '../../public/icons/telegram.svg'
 type FooterProps = {
   specializations?: Partial<Specialization>[]
   doctors?: Partial<Illness>[]
@@ -65,12 +66,12 @@ const Footer = ({ specializations, doctors, illnesses }: FooterProps) => {
         <div className="flex items-start flex-col gap-4 ">
           {/* <Image src="/logo-purple.svg" width={116} height={38} alt="logo" /> */}
 
-          <p className="mix-blend-multiply text-blue-600 text-start text-lg md:text-lg font-bold mt-5 max-w-xs">
-            درمانگاه شبانه روزی
+          <p className="font-bold ix-blend-multiply text-blue-600 text-start text-lg md:text-xl lg:text-3xl mt-5 max-w-xs">
+            مجتمع پزشکی کوثر{' '}
           </p>
           <div className="flex flex-col items-center justify-between md:justify-around">
-            <p className="mix-blend-multiply text-start text-xs font-normal max-w-md">
-              اصفهان-ابتدای اتوبان ذوب‌آهن کوچه 12- پلاک 13
+            <p className="mix-blend-multiply font-semibold text-start text-xs md:text-base max-w-md">
+              مسجدسلیمان، خیابان آزادی، جنب سازمان تبلیغات
               <br />
             </p>
           </div>
@@ -113,10 +114,25 @@ const Footer = ({ specializations, doctors, illnesses }: FooterProps) => {
           /> */}
         </div>
         <Location />
-        <p className=" font-semibold  text-center text-black/40 text-sm py-12 ">
-          کلیه حقوق مادی و معنوی این وب سایت برای سعید مهمانپرست محفوظ می باشد.
+        <span className="!w-full bg-secondary/40 backdrop-blur-md rounded-t-lg flex flex-wrap items-center justify-center font-semibold gap-1 text-center text-black/40 text-sm lg:text-base py-6 ">
+          کلیه حقوق مادی و معنوی این وب سایت برای
+          <Link
+            href="https://telegram.me/+989352310831"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex gap-1 underline "
+          >
+            <span> سعید مهمانپرست </span>
+            <Image
+              width={24}
+              height={24}
+              src={TelegramIcon}
+              alt="Saeid Mehmanparst"
+            />
+          </Link>
+          محفوظ می باشد.
           {/* ©{new Date().getFullYear()} */}
-        </p>
+        </span>
       </div>
       {/* <p dir="ltr" className="hidden xl:block text-center text-black/40   ">
         @2023 Saeid_Mehmanparast: +989352310831. All rights reserved
@@ -153,7 +169,7 @@ const FooterColumn = ({ title, links }: ColumnProps) => (
           className={cn(
             'hover:text-gray-600 ',
             index === links.length - 1
-              ? 'opacity-70 text-primary pt-2 underline underline-primary  underline-offset-4 font-semibold flex gap-0.5 items-center  '
+              ? 'opacity-70 text-muted pt-2 underline underline-primary  underline-offset-4 font-semibold flex gap-0.5 items-center  '
               : ''
           )}
         >

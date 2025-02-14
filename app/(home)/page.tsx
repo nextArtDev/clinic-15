@@ -38,7 +38,7 @@ const HomePage = async () => {
       reviewsPromise,
     ])
   return (
-    <div className="relative gradient-base">
+    <div className="relative bg-gradient-to-b  from-[#56C2D8] via-[#59c7dd] to-[#9adae8]">
       {/* <LogoLoader /> */}
       <Hero />
       {/* <Suspense fallback={null}>

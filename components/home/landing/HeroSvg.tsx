@@ -14,7 +14,7 @@ function HeroSvg({ className }: Props) {
         viewBox="0 0 437 74"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full md:w-[90vw] max-w-lg mx-auto"
+        className="w-full md:w-[90vw] max-w-sm mx-auto"
       >
         <mask
           id="path-1-outside-1_18_2"

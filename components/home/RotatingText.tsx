@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { motion, AnimatePresence, Transition } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { Shabnam } from '@/lib/fonts'
 
 type RotatingTextRef = {
   next: () => void
@@ -200,9 +201,11 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
           <motion.div
             key={currentTextIndex}
             className={cn(
+              'glass !backdrop-blur-md title-color-kossar px-1 py-0.5',
+              Shabnam.className,
               splitBy === 'lines'
-                ? 'flex flex-col w-full  title-color-kossar'
-                : 'flex flex-wrap whitespace-pre-wrap relative text-center  title-color-kossar'
+                ? 'flex flex-col w-full  '
+                : 'flex flex-wrap whitespace-pre-wrap relative text-center '
             )}
             layout
             aria-hidden="true"
@@ -232,7 +235,7 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
                           )
                         ),
                       }}
-                      className={cn('inline-block', elementLevelClassName)}
+                      className={cn('inline-block ', elementLevelClassName)}
                     >
                       {char}
                     </motion.span>

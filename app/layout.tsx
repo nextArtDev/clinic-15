@@ -9,8 +9,12 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   // by default for other pages: title - new page title
   // use title:{ absolute:'..'} to not contain this part in other pages title
-  title: { default: 'درمانگاه ', template: '%s - درمانگاه    ' },
-  description: 'درمانگاه شبانه‌روزی   | اصفهان، ابتدای اتوبان ذوب آهن،    ',
+  title: {
+    default: 'مجتمع پزشکی کوثر ',
+    template: '%s - مجتمع پزشکی کوثر    ',
+  },
+  description:
+    'مجتمع پزشکی کوثر | مسجدسلیمان، خیابان آزادی، جنب سازمان تبلیغات',
   twitter: {
     card: 'summary_large_image',
   },
@@ -25,7 +29,7 @@ export default function RootLayout({
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <AuthProvider>
         <body
-          className={` ${primaryFont.className} ${numericFont.className} adad min-h-screen gradient-base`}
+          className={` ${primaryFont.className} ${numericFont.className} adad min-h-screen `}
         >
           <ThemeProvider
             attribute="class"
