@@ -19,7 +19,9 @@ export async function generateMetadata({
     openGraph: {
       images: [
         {
-          url: doctor?.doctor?.images[0].url || '',
+          url:
+            doctor?.doctor?.images?.[0]?.url ||
+            '/images/blank-profile-picture.png',
         },
       ],
     },

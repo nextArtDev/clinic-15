@@ -113,7 +113,10 @@ pageProps) {
                 <Image
                   fill
                   className=" object-cover  rounded-full ring-4 ring-white "
-                  src={doctor.images?.[0]?.url || '/images/1.jpg'}
+                  src={
+                    doctor.images?.[0]?.url ||
+                    '/images/blank-profile-picture.png'
+                  }
                   alt=""
                 />
               </motion.figure>

@@ -104,7 +104,9 @@ function DoctorReservationCard({
             fill
             alt={doctor.name}
             className="eight object-cover"
-            src={doctor?.images?.[0]?.url || '/2.jpeg'}
+            src={
+              doctor?.images?.[0]?.url || '/images/blank-profile-picture.png'
+            }
           />
           {/* <div className="absolute inset-0 bg-[#c33c3345]"></div> */}
         </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import DoctorImage from '@/public/images/1.jpg'
+import DoctorImage from '@/public/images/blank-profile-picture.png'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import ImageEffect from './ImageEffect'
 import { special } from '@/constants'
@@ -57,7 +57,9 @@ const Single = ({ item }: SingleProps) => {
             // style={{ y }}
           >
             <ImageEffect
-              imageSrc={item.images?.[0]?.url || '/images/0000.webp'}
+              imageSrc={
+                item.images?.[0]?.url || '/images/no-specialization-photo.webp'
+              }
             />
           </motion.div>
           <motion.div

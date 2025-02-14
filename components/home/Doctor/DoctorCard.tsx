@@ -66,8 +66,11 @@ const DoctorCard: FC<DoctorCardProps> = ({ doctor, className }) => {
                     width={120}
                     height={120}
                     className="mx-auto shadow-md   rounded-full object-contain cursor-none"
-                    src={doctor.images?.[0]?.url || '/images/doctor.png'}
-                    alt=""
+                    src={
+                      doctor.images?.[0]?.url ||
+                      '/images/blank-profile-picture.png'
+                    }
+                    alt={doctor.name}
                   />
                 </div>
                 <div className="mt-4 sm:pr-4 text-center sm:mt-0 sm:pt-1 sm:text-right">
