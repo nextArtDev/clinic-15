@@ -24,6 +24,7 @@ import { LoginSchema } from '@/lib/schemas/auth'
 import { login } from '@/lib/actions/auth/login'
 import { Eye } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import SvgShadow from '../home/SvgShadow'
 
 export const LoginForm = () => {
   const router = useRouter()
@@ -83,7 +84,7 @@ export const LoginForm = () => {
       backButtonLabel="هنوز اکانت نساخته‌اید؟"
       backButtonHref="/register"
       showSocial
-      className="rounded-sm border-nome "
+      className="rounded-sm border-nome text-black/70 "
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6   ">
@@ -112,7 +113,7 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>رمز عبور (کدملی)</FormLabel>
+                  <FormLabel>کدملی</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
@@ -160,6 +161,7 @@ export const LoginForm = () => {
           )}
         </form>
       </Form>
+      <SvgShadow className="z-50" />
     </CardWrapper>
   )
 }

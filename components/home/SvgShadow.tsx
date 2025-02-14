@@ -24,7 +24,8 @@ function SvgShadow({ className }: Props) {
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
             {/* <stop stopColor="#FFB6C1" offset="0%" />
             <stop stopColor="#add8e6" offset="100%" /> */}
-            <stop stopColor="#9CCB3D85" offset="0%" />
+            <stop stopColor="#add8e6" offset="0%" />
+            <stop stopColor="#fff8dc" offset="50%" />
             <stop stopColor="#56C2D8" offset="100%" />
           </linearGradient>
         </defs>

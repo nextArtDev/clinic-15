@@ -22,7 +22,7 @@ export default function RippleLoader() {
   // }
 
   return (
-    <div className="flex w-full h-screen items-center justify-center">
+    <div className="flex w-full h-screen items-center justify-center from-[#56C2D8] via-[#59c7dd] to-[#9adae8]">
       <LogoLoader />
       {/* <div className="relative h-10 w-10">
         <motion.div

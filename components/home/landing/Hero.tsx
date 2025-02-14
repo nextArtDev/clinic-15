@@ -119,7 +119,9 @@ function Hero({}: Props) {
               className="animate-fade-in [--animation-delay:1800ms] opacity-0 p-0.5 w-full flex items-center justify-center "
               href={'/specialities'}
             >
-              <PulsatingButton>رزرو نوبت</PulsatingButton>
+              <PulsatingButton className="text-lg font-bold ">
+                رزرو نوبت
+              </PulsatingButton>
             </Link>
             <div className="animate-fade-in [--animation-delay:1600ms] opacity-0 ">
               {/* پذیرش بیماران درمانگاهی توسط پزشکان عمومی */}

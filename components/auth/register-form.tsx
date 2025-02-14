@@ -77,7 +77,7 @@ export const RegisterForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 text-primary-foreground"
+          className="space-y-6 text-black/70"
         >
           <div className="space-y-4">
             <FormField
@@ -127,7 +127,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>رمز عبور (کدملی)</FormLabel>
+                  <FormLabel>کدملی</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
