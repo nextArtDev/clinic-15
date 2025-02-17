@@ -64,7 +64,7 @@ async function page({
           {/* <TabsTrigger value="disabledBooks">کنسلی‌ها</TabsTrigger> */}
         </TabsList>
         <TabsContent value="table">
-          {bookedDays?.booked.length && formattedBookedDays?.length && (
+          {!!bookedDays?.booked.length && !!formattedBookedDays?.length && (
             <DataTable
               columns={columns}
               data={formattedBookedDays}

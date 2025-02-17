@@ -218,9 +218,10 @@ model TimeSlot {
 }
 
 model BookedDay {
-  id       String  @id @default(cuid())
-  day      String
-  isBooked Boolean @default(false)
+  id          String  @id @default(cuid())
+  day         String
+  isBooked    Boolean @default(false)
+  isCancelled Boolean @default(false)
 
   timeSlot   TimeSlot? @relation(fields: [timeSlotId], references: [id])
   timeSlotId String?

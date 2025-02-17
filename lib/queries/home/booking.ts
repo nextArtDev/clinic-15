@@ -127,32 +127,51 @@ export const getAllBookedDays = async (params: getAllBookedDaysProps) => {
 }
 export const getAllCancelledBookedDays = async () => {
   try {
-    const cancelledDays = await prisma.timeSlot.findMany({
+    // const cancelledDays = await prisma.timeSlot.findMany({
+    //   where: {
+    //     availabilityId: null,
+    //   },
+    // })
+    const cancelledDays = await prisma.bookedDay.findMany({
       where: {
-        availabilityId: null,
+        isCancelled: true,
+      },
+      include: {
+        doctor: true,
+        timeSlot: true,
+        user: true,
+      },
+      orderBy: {
+        day: 'desc',
       },
     })
+    // console.log({ cancelledDays })
     if (cancelledDays.length === 0) return null
 
-    const allCancelledBookedDays = await Promise.all(
-      cancelledDays?.map(async (slot: any) => {
-        return await prisma.bookedDay.findMany({
-          where: {
-            timeSlotId: slot.id,
-          },
-          include: {
-            doctor: true,
-            timeSlot: true,
-            user: true,
-          },
-          orderBy: {
-            day: 'desc',
-          },
-        })
-      })
-    )
+    // const cancelBookedDay = cancelledDays.map((timeSlot) => timeSlot.timeSlot)
+    // console.log({ cancelBookedDay })
 
-    return allCancelledBookedDays.flat()
+    // const allCancelledBookedDays = await Promise.all(
+    //   cancelledDays?.map(async (slot: any) => {
+    //     return await prisma.bookedDay.findMany({
+    //       where: {
+    //         timeSlotId: slot.id,
+    //         isCancelled: true,
+    //       },
+    //       include: {
+    //         doctor: true,
+    //         timeSlot: true,
+    //         user: true,
+    //       },
+    //       orderBy: {
+    //         day: 'desc',
+    //       },
+    //     })
+    //   })
+    // )
+
+    // return allCancelledBookedDays.flat()
+    return cancelledDays
   } catch (error) {
     console.log(error)
   }

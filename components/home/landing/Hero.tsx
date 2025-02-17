@@ -119,19 +119,11 @@ function Hero({}: Props) {
               className="animate-fade-in [--animation-delay:1800ms] opacity-0 p-0.5 w-full flex items-center justify-center "
               href={'/specialities'}
             >
-              <PulsatingButton className="  text-sm font-semibold flex flex-col items-center justify-between gap-0.5">
+              <PulsatingButton className=" glass text-sm font-semibold flex flex-col items-center justify-between gap-0.5 rounded-md">
                 <p className="">رزرو نوبت</p>
-                <figure className="relative text-center w-8 h-8 mx-auto">
-                  <Image
-                    fill
-                    src={'/icons/booking-icon.png'}
-                    alt="booking icon"
-                    className="object-contain"
-                  />
-                </figure>
               </PulsatingButton>
             </Link>
-            <div className="animate-fade-in [--animation-delay:1600ms] opacity-0 ">
+            <div className="animate-fade-in  !rounded-md[--animation-delay:1600ms] opacity-0 ">
               {/* پذیرش بیماران درمانگاهی توسط پزشکان عمومی */}
               {/* <p className="sub-title-color ">دارای بخش‌های</p> */}
 
@@ -146,7 +138,7 @@ function Hero({}: Props) {
                   'بینایی‌سنجی',
                   'لیزر',
                 ]}
-                mainClassName=" px-2  sm:px-3 md:px-4  overflow-hidden py-1 sm:py-1 md:py-2 justify-center  rounded-lg text-3xl "
+                mainClassName=" px-2  sm:px-3 md:px-4  overflow-hidden py-1 sm:py-1 md:py-2 justify-center  text-3xl "
                 staggerFrom={'last'}
                 splitBy="words"
                 initial={{ y: '100%' }}

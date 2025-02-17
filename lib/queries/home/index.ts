@@ -398,7 +398,7 @@ export const getGraphRevenue = async (): Promise<GraphData[]> => {
   // Grouping the orders by month and summing the revenue
   for (const book of booked) {
     const month = getMonth(book.created_at) // 0 for Jan, 1 for Feb, ...
-    console.log(' getMonth(book.created_at)', getMonth(book.created_at))
+    // console.log(' getMonth(book.created_at)', getMonth(book.created_at))
 
     let revenueForOrder = 0
 
@@ -407,11 +407,11 @@ export const getGraphRevenue = async (): Promise<GraphData[]> => {
         revenueForOrder += 1
       }
     }
-    console.log('revenueForOrder', revenueForOrder)
+    // console.log('revenueForOrder', revenueForOrder)
 
     // Adding the revenue for this order to the respective month
     monthlyRevenue[month] = revenueForOrder
-    console.log(' monthlyRevenue[month]', monthlyRevenue[month])
+    // console.log(' monthlyRevenue[month]', monthlyRevenue[month])
   }
 
   // Converting the grouped data into the format expected by the graph
