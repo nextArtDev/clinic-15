@@ -21,6 +21,7 @@ import PersonnelCarousel from '@/components/home/personnel/PersonnelCarousel'
 import { Suspense } from 'react'
 import LogoLoader from '@/components/home/logo-loader'
 import ThumnailSlider from '@/components/home/thumnail-slider'
+import HorizontalParts from '@/components/home/horizontal-parts/Parts'
 
 const HomePage = async () => {
   const specializationsPromise = getAllSpecializations({})
@@ -45,6 +46,7 @@ const HomePage = async () => {
       </Suspense> */}
       <Deal />
       <StackCards />
+      <HorizontalParts />
 
       <ThumnailSlider />
 

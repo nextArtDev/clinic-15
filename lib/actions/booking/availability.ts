@@ -632,19 +632,19 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
           .flat()
 
         // console.log('findToDisconnect', findToDisconnect)
-        console.log(
-          'noDatetimeSlotsThatShouldDisconnect',
-          noDateTimeSlotsThatShouldDisconnect
-        )
+        // console.log(
+        //   'noDatetimeSlotsThatShouldDisconnect',
+        //   noDateTimeSlotsThatShouldDisconnect
+        // )
         const timeSlotsThatShouldDisconnect =
           noDateTimeSlotsThatShouldDisconnect.filter(
             (bookedDay) => bookedDay?.day === date
           )
 
-        console.log(
-          'timeSlotsThatShouldDisconnect',
-          timeSlotsThatShouldDisconnect
-        )
+        // console.log(
+        //   'timeSlotsThatShouldDisconnect',
+        //   timeSlotsThatShouldDisconnect
+        // )
         if (timeSlotsThatShouldDisconnect.length > 0) {
           const cancelBookedDay = await Promise.all(
             timeSlotsThatShouldDisconnect.map(async (slot: any) => {
@@ -677,6 +677,7 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
                 where: {
                   id: slot.id,
                   isCancelled: true,
+                  day: date,
                 },
                 include: {
                   timeSlot: true,
@@ -686,17 +687,31 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
             })
           )
 
-          console.log(
-            'canceledTimeSlotsWithUser',
-            canceledTimeSlotsWithUser.flat().map((t) => console.log(t))
+          // console.log(
+          //   'canceledTimeSlotsWithUser',
+          //   canceledTimeSlotsWithUser.flat().map((t) => console.log(t))
+          // )
+          const canceledSms = await Promise.all(
+            canceledTimeSlotsWithUser.flat().map(async (booking: any) => {
+              const { user, doctor, timeSlot, day } = booking
+              if (user?.name && user?.phone && doctor?.name) {
+                console.log(`${day} ساعت ${timeSlot?.slot}-${user.phone}`)
+                await sendCancelBookingSms({
+                  values: { phone: user.phone },
+                  dayTime: `${day} ساعت ${timeSlot.slot}`,
+                  doctorName: doctor.name,
+                  name: user.name,
+                })
+              }
+            })
           )
-          canceledTimeSlotsWithUser
-            .flat()
-            .map((item) =>
-              console.log(
-                `${item.day}-${item.timeSlot?.slot}-${item.user.phone}`
-              )
-            )
+          // canceledTimeSlotsWithUser
+          //   .flat()
+          //   .map((item) =>
+          //     console.log(
+          //       `${item.day} ساعت ${item.timeSlot?.slot}-${item.user.phone}`
+          //     )
+          //   )
           // for (const cancelBooked of canceledTimeSlotsWithUser.flat()) {
           //   if (cancelBooked.user && cancelBooked) {
           //     for (const canceledTimeSlots of cancelBooked?.timeSlot!) {
@@ -716,14 +731,14 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
         //     if (bookedDay.user) {
         //       // User exists!
         //       console.log('User found:', `${date} ساعت ${time.slot}`)
-        //       // if (user.name && user.phone && doctor.name) {
-        //       //   await sendCancelBookingSms({
-        //       //     values: { phone: user.phone },
-        //       //     dayTime: `${date} ساعت ${time.slot}`,
-        //       //     doctorName: doctor.name,
-        //       //     name: user.name,
-        //       //   })
-        //       // }
+        //       if (user.name && user.phone && doctor.name) {
+        //         await sendCancelBookingSms({
+        //           values: { phone: user.phone },
+        //           dayTime: `${date} ساعت ${time.slot}`,
+        //           doctorName: doctor.name,
+        //           name: user.name,
+        //         })
+        //       }
         //       // You can now access user data from bookedDay.user
         //       // return true
         //     }
@@ -754,6 +769,6 @@ export async function disableSpecialDay({ date, doctorId, day }: DisableDay) {
       }
     }
   }
-  // revalidatePath('/dashboard/booking')
-  // redirect('/dashboard/booking')
+  revalidatePath('/dashboard/booking')
+  redirect('/dashboard/booking')
 }
