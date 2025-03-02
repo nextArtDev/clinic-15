@@ -39,7 +39,7 @@ export default function HorizontalScroll(): JSX.Element {
   }, [])
 
   return (
-    <main dir="ltr">
+    <main className="overflow-hidden">
       <ReactLenis root>
         <article className="relative">
           <header className="header text-white relative  w-full bg-slate-950  grid place-content-center  h-[80vh]">

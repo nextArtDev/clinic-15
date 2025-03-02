@@ -24,15 +24,15 @@ export const sendSms = async (values: z.infer<typeof PhoneSchema>) => {
   })
 
   try {
-    // console.log({ phone, verificationCode })
-    await api.send({
-      from: '50002710056401',
-      to: phone,
-      text: `کد تایید شما: ${
-        verificationCode as number
-      } \n مدت اعتبار این کد ۲ دقیقه می‌باشد
-       \n https://shafagh.iran.liara.run`,
-    })
+    console.log({ phone, verificationCode })
+    // await api.send({
+    //   from: '50002710056401',
+    //   to: phone,
+    //   text: `کد تایید شما: ${
+    //     verificationCode as number
+    //   } \n مدت اعتبار این کد ۲ دقیقه می‌باشد
+    //    \n https://shafagh.iran.liara.run`,
+    // })
 
     return { success: 'کد تایید به شماره شما ارسال شد.', verificationCode }
   } catch (error) {
