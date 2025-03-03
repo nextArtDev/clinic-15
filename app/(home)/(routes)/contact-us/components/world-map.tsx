@@ -44,7 +44,7 @@ export function WorldMap({ dots = [], lineColor = '#d66363' }: MapProps) {
   }
 
   return (
-    <div className="w-full aspect-[2/1] gradient-base rounded-lg  relative font-sans">
+    <div className="w-full aspect-[2/1] glass rounded-lg  relative font-sans">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"

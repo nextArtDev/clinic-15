@@ -5,5 +5,5 @@ export default function RouteLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <div className="gradient-base min-h-screen">{children}</div>
+  return <div className="grainy min-h-screen">{children}</div>
 }
