@@ -4,6 +4,7 @@ import { MobileIcon } from '@radix-ui/react-icons'
 import { Phone } from 'lucide-react'
 import Link from 'next/link'
 import PhoneLink from './components/phone-link'
+import Neshan from '@/components/home/neshan/Neshan'
 
 function page() {
   return (
@@ -79,6 +80,7 @@ function page() {
           <h2 className="sub-title-color py-4 font-bold text-lg md:text-2xl ">
             مکان‌یابی بر روی گوگل‌مپ
           </h2>
+          {/* <Neshan /> */}
           <Location />
         </div>
       </article>

@@ -12,17 +12,26 @@ function Location({}: Props) {
       className=" relative w-full h-28 max-w-md   md:h-32 z-20 mx-auto mt-2  rounded-full gradient-base-r "
       onClick={() => window.open(location)}
     >
-      <iframe
+      {/* <iframe
         src={location}
         loading="lazy"
         className=" w-full h-28   md:h-32"
         style={{ borderRadius: '12%', opacity: '100%' }}
+      ></iframe> */}
+      <iframe
+        title="map-iframe"
+        src="https://neshan.org/maps/iframe/places/6520b78add055da6408847612216dc93#c31.934-49.309-15z-0p/31.933719730814467/49.30375953350042"
+        width="100%"
+        height="125"
+        allowFullScreen
+        loading="lazy"
+        className="rounded-md"
       ></iframe>
-      <div
+      {/* <div
         className="glass rounded-xl  absolute inset-0 w-full h-full  gradient-base opacity-75 cursor-pointer flex justify-center items-center text-9xl outline-8 outline-double -outline-offset-8 outline-[#56C2D8] "
         onClick={() => window.open(location)}
       >
-        {/* <MapPin className=" drop-shadow-xl w-12 h-12 origin-center animate-spin-slow text-[#56C2D8] " /> */}
+   
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
@@ -79,7 +88,7 @@ function Location({}: Props) {
             d="M18,30a6,6,0,0,0,6-6,1,1,0,0,0-1-1H19.25a1,1,0,0,0,0,2h2.62a4,4,0,1,1-2-4.52,1,1,0,1,0,1-1.76A6,6,0,1,0,18,30Z"
           ></path>
         </svg>
-      </div>
+      </div> */}
     </button>
   )
 }
